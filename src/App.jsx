@@ -18,7 +18,7 @@ function App() {
         <Route path="/ForgetPassCompanies" Component={ForgetPassCompanies} />
         <Route path="/LoginCompanies" Component={LoginCompanies} />
         <Route path="/SignupCompanies" Component={SignupCompanies} />
-        <Route path="/UpdatePassWordCompanies" Component={UpdatePassCompanies} />
+        <Route path="/UpdatePasswordCompanies" Component={UpdatePassCompanies} />
         <Route path="/ForgetPasswordUser" Component={ForgetPassUser} />
         <Route path="/LoginUser" Component={LoginUser} />
         <Route path="/SignupUser" Component={SignupUser} />
