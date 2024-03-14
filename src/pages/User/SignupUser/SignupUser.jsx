@@ -52,29 +52,32 @@ export default function SignupUser() {
 
       }).then((res=>{
         if (res.status == 201) {
-                notifications.show({
-                  message: "Success register",
-                  color: "green",
-                })
-                setTimeout(()=>{
-                  location.href="/LoginUser"
-                },1000)
-              }
+          notifications.show({
+            message: "Success register",
+            color: "green",
+          })
+          notifications.show({
+            message: "Check your eamil",
+            color: "blue",
+          })
+          setTimeout(()=>{
+            location.href="/LoginUser"
+          },1000)
+        }
       })).catch((err=>{
         console.log(err.response.data);
-        if(err.response.data.errors[0].length>1){
+        if(err.response.data.errors){
           notifications.show({
-            message: `${err.response.data.errors[0].message[0]}`,
+            message: `${err.response.data.message}`,
             color: "red",
           });
         }
         else{
           notifications.show({
-            message: `${err.response.data.errors[0].message}`,
+            message: `${err.response.data.message}`,
             color: "red",
           });
         }
-       
       }))
 
       // setTimeout(() => {
