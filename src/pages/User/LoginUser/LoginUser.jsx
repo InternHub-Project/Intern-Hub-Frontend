@@ -35,19 +35,10 @@ export default function LoginUser() {
       }
     })).catch((err=>{
       //console.log(err.response.data.message);
-      if(err.response.data.errors){
-        notifications.show({
-          message: `${err.response.data.message}`,
-          color: "red",
-        });
-      }
-      else{
-        notifications.show({
-          message: `${err.response.data.message}`,
-          color: "red",
-        });
-      }
-    
+      notifications.show({
+        message: `${err.response.data.message}`,
+        color: "red",
+      });
     }))
   }
   return (
