@@ -19,27 +19,23 @@ axios({
   data:data
 
 }).then((res=>{
-  console.log(res);
+  // console.log(res.data.data.firstName);
   if (res.status == 200) {
           notifications.show({
             message: "Success register",
             color: "green",
           })
+
+          localStorage.setItem("userInfo", JSON.stringify(res.data.data));
           setTimeout(()=>{
             location.href="/"
           },1000)
         }
 })).catch((err=>{
   console.log(err);
-  if(err.response.data.errors[0].length>1){
+  if(err.response.data.message){
     notifications.show({
-      message: `${err.response.data.errors[0].message[0]}`,
-      color: "red",
-    });
-  }
-  else{
-    notifications.show({
-      message: `${err.response.data.errors[0].message}`,
+      message: `${err.response.data.message}`,
       color: "red",
     });
   }

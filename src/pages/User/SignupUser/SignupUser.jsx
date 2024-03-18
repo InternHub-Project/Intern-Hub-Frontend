@@ -5,7 +5,6 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { GoogleButton } from "./ButtonGoogle/GoogleButton";
 import axios from "axios";
 import RegisterUserSchema from "./RegisterUserSchema/RegisterUserSchema";
-import { date } from "yup";
 
 export default function SignupUser() {
   function addUser(values) {
@@ -42,24 +41,19 @@ export default function SignupUser() {
                 setTimeout(()=>{
                   location.href="/LoginUser"
                 },1000)
-                delete date.password;
-                localStorage.setItem("info" , data[0] )
+
               }
       })).catch((err=>{
         console.log(err.response.data);
-        // if(err.response.data.message){
-        //   notifications.show({
-        //     message: `${err.response.data.errors[0].message[0]}`,
-        //     color: "red",
-        //   });
-        // }
+        if(err.response.data.message){
+          notifications.show({
+            message: `${err.response.data.errors[0].message[0]}`,
+            color: "red",
+          });
+        }
        
        
       }))
-
-      // setTimeout(() => {
-      //   location.href = "/";
-      // }, 1000);
     }
   }
 

@@ -33,10 +33,9 @@ export default function ForgetPassUser() {
             navigate("/UpdatePasswordUser")
           },1000)
         }
-        // localStorage.setItem("gmail" , data.email)
+        localStorage.setItem("gmail" , data.email)
       })
       .catch((err) => {
-        
       
           notifications.show({
             message: `${err.response.data.message}`,
