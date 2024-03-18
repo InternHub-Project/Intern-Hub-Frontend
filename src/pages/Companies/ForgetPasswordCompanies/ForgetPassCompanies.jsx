@@ -4,47 +4,46 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import ForgetPassCompaniesSchema from "./ForgetPassCompaniesSchema/ForgetPassCompaniesSchema";
 import axios from "axios";
 import { notifications } from "@mantine/notifications";
+import { useNavigate } from "react-router-dom";
 
 
 export default function ForgetPassCompanies() {
 
+ 
+  const navigate= useNavigate();
   function sendCode(values) {
-    const data = { "email": values.email };
+
+    const data = { email: values.email };
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-axios({
-  method:"post",
-  url:"http://54.159.209.90/api/v1/auth/forgetPassword/company",
-  headers:myHeaders,
-  data:data
-
-}).then((res=>{
-  console.log(res);
-  if (res.status == 200) {
+    axios({
+      method: "post",
+      url: "http://54.159.209.90/api/v1/auth/company/forgetPassword",
+      headers: myHeaders,
+      data: data,
+    })
+      .then((res) => {
+        if (res.status == 200) {
           notifications.show({
-            message: "please check your Email",
+            message: 'check your Gmail',
             color: "green",
-          })
-          // setTimeout(()=>{
-          //   location.href="/"
-          // },1000)
+          });
+          setTimeout(()=>{
+            navigate("/UpdatePasswordUser")
+          },1000)
         }
-})).catch((err=>{
-  console.log(err);
-  // if(err.response.data.errors[0].length>1){
-  //   notifications.show({
-  //     message: `${err.response.data.errors[0].message[0]}`,
-  //     color: "red",
-  //   });
-  // }
-  // else{
-  //   notifications.show({
-  //     message: `${err.response.data.errors[0].message}`,
-  //     color: "red",
-  //   });
-  // }
- 
-}))
+        localStorage.setItem("gmail" , data.email)
+      })
+      .catch((err) => {
+        
+      
+          notifications.show({
+            message: `${err.response.data.message}`,
+            color: "red",
+          });
+        
+      });
+
   }
 
   return (

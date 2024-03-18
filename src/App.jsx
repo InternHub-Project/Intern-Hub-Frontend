@@ -18,15 +18,19 @@ function App() {
       <Header />
 
       <Routes>
+        
         <Route path="/" Component={Home} />
-        <Route path="/ForgetPassCompanies" Component={ForgetPassCompanies} />
-        <Route path="/LoginCompanies" Component={LoginCompanies} />
+
         <Route path="/SignupCompanies" Component={SignupCompanies} />
+        <Route path="/LoginCompanies" Component={LoginCompanies} />
+        <Route path="/ForgetPassCompanies" Component={ForgetPassCompanies} />
         <Route path="/UpdatePasswordCompanies" Component={UpdatePassCompanies} />
-        <Route path="/ForgetPasswordUser" Component={ForgetPassUser} />
-        <Route path="/LoginUser" Component={LoginUser} />
+
         <Route path="/SignupUser" Component={SignupUser} />
+        <Route path="/LoginUser" Component={LoginUser} />
+        <Route path="/ForgetPasswordUser" Component={ForgetPassUser} />
         <Route path="/UpdatePasswordUser" Component={UpdatePassUser} />
+
       </Routes>
       <Footer />
 

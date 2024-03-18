@@ -1,5 +1,5 @@
 import classes from "./SignupCompanies.module.css";
-import {  Button, Divider, Group, Text } from "@mantine/core";
+import { Button, Divider, Group, Text } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { GoogleButton } from "./ButtonGoogle/GoogleButton";
@@ -8,11 +8,18 @@ import RegisterCompaniesSchema from "./RegisterCompaniesSchema/RegisterCompanies
 
 export default function SignupCompanies() {
   function addCompanies(values) {
-    console.log(values);
-    const data = { ...values };
-    // const { name, email, password, address, field } = values; // Destructure values object
-    // const { address: companyAddress, city, state, country, postcode } = address;
-    // console.log(address);
+    const data = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      address: {
+        address: values.address,
+        city: values.city,
+        country: values.country,
+      },
+      field: values.field,
+    };
+
     if (
       data.name === "" ||
       data.email === "" ||
@@ -44,23 +51,23 @@ export default function SignupCompanies() {
               color: "green",
             });
             setTimeout(() => {
-              location.href = "/LoginUser";
+              location.href = "/LoginCompanies";
             }, 1000);
           }
         })
         .catch((err) => {
-          console.log(err.response.data);
-          if (err.response.data.errors[0].length > 1) {
-            notifications.show({
-              message: `${err.response.data.errors[0].message[0]}`,
-              color: "red",
-            });
-          } else {
-            notifications.show({
-              message: `${err.response.data.errors[0].message}`,
-              color: "red",
-            });
-          }
+          console.log(err);
+          // if (err.response.data.errors[0].length > 1) {
+          //   notifications.show({
+          //     message: `${err.response.data.errors[0].message[0]}`,
+          //     color: "red",
+          //   });
+          // } else {
+          //   notifications.show({
+          //     message: `${err.response.data.errors[0].message}`,
+          //     color: "red",
+          //   });
+          // }
         });
     }
   }
@@ -89,13 +96,11 @@ export default function SignupCompanies() {
               name: "",
               email: "",
               password: "",
-              address: {
-                address: "",
-                city: "",
-                state: "",
-                country: "",
-                postcode: "",
-              },
+              address: "",
+              city: "",
+              state: "",
+              country: "",
+              postcode: "",
               field: "",
             }}
             validationSchema={RegisterCompaniesSchema}
@@ -142,7 +147,7 @@ export default function SignupCompanies() {
               <br />
               <div>
                 <label className={classes.label} htmlFor="email">
-                  Email
+                  Email:
                 </label>
                 <br />
 
@@ -183,32 +188,29 @@ export default function SignupCompanies() {
               <br />
 
               <div>
-                    <label className={classes.label} htmlFor="field">
-                      Field:
-                    </label>
-                    <br />
+                <label className={classes.label} htmlFor="field">
+                  Field:
+                </label>
+                <br />
 
-                    <Field
-                      className={classes.field}
-                      id="field"
-                      type="text"
-                      name="field"
-                      placeholder="Field"
-                    />
-                    <ErrorMessage
-                      name="field"
-                      component="div"
-                      style={{ color: "red" }}
-                    />
-                  </div>
-                  <br />
+                <Field
+                  className={classes.field}
+                  id="field"
+                  type="text"
+                  name="field"
+                  placeholder="Field"
+                />
+                <ErrorMessage
+                  name="field"
+                  component="div"
+                  style={{ color: "red" }}
+                />
+              </div>
+              <br />
 
-
-              <div style={{ display: "flex" ,gap:"1rem" }}>
-                <div>
-
-                  
-                  <div  style={{display:""}}>
+              <div>
+                <div style={{ display: "flex", gap: "1rem" }}>
+                  <div>
                     <label className={classes.label} htmlFor="address">
                       Address:
                     </label>
@@ -221,16 +223,14 @@ export default function SignupCompanies() {
                       name="address"
                       placeholder="Address"
                     />
-                   <ErrorMessage
+                    <ErrorMessage
                       name="address"
                       component="div"
                       style={{ color: "red" }}
-                    /> 
+                    />
                   </div>
 
-                  <br />
-
-                 <div>
+                  <div>
                     <label className={classes.label} htmlFor="city">
                       City:
                     </label>
@@ -248,17 +248,11 @@ export default function SignupCompanies() {
                       component="div"
                       style={{ color: "red" }}
                     />
-
                   </div>
-                  
                 </div>
 
-                <br />
-
-                <div> 
-
-
-                <div>
+                <div style={{ display: "flex", gap: "1rem" }}>
+                  <div>
                     <label className={classes.label} htmlFor="state">
                       State:
                     </label>
@@ -272,7 +266,6 @@ export default function SignupCompanies() {
                       placeholder="State"
                     />
                   </div>
-                  <br />
 
                   <div>
                     <label className={classes.label} htmlFor="country">
@@ -293,12 +286,6 @@ export default function SignupCompanies() {
                       style={{ color: "red" }}
                     />
                   </div>
-
-                 
-
-                  <br />
-
-                  
                 </div>
               </div>
 

@@ -28,6 +28,7 @@ import {
   IconCoin,
   IconChevronDown,
 } from "@tabler/icons-react";
+import { UserInfo } from "../userInfo/UserInfo";
 const mockdata = [
   {
     icon: IconCode,
@@ -92,10 +93,10 @@ export default function Header() {
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmUUq-HB-iCNzmz3zsm0OSFsy7X0tEy1iTSBIRZupKAg&s"
+            src="src/pages/Home/components/Logo/WhatsApp Image 2024-03-18 at 05.38.27_e1f021fa.jpg"
             alt=""
-            width={"50px"}
-            height={"50px"}
+            width={"150px"}
+            height={"100px"}
           />
           <Group h="100%" gap={0} visibleFrom="sm">
             <a href="/" className={classes.link}>
@@ -160,8 +161,15 @@ export default function Header() {
           </Group>
 
           <Group visibleFrom="sm">
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
+            {
+              localStorage.length ? <UserInfo /> :
+              <>
+                <Button variant="default">Log in</Button>
+                <Button>Sign up</Button>
+              </>
+            }
+            
+            
           </Group>
 
           <Burger

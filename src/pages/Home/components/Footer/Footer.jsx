@@ -59,10 +59,10 @@ export function Footer() {
       <Container className={classes.inner}>
         <div className={classes.logo}>
         <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmUUq-HB-iCNzmz3zsm0OSFsy7X0tEy1iTSBIRZupKAg&s"
+            src="src/pages/Home/components/Logo/WhatsApp Image 2024-03-18 at 05.38.27_e1f021fa.jpg"
             alt=""
-            width={"50px"}
-            height={"50px"}
+            width={"150px"}
+            height={"100px"}
           />
           <Text size="xs" c="dimmed" className={classes.description}>
             Build fully functional accessible web applications faster than ever

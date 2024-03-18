@@ -5,6 +5,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { GoogleButton } from "./ButtonGoogle/GoogleButton";
 import axios from "axios";
 import RegisterUserSchema from "./RegisterUserSchema/RegisterUserSchema";
+import { date } from "yup";
 
 export default function SignupUser() {
   function addUser(values) {
@@ -21,25 +22,7 @@ export default function SignupUser() {
         color: "red",
       });
     } else {
-      // delete data.confirmPassword;
-      // fetch("http://54.159.209.90/api/v1/auth/user/signup", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(data),
-      // })
-      //   .then((res) => {
-      //     if (res.status == 201) {
-      //       notifications.show({
-      //         message: "Success register",
-      //         color: "green",
-      //       });
-      //     } console.log(res)
-      //   } )
-      //   .catch((err)=>{
-      //     console.log(err);
-      //   })
+
       
       const myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
@@ -59,21 +42,18 @@ export default function SignupUser() {
                 setTimeout(()=>{
                   location.href="/LoginUser"
                 },1000)
+                delete date.password;
+                localStorage.setItem("info" , data[0] )
               }
       })).catch((err=>{
         console.log(err.response.data);
-        if(err.response.data.errors[0].length>1){
-          notifications.show({
-            message: `${err.response.data.errors[0].message[0]}`,
-            color: "red",
-          });
-        }
-        else{
-          notifications.show({
-            message: `${err.response.data.errors[0].message}`,
-            color: "red",
-          });
-        }
+        // if(err.response.data.message){
+        //   notifications.show({
+        //     message: `${err.response.data.errors[0].message[0]}`,
+        //     color: "red",
+        //   });
+        // }
+       
        
       }))
 
@@ -173,7 +153,7 @@ export default function SignupUser() {
               <br />
               <div>
                 <label className={classes.label} htmlFor="email">
-                  Email
+                  Email:
                 </label>
                 <br />
 
