@@ -4,7 +4,9 @@ const RegisterUserSchema = yup.object().shape({
   firstName: yup
     .string()
     .required("First name is required")
+
     .min(3, "First name must be at least 6 characters")
+
     .max(30, "Firs name must be at most 30 characters"),
     lastName: yup
     .string()

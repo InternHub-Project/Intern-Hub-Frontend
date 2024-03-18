@@ -8,44 +8,38 @@ import axios from 'axios';
 
 export default function LoginUser() {
   function loginUser(values) {
-     const data={"email":values.email,"password":values.password}
+    console.log(values);
+    const data={"email":values.email,"password":values.password}
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-axios({
-  method:"post",
-  url:"http://54.159.209.90/api/v1/auth/user/login",
-  headers:myHeaders,
-  data:data
-
-}).then((res=>{
-  console.log(res);
-  if (res.status == 200) {
-          notifications.show({
-            message: "Success register",
-            color: "green",
-          })
-          setTimeout(()=>{
-            location.href="/"
-          },1000)
-        }
-})).catch((err=>{
-  console.log(err);
-  if(err.response.data.errors[0].length>1){
-    notifications.show({
-      message: `${err.response.data.errors[0].message[0]}`,
-      color: "red",
-    });
-  }
-  else{
-    notifications.show({
-      message: `${err.response.data.errors[0].message}`,
-      color: "red",
-    });
-  }
- 
-}))
-
+    axios({
+      method:"post",
+      url:"http://54.159.209.90/api/v1/auth/user/login",
+      headers:myHeaders,
+      data:data
+    
+    }).then((res=>{
+      //console.log(res.data.data);
+      if (res.status == 200) {
+        notifications.show({
+          message: "Success register",
+          color: "green",
+        })
+        const user = res.data.data;
+        //console.log(user)
+        window.localStorage.setItem('user',JSON.stringify(user));
+        setTimeout(()=>{
+          location.href="/"
+        },1000)
+      }
+    })).catch((err=>{
+      //console.log(err.response.data.message);
+      notifications.show({
+        message: `${err.response.data.message}`,
+        color: "red",
+      });
+    }))
   }
   return (
     <div className={classes.style}>
