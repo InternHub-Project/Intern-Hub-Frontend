@@ -8,7 +8,8 @@ import axios from 'axios';
 
 export default function LoginUser() {
   function loginUser(values) {
-     const data={"email":values.email,"password":values.password}
+    console.log(values);
+    const data={"email":values.email,"password":values.password}
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 

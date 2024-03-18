@@ -34,29 +34,48 @@ export default function SignupUser() {
 
       }).then((res=>{
         if (res.status == 201) {
-                notifications.show({
-                  message: "Success register",
-                  color: "green",
-                })
-                setTimeout(()=>{
-                  location.href="/LoginUser"
-                },1000)
 
-              }
+          notifications.show({
+            message: "Success register",
+            color: "green",
+          })
+        
+          setTimeout(()=>{
+            location.href="/LoginUser"
+          },1000)
+        }
       })).catch((err=>{
         console.log(err.response.data);
-        if(err.response.data.message){
-          notifications.show({
-            message: `${err.response.data.errors[0].message[0]}`,
-            color: "red",
-          });
-        }
-       
-       
+        notifications.show({
+          message: `${err.response.data.message}`,
+          color: "red",
+        });
+
       }))
     }
   }
+  function signupWithGoogle(){
+    const popup = window.open('http://54.159.209.90/api/v1/auth/google', '_blank','width=600,height=600');
 
+    // Listen for messages from the popup window
+    window.addEventListener('message', function(event) {
+        // Verify that the message came from the popup window
+        if (event.source === popup) {
+            // Parse the message data
+            const data = event.data;
+
+            // Handle the response from the backend
+            // You can access the user data and access token sent from the backend
+            console.log('Received response from backend:', data);
+            
+            // Close the popup window if needed
+            popup.close();
+
+            // Further actions based on the response data
+            // For example, update UI, redirect user, etc.
+        }
+    });
+  }
   return (
     <div className={classes.style}>
       <div className={classes.titleHeader}>
@@ -91,10 +110,11 @@ export default function SignupUser() {
               <Group grow mb="md" mt="md">
                 <GoogleButton
                   radius="xl"
-                  onClick={() => {
-                    location.href =
-                      "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=827625755886-edpmpa7jsvq8al2v03utohjqg4j2sd3b.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Finternshala.com%2Flogin%2Fgoogle&scope=profile%20email&response_type=code&state=eyAicm9sZSIgOiAidXNlciIsICJzdWNjZXNzX3BhZ2UiIDogIi9zdHVkZW50L2Rhc2hib2FyZCIsICJ1dG1fc291cmNlIiA6ICJpc19oZWFkZXJfaG9tZXBhZ2UiICwgInV0bV9tZWRpdW0iIDogIiIsICJ1dG1fY2FtcGFpZ24iIDogIiIgfQ%2C%2C&service=lso&o2v=1&theme=glif&flowName=GeneralOAuthFlow";
-                  }}
+                  onClick={signupWithGoogle}
+                  // onClick={() => {
+                  //   location.href =
+                  //     "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=827625755886-edpmpa7jsvq8al2v03utohjqg4j2sd3b.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Finternshala.com%2Flogin%2Fgoogle&scope=profile%20email&response_type=code&state=eyAicm9sZSIgOiAidXNlciIsICJzdWNjZXNzX3BhZ2UiIDogIi9zdHVkZW50L2Rhc2hib2FyZCIsICJ1dG1fc291cmNlIiA6ICJpc19oZWFkZXJfaG9tZXBhZ2UiICwgInV0bV9tZWRpdW0iIDogIiIsICJ1dG1fY2FtcGFpZ24iIDogIiIgfQ%2C%2C&service=lso&o2v=1&theme=glif&flowName=GeneralOAuthFlow";
+                  // }}
                 >
                   Sign in with Google
                 </GoogleButton>
