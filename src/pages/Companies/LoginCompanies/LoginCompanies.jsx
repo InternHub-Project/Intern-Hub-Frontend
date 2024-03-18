@@ -6,45 +6,44 @@
   import axios from 'axios';
 
 
+
+  
   export default function LoginCompanies() {
+
+
 
     function loginUser(values) {
       const data={"email":values.email,"password":values.password}
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-  axios({
-  method:"post",
-  url:"http://54.159.209.90/api/v1/auth/login/company",
-  headers:myHeaders,
-  data:data
+         axios({
+         method:"post",
+         url:"http://54.159.209.90/api/v1/auth/company/login",
+         headers:myHeaders,
+         data:data
 
-  }).then((res=>{
-  console.log(res);
-  if (res.status == 200) {
-          notifications.show({
-            message: "Success register",
-            color: "green",
-          })
-          setTimeout(()=>{
-            location.href="/"
-          },1000)
-        }
-  })).catch((err=>{
-  console.log(err);
-  if(err.response.data.errors[0].length>1){
-    notifications.show({
-      message: `${err.response.data.errors[0].message[0]}`,
-      color: "red",
-    });
-  }
-  else{
-    notifications.show({
-      message: `${err.response.data.errors[0].message}`,
-      color: "red",
-    });
-  }
-
+         }).then((res=>{
+         console.log(res);
+         if (res.status == 200) {
+                 notifications.show({
+                   message: "Success register",
+                   color: "green",
+                 })
+                 setTimeout(()=>{
+                   location.href="/"
+                 },1000)
+                 localStorage.setItem("userInfo", JSON.stringify(res.data.data));
+                }
+         })).catch((err=>{
+         console.log(err);
+         if(err.response.data.message){
+           notifications.show({
+             message: `${err.response.data.message}`,
+             color: "red",
+           });
+         }
+ 
   }))
     }
     return (

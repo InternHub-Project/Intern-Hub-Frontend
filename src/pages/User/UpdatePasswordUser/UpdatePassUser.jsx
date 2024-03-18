@@ -4,15 +4,22 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import UpdatepassUserSchema from "./UpdatepassUserSchema/UpdatepassUserSchema";
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
-import { date } from "yup";
+// import { date } from "yup";
 
 export default function UpdatePassUser() {
 
-  const email=localStorage.getItem("info" , date.email)
+  let email
+  if(localStorage.getItem("gmail")){
+    email=localStorage.getItem("gmail")
+  }
+  else{
+    email="Please Go To ForgetPassword First"
+    }
 
-  function updatePassword(values){
+    function updatePassword(values){
+
     const data={email,...values};
-console.log(data);
+    console.log(data);
 
     if (
       data.code === "" ||
@@ -79,9 +86,9 @@ console.log(data);
             }
     })).catch((err=>{
       console.log(err.response.data);
-      if(err.response.data)
+      if(err.response.data.message)
         notifications.show({
-          message: `${err.response.data}`,
+          message: `${err.response.data.message}`,
           color: "red",
         });
     }))

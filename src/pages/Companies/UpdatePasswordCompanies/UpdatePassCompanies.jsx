@@ -8,8 +8,14 @@ import UpdatepassCompSchema from './UpdatepassCompSchema/UpdatepassCompSchema';
 export default function UpdatePassCompanies() {
 
 
-  const email=localStorage.getItem("gmail")
-
+  let email
+  if(localStorage.getItem("gmail")){
+    email=localStorage.getItem("gmail")
+  }
+  else{
+    email="Please Go To ForgetPassword Firs"
+  }
+  
   function updatePassword(values){
     const data={email,...values};
 console.log(data);

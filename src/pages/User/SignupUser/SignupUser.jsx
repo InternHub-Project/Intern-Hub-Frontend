@@ -5,7 +5,6 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { GoogleButton } from "./ButtonGoogle/GoogleButton";
 import axios from "axios";
 import RegisterUserSchema from "./RegisterUserSchema/RegisterUserSchema";
-import { date } from "yup";
 
 export default function SignupUser() {
   function addUser(values) {
@@ -35,6 +34,7 @@ export default function SignupUser() {
 
       }).then((res=>{
         if (res.status == 201) {
+
           notifications.show({
             message: "Success register",
             color: "green",
@@ -50,6 +50,7 @@ export default function SignupUser() {
           message: `${err.response.data.message}`,
           color: "red",
         });
+
       }))
     }
   }
