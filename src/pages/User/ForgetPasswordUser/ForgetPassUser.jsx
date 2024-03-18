@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import classes from "./ForgetPassUser.module.css";
 
 import { Button, Title } from "@mantine/core";
@@ -6,45 +7,44 @@ import ForgetPassUserSchema from "./ForgetPassUserSchema/ForgetPassUserSchema";
 // import { notifications } from "@mantine/notifications";
 import axios from "axios";
 import { notifications } from "@mantine/notifications";
+import { useNavigate } from "react-router-dom";
 
 export default function ForgetPassUser() {
 
+  const navigate= useNavigate();
   function sendCode(values) {
-    const data = { "email": values.email };
+
+    const data = { email: values.email };
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-axios({
-  method:"post",
-  url:"http://54.159.209.90/api/v1/auth/user/forgotPasswordEmail",
-  headers:myHeaders,
-  data:data
-
-}).then((res=>{
-  console.log(res);
-  if (res.status == 200) {
+    axios({
+      method: "post",
+      url: "http://54.159.209.90/api/v1/auth/user/forgotPasswordEmail",
+      headers: myHeaders,
+      data: data,
+    })
+      .then((res) => {
+        if (res.status == 200) {
           notifications.show({
-            message: "please check your Email",
+            message: 'check your Gmail',
             color: "green",
-          })
-          // setTimeout(()=>{
-          //   location.href="/"
-          // },1000)
+          });
+          setTimeout(()=>{
+            navigate("/UpdatePasswordUser")
+          },1000)
         }
-})).catch((err=>{
-  if(err.response.data.errors[0].length>1){
-    notifications.show({
-      message: `${err.response.data.errors[0].message[0]}`,
-      color: "red",
-    });
-  }
-  else{
-    notifications.show({
-      message: `${err.response.data.errors[0].message}`,
-      color: "red",
-    });
-  }
- 
-}))
+        // localStorage.setItem("gmail" , data.email)
+      })
+      .catch((err) => {
+        
+      
+          notifications.show({
+            message: `${err.response.data.message}`,
+            color: "red",
+          });
+        
+      });
+
   }
 
   return (
