@@ -12,36 +12,35 @@ export default function LoginUser() {
     const data={"email":values.email,"password":values.password}
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-
-axios({
-  method:"post",
-  url:"http://54.159.209.90/api/v1/auth/user/login",
-  headers:myHeaders,
-  data:data
-
-}).then((res=>{
-  // console.log(res.data.data.firstName);
-  if (res.status == 200) {
-          notifications.show({
-            message: "Success register",
-            color: "green",
-          })
-
-          localStorage.setItem("userInfo", JSON.stringify(res.data.data));
-          setTimeout(()=>{
-            location.href="/"
-          },1000)
-        }
-})).catch((err=>{
-  console.log(err);
-  if(err.response.data.message){
-    notifications.show({
-      message: `${err.response.data.message}`,
-      color: "red",
-    });
-  }
- 
-}))
+    axios({
+      method:"post",
+      url:"http://localhost:3003/api/v1/auth/user/login",
+      withCredentials: true,
+      headers:myHeaders,
+      data:data
+    
+    }).then((res=>{
+      console.log(res);
+      if (res.status == 200) {
+        notifications.show({
+          message: "Success register",
+          color: "green",
+        })
+        localStorage.setItem("userInfo", JSON.stringify(res.data.data));
+        setTimeout(()=>{
+          location.href="/"
+        },1000)
+      }
+    })).catch((err=>{
+      console.log(err);
+      if(err.response.data.message){
+        notifications.show({
+          message: `${err.response.data.message}`,
+          color: "red",
+        });
+      }
+    
+    }))
 
   }
   return (

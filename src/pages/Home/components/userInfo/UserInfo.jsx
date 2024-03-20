@@ -14,44 +14,38 @@ import axios from "axios";
 export function UserInfo() {
   const user = localStorage.getItem("userInfo");
   const userData = JSON.parse(user);
-  console.log(userData);
-
   function logout() {
-
-
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    axios({
-      method:"post",
-      url:"http://54.159.209.90/api/v1/user/logout",
-      headers:myHeaders,
-      }).then((res)=>{
-        if(res.status==200){
-
-          notifications.show({
-            message: "Success logout",
-            color: "green",
-          });
-          setTimeout(() => {
-            if(userData.companyId){
-              location.href = "/LoginCompanies";
-            }else{
-              location.href = "/LoginUser";
-            }
-          }, 1000);
-
-        }
-      }).catch((err)=>{
-        if(err.response.data.message){
-          notifications.show({
-            message: `${err.response.data.message}`,
-            color: "red",
-          });
-        }
-      })
-
-
+    const config = {
+      headers:{
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    }
+    axios.post("http://localhost:3003/api/v1/user/logout",{},config)
+    .then(res=>{
+      console.log(res);
+      if(res.status==200){
+        notifications.show({
+          message: "Success logout",
+          color: "green",
+        });
+        localStorage.clear();
+        setTimeout(() => {
+          if(userData.companyId){
+            location.href = "/LoginCompanies";
+          }else{
+            location.href = "/LoginUser";
+          }
+        }, 1000);
+      }
+    }).catch(err=>{
+      if(err.response.data.message){
+        notifications.show({
+          message: `${err.response.data.message}`,
+          color: "red",
+        });
+      }
+    })
   }
   return (
     <UnstyledButton className={classes.user}>
