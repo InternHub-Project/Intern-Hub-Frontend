@@ -1,33 +1,37 @@
-import { Text, Container, ActionIcon, Group, rem } from '@mantine/core';
-import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from '@tabler/icons-react';
-import classes from './Footer.module.css';
+import { Text, Container, ActionIcon, Group, rem, Box } from "@mantine/core";
+import {
+  IconBrandTwitter,
+  IconBrandYoutube,
+  IconBrandInstagram,
+} from "@tabler/icons-react";
+import classes from "./Footer.module.css";
 
 const data = [
   {
-    title: 'About',
+    title: "About",
     links: [
-      { label: 'Features', link: '#' },
-      { label: 'Pricing', link: '#' },
-      { label: 'Support', link: '#' },
-      { label: 'Forums', link: '#' },
+      { label: "Features", link: "#" },
+      { label: "Pricing", link: "#" },
+      { label: "Support", link: "#" },
+      { label: "Forums", link: "#" },
     ],
   },
   {
-    title: 'Project',
+    title: "Project",
     links: [
-      { label: 'Contribute', link: '#' },
-      { label: 'Media assets', link: '#' },
-      { label: 'Changelog', link: '#' },
-      { label: 'Releases', link: '#' },
+      { label: "Contribute", link: "#" },
+      { label: "Media assets", link: "#" },
+      { label: "Changelog", link: "#" },
+      { label: "Releases", link: "#" },
     ],
   },
   {
-    title: 'Community',
+    title: "Community",
     links: [
-      { label: 'Join Discord', link: '#' },
-      { label: 'Follow on Twitter', link: '#' },
-      { label: 'Email newsletter', link: '#' },
-      { label: 'GitHub discussions', link: '#' },
+      { label: "Join Discord", link: "#" },
+      { label: "Follow on Twitter", link: "#" },
+      { label: "Email newsletter", link: "#" },
+      { label: "GitHub discussions", link: "#" },
     ],
   },
 ];
@@ -47,7 +51,7 @@ export function Footer() {
     ));
 
     return (
-      <div className={classes.wrapper} key={group.title}>
+      <div  className={classes.wrapper} key={group.title}>
         <Text className={classes.title}>{group.title}</Text>
         {links}
       </div>
@@ -58,16 +62,28 @@ export function Footer() {
     <footer className={classes.footer}>
       <Container className={classes.inner}>
         <div className={classes.logo}>
-        <img
-            src="src/pages/Home/components/Logo/WhatsApp Image 2024-03-18 at 05.38.27_e1f021fa.jpg"
-            alt=""
-            width={"150px"}
-            height={"100px"}
-          />
-          <Text size="xs" c="dimmed" className={classes.description}>
+          <Box me={50} display={"flex"} style={{ alignItems: "center" }}>
+            <img
+              src="src/pages/Home/components/Logo/WhatsApp Image 2024-03-18 at 05.38.27_e1f021fa.jpg"
+              alt=""
+              width={"150px"}
+              height={"100px"}
+            />
+            <Box ml={-50}>
+              <Text c={"rgb(34,139,230)"} fz={25} fw={700}>
+                Intern
+              </Text>
+              <Text fz={25} fw={700} mt={-13}>
+                Hub
+              </Text>
+            </Box>
+          </Box>
+          <Text ta={"center"} size="xs" c="dimmed" className={classes.description}>
             Build fully functional accessible web applications faster than ever
           </Text>
         </div>
+
+  
         <div className={classes.groups}>{groups}</div>
       </Container>
       <Container className={classes.afterFooter}>
@@ -75,15 +91,29 @@ export function Footer() {
           © 2020 mantine.dev. All rights reserved.
         </Text>
 
-        <Group gap={0} className={classes.social} justify="flex-end" wrap="nowrap">
+        <Group
+          gap={0}
+          className={classes.social}
+          justify="flex-end"
+          wrap="nowrap"
+        >
           <ActionIcon size="lg" color="gray" variant="subtle">
-            <IconBrandTwitter style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
+            <IconBrandTwitter
+              style={{ width: rem(18), height: rem(18) }}
+              stroke={1.5}
+            />
           </ActionIcon>
           <ActionIcon size="lg" color="gray" variant="subtle">
-            <IconBrandYoutube style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
+            <IconBrandYoutube
+              style={{ width: rem(18), height: rem(18) }}
+              stroke={1.5}
+            />
           </ActionIcon>
           <ActionIcon size="lg" color="gray" variant="subtle">
-            <IconBrandInstagram style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
+            <IconBrandInstagram
+              style={{ width: rem(18), height: rem(18) }}
+              stroke={1.5}
+            />
           </ActionIcon>
         </Group>
       </Container>

@@ -16,7 +16,7 @@ axios({
   method:"post",
   url:"http://54.159.209.90/api/v1/auth/user/login",
   headers:myHeaders,
-  data:data
+  data:data,
 
 }).then((res=>{
   // console.log(res.data.data.firstName);
@@ -26,13 +26,13 @@ axios({
             color: "green",
           })
 
-          localStorage.setItem("userInfo", JSON.stringify(res.data.data));
+          localStorage.setItem("userId", JSON.stringify(res.data.data));
           setTimeout(()=>{
             location.href="/"
           },1000)
         }
 })).catch((err=>{
-  console.log(err);
+  // console.log(err);
   if(err.response.data.message){
     notifications.show({
       message: `${err.response.data.message}`,

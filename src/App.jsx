@@ -11,6 +11,7 @@ import UpdatePassUser from "./pages/User/UpdatePasswordUser/UpdatePassUser";
 import "@mantine/core/styles.css";
 import Header from './pages/Home/components/Header/Header';
 import { Footer } from './pages/Home/components/Footer/Footer';
+import { errorPage } from './pages/ErrorPage/errorPage';
 
 function App() {
   return (
@@ -18,8 +19,14 @@ function App() {
       <Header />
 
       <Routes>
+      
         
         <Route path="/" Component={Home} />
+        <Route path="/jobs" Component={UpdatePassUser} />
+        <Route path="/internships" Component={UpdatePassUser} />
+
+        <Route  path="*" Component={errorPage} />
+
 
         <Route path="/SignupCompanies" Component={SignupCompanies} />
         <Route path="/LoginCompanies" Component={LoginCompanies} />
@@ -30,6 +37,8 @@ function App() {
         <Route path="/LoginUser" Component={LoginUser} />
         <Route path="/ForgetPasswordUser" Component={ForgetPassUser} />
         <Route path="/UpdatePasswordUser" Component={UpdatePassUser} />
+        
+         
 
       </Routes>
       <Footer />

@@ -6,20 +6,39 @@
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 }
 
+@media (max-width:650px) {
+  .header{
+  padding-left: -10px;
+  }
+
+  .styleMobile{
+    margin-left: -40px;
+  }
+  
+}
+
 .link {
   display: flex;
   align-items: center;
   height: 100%;
-  padding-left: var(--mantine-spacing-md);
-  padding-right: var(--mantine-spacing-md);
+  margin-left: var(--mantine-spacing-md);
+  margin-right: var(--mantine-spacing-md);
+  padding-left: 5px;
+  padding-right:5px;
   text-decoration: none;
   color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   font-weight: 500;
-  font-size: var(--mantine-font-size-sm);
+  /* font-size: var(--mantine-font-size-sm); */
+  font-size: 17px;
+  padding-bottom: 5px;
 
   @media (max-width: 48em) {
     height: rem(42px);
     width: 100%;
+  }
+
+  [data-mantine-color-scheme] &[data-active] {
+    border-bottom:solid rgb(34,139,230) 3px;
   }
 
   @mixin hover {

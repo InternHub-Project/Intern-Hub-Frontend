@@ -43,7 +43,7 @@ export default function SignupCompanies() {
         data: data,
       })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
 
           if (res.status == 201) {
             notifications.show({
@@ -56,18 +56,18 @@ export default function SignupCompanies() {
           }
         })
         .catch((err) => {
-          console.log(err);
-          // if (err.response.data.errors[0].length > 1) {
-          //   notifications.show({
-          //     message: `${err.response.data.errors[0].message[0]}`,
-          //     color: "red",
-          //   });
-          // } else {
-          //   notifications.show({
-          //     message: `${err.response.data.errors[0].message}`,
-          //     color: "red",
-          //   });
-          // }
+          // console.log(err);
+          if (err.response.data.message) {
+            notifications.show({
+              message: `${err.response.data.message}`,
+              color: "red",
+            });
+          } else {
+            notifications.show({
+              message: `${err.response.data.errors[0].message}`,
+              color: "red",
+            });
+          }
         });
     }
   }

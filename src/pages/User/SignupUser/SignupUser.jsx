@@ -44,7 +44,7 @@ export default function SignupUser() {
 
               }
       })).catch((err=>{
-        console.log(err.response.data);
+        // console.log(err.response.data);
         if(err.response.data.message){
           notifications.show({
             message: `${err.response.data.errors[0].message[0]}`,

@@ -24,7 +24,7 @@
          data:data
 
          }).then((res=>{
-         console.log(res);
+        //  console.log(res);
          if (res.status == 200) {
                  notifications.show({
                    message: "Success register",
@@ -33,10 +33,10 @@
                  setTimeout(()=>{
                    location.href="/"
                  },1000)
-                 localStorage.setItem("userInfo", JSON.stringify(res.data.data));
+                 localStorage.setItem("userId", JSON.stringify(res.data.data));
                 }
          })).catch((err=>{
-         console.log(err);
+        //  console.log(err);
          if(err.response.data.message){
            notifications.show({
              message: `${err.response.data.message}`,

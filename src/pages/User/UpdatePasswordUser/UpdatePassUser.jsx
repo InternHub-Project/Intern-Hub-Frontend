@@ -19,7 +19,7 @@ export default function UpdatePassUser() {
     function updatePassword(values){
 
     const data={email,...values};
-    console.log(data);
+    // console.log(data);
 
     if (
       data.code === "" ||
@@ -43,7 +43,7 @@ export default function UpdatePassUser() {
         data:data
 
       }).then((res=>{
-        console.log(res);
+        // console.log(res);
         if (res.status == 200) {
                 notifications.show({
                   message: "Success update password",
@@ -55,7 +55,7 @@ export default function UpdatePassUser() {
                 },1000)
               }
       })).catch((err=>{
-        console.log(err.response.data);
+        // console.log(err.response.data);
         if(err.response.data.message)
           notifications.show({
             message: `${err.response.data.message}`,
@@ -77,7 +77,7 @@ export default function UpdatePassUser() {
       data:{email}
 
     }).then((res=>{
-      console.log(res);
+      // console.log(res);
       if (res.status == 200) {
               notifications.show({
                 message: "Check your email",
@@ -85,7 +85,7 @@ export default function UpdatePassUser() {
               })
             }
     })).catch((err=>{
-      console.log(err.response.data);
+      // console.log(err.response.data);
       if(err.response.data.message)
         notifications.show({
           message: `${err.response.data.message}`,
