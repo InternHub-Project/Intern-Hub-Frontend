@@ -60,17 +60,17 @@ export function UserInfo() {
       console.log(res);
     })).catch((err=>{console.log(err);}))
     // localStorage.clear();
-    notifications.show({
-      message: "Success logout",
-      color: "green",
-    });
-    setTimeout(() => {
-      if (userData.companyId) {
-        location.href = "/LoginCompanies";
-      } else {
-        location.href = "/LoginUser";
-      }
-    }, 500);
+    // notifications.show({
+    //   message: "Success logout",
+    //   color: "green",
+    // });
+    // setTimeout(() => {
+    //   if (userData.companyId) {
+    //     location.href = "/LoginCompanies";
+    //   } else {
+    //     location.href = "/LoginUser";
+    //   }
+    // }, 500);
   }
 
   const theme = useMantineTheme();
