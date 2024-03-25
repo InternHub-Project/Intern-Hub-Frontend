@@ -9,7 +9,7 @@
 // import { notifications } from "@mantine/notifications";
 import classes from "./UserInfo.module.css";
 // import Search from "./component/search/Search";
-// import axios from "axios";
+import axios from "axios";
 
 /* eslint-disable react-hooks/rules-of-hooks */
 import cx from "clsx";
@@ -53,7 +53,13 @@ export function UserInfo() {
   // console.log(userData);
 
   function logout() {
-    localStorage.clear();
+    axios({
+      method:post,
+      url:'http://api.codesplus.online/api/v1/user/logout'
+    }).then((res=>{
+      console.log(res);
+    })).catch((err=>{console.log(err);}))
+    // localStorage.clear();
     notifications.show({
       message: "Success logout",
       color: "green",
