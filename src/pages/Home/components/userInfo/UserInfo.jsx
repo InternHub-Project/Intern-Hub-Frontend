@@ -54,12 +54,12 @@ export function UserInfo() {
 
   function logout() {
     axios({
-      method:post,
+      method:'post',
       url:'http://api.codesplus.online/api/v1/user/logout'
     }).then((res=>{
       console.log(res);
     })).catch((err=>{console.log(err);}))
-    // localStorage.clear();
+    localStorage.clear();
     notifications.show({
       message: "Success logout",
       color: "green",
