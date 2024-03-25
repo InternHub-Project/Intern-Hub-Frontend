@@ -55,7 +55,8 @@ export function UserInfo() {
   function logout() {
     axios({
       method:'post',
-      url:'http://api.codesplus.online/api/v1/user/logout'
+      url:'http://api.codesplus.online/api/v1/user/logout',
+      withCredentials: true
     }).then((res=>{
       console.log(res);
     })).catch((err=>{console.log(err);}))
