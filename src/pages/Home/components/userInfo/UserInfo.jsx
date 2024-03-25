@@ -59,7 +59,7 @@ export function UserInfo() {
     }).then((res=>{
       console.log(res);
     })).catch((err=>{console.log(err);}))
-    localStorage.clear();
+    // localStorage.clear();
     notifications.show({
       message: "Success logout",
       color: "green",
