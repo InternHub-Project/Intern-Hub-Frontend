@@ -9,7 +9,7 @@ pipeline{
 
             steps {
 
-                git branch: 'main' , url: 'https://github.com/ahmed-zhran/Intern-Hub-Frontend.git'
+                git branch: 'development' , url: 'https://github.com/ahmed-zhran/Intern-Hub-Frontend.git'
             }
         }
 
