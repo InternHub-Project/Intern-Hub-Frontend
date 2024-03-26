@@ -14,7 +14,7 @@ export default function LoginUser() {
 
 axios({
   method:"post",
-  url:"http://api.codesplus.online/api/v1/auth/user/login",
+  url:"https://api.codesplus.online/api/v1/auth/user/login",
   headers:myHeaders,
   data:data,
 
