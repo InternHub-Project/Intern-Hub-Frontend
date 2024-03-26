@@ -18,7 +18,9 @@ pipeline{
 
             steps {
 
-                sh 'npm run build'
+                withNPM(npmrcConfig: 'my-custom-nprc') {
+                        sh 'npm run build'
+                }
             }
         }
     }
