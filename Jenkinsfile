@@ -3,7 +3,7 @@ pipeline{
     agent {label 'FRONT'}
 
     tools {
-        nodejs 'NODE21'
+        nodejs 'NODE18'
     }
 
     stages{
@@ -17,11 +17,25 @@ pipeline{
             }
         }
 
-        // Building The App With NPm
+        // Installing Dependancies With NPM
+        stage('NPM Install'){
+            steps {
+                dir('/var/www/frontend/Intern-Hub-Frontend/'){
+
+                    sh 'npm install'
+                }
+            }
+        }
+
+
+        // Building The App With NPM
         stage('NPM Build'){
 
             steps{
-                sh 'npm run build'
+                dir('/var/www/frontend/Intern-Hub-Frontend/'){
+
+                    sh 'npm run build'
+                }
             }
 
         }
