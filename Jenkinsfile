@@ -20,7 +20,9 @@ pipeline{
         // Building The App With NPm
         stage('NPM Build'){
 
-            sh 'npm run build'
+            steps{
+                sh 'npm run build'
+            }
 
         }
     }
