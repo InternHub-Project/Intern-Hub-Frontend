@@ -20,10 +20,7 @@ pipeline{
         // Installing Dependancies With NPM
         stage('NPM Install'){
             steps {
-                dir('/var/www/frontend/Intern-Hub-Frontend/'){
-
                     sh 'npm install'
-                }
             }
         }
 
@@ -32,10 +29,7 @@ pipeline{
         stage('NPM Build'){
 
             steps{
-                dir('/var/www/frontend/Intern-Hub-Frontend/'){
-
                     sh 'npm run build'
-                }
             }
 
         }
