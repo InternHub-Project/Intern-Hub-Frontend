@@ -3,7 +3,7 @@ pipeline{
     agent {label 'FRONT'}
 
     tools {
-        nodejs '21.7.1'
+        nodejs 'NODE21'
     }
 
     stages{
