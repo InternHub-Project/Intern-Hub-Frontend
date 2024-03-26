@@ -18,7 +18,7 @@ export default function ForgetPassCompanies() {
     myHeaders.append("Content-Type", "application/json");
     axios({
       method: "post",
-      url: "http://54.159.209.90/api/v1/auth/company/forgetPassword",
+      url: "https://api.codesplus.online/api/v1/auth/company/forgetPassword",
       headers: myHeaders,
       data: data,
     })

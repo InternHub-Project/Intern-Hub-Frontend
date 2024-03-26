@@ -28,7 +28,7 @@ export default function SignupUser() {
 
       axios({
         method:"post",
-        url:"http://54.159.209.90/api/v1/auth/user/signup",
+        url:"https://api.codesplus.online/api/v1/auth/user/signup",
         headers:myHeaders,
         data:data
 

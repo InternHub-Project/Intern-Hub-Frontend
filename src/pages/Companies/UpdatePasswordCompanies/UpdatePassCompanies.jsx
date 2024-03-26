@@ -37,7 +37,7 @@ export default function UpdatePassCompanies() {
 
       axios({
         method:"put",
-        url:"http://54.159.209.90/api/v1/auth/company/updatePassword",
+        url:"https://api.codesplus.online/api/v1/auth/company/updatePassword",
         headers:myHeaders,
         data:data
 
@@ -71,7 +71,7 @@ export default function UpdatePassCompanies() {
 
     axios({
       method:"post",
-      url:"http://54.159.209.90/api/v1/auth/reSendcode",
+      url:"https://api.codesplus.online/api/v1/auth/reSendcode",
       headers:myHeaders,
       data:{email}
 

@@ -38,7 +38,7 @@ export default function UpdatePassUser() {
 
       axios({
         method:"put",
-        url:"http://54.159.209.90/api/v1/auth/user/setPassword",
+        url:"https://api.codesplus.online/api/v1/auth/user/setPassword",
         headers:myHeaders,
         data:data
 
@@ -72,7 +72,7 @@ export default function UpdatePassUser() {
 
     axios({
       method:"post",
-      url:"http://54.159.209.90/api/v1/auth/reSendcode",
+      url:"https://api.codesplus.online/api/v1/auth/reSendcode",
       headers:myHeaders,
       data:{email}
 
