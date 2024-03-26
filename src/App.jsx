@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import LoginCompanies from "./pages/Companies/LoginCompanies/LoginCompanies";
+import SignupCompanies from "./pages/Companies/SignupCompanies/SignupCompanies";
+import ForgetPassCompanies from './pages/Companies/ForgetPasswordCompanies/ForgetPassCompanies';
+import UpdatePassCompanies from './pages/Companies/UpdatePasswordCompanies/UpdatePassCompanies';
+import ForgetPassUser from "./pages/User/ForgetPasswordUser/ForgetPassUser";
+import LoginUser from "./pages/User/LoginUser/LoginUser";
+import SignupUser from "./pages/User/SignupUser/SignupUser";
+import UpdatePassUser from "./pages/User/UpdatePasswordUser/UpdatePassUser";
+import "@mantine/core/styles.css";
+import Header from './pages/Home/components/Header/Header';
+import { Footer } from './pages/Home/components/Footer/Footer';
+import { errorPage } from './pages/ErrorPage/errorPage';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Header />
+
+      <Routes>
+      
+        
+        <Route path="/" Component={Home} />
+        <Route path="/jobs" Component={UpdatePassUser} />
+        <Route path="/internships" Component={UpdatePassUser} />
+
+        <Route  path="*" Component={errorPage} />
+
+
+        <Route path="/SignupCompanies" Component={SignupCompanies} />
+        <Route path="/LoginCompanies" Component={LoginCompanies} />
+        <Route path="/ForgetPassCompanies" Component={ForgetPassCompanies} />
+        <Route path="/UpdatePasswordCompanies" Component={UpdatePassCompanies} />
+
+        <Route path="/SignupUser" Component={SignupUser} />
+        <Route path="/LoginUser" Component={LoginUser} />
+        <Route path="/ForgetPasswordUser" Component={ForgetPassUser} />
+        <Route path="/UpdatePasswordUser" Component={UpdatePassUser} />
+        
+         
+
+      </Routes>
+      <Footer />
+
     </>
-  )
+  );
 }
 
-export default App
+export default App;
