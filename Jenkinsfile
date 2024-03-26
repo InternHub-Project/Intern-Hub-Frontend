@@ -1,6 +1,6 @@
 pipeline{
 
-    agent {'FRONT'}
+    agent {label 'FRONT'}
 
     stages{
 
