@@ -8,7 +8,6 @@ pipeline{
 
     stages{
 
-
         // Installing Dependancies With NPM
         stage('NPM Install'){
             steps {
@@ -24,6 +23,15 @@ pipeline{
                     sh 'npm run build'
             }
 
+        }
+    }
+
+    post {
+        always {
+            echo 'Slack Notifications .'
+            slackSend channel: '#graduation-project',
+                color: COLOR_MAP[currentBuild.currentResult],
+                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
         }
     }
 }
