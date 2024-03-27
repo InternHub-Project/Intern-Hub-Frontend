@@ -9,13 +9,13 @@ pipeline{
     stages{
 
         // Fetching The Newest Updates From The Repo
-        stage('Git Checkout'){
+        // stage('Git Checkout'){
 
-            steps {
+        //     steps {
 
-                git branch: 'development' , url: 'https://github.com/ahmed-zhran/Intern-Hub-Frontend.git'
-            }
-        }
+        //         git branch: 'development' , url: 'https://github.com/ahmed-zhran/Intern-Hub-Frontend.git'
+        //     }
+        // }
 
         // Installing Dependancies With NPM
         stage('NPM Install'){
