@@ -34,7 +34,7 @@ pipeline{
     post {
         success {
             echo 'Slack Notifications .'
-            slackSend channel: '#graduation-project',
+            slackSend channel: 'internhub-frontend',
                 color: COLOR_MAP[currentBuild.currentResult],
                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}"
             script {
@@ -44,14 +44,14 @@ pipeline{
 
         failure {
             echo 'Slack Notifications .'
-            slackSend channel: '#graduation-project',
+            slackSend channel: 'internhub-frontend',
                 color: COLOR_MAP[currentBuild.currentResult],
                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
         }
 
         aborted {
             echo 'Slack Notifications .'
-            slackSend channel: '#graduation-project',
+            slackSend channel: 'internhub-frontend',
                 color: COLOR_MAP[currentBuild.currentResult],
                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
         }
