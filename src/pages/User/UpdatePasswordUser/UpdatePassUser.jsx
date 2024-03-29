@@ -3,7 +3,7 @@ import {Button} from "@mantine/core";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import UpdatepassUserSchema from "./UpdatepassUserSchema/UpdatepassUserSchema";
 import {notifications} from "@mantine/notifications";
-import {httpRequest} from "../../../utils/httpHelper.js";
+import {httpRequest} from "../../../utils/httpRequest.js";
 import API_CONFIG from "../../../utils/apiConfig.js";
 
 export default function UpdatePassUser() {
@@ -30,7 +30,7 @@ export default function UpdatePassUser() {
             });
         } else {
             delete data.confirmPassword;
-            httpRequest(API_CONFIG.endpoints.setPassword, "PUT", data).then((res) => {
+            httpRequest(API_CONFIG.endpoints.auth.setPassword, "PUT", data).then((res) => {
                 // console.log(res);
                 if (res.status === 200) {
                     notifications.show({
@@ -41,32 +41,18 @@ export default function UpdatePassUser() {
                         location.href = "/LoginUser";
                     }, 1000);
                 }
-
-            }).catch((err) => {
-                // console.log(err.response.data);
-                if (err.response.data.message)
-                    notifications.show({
-                        message: `${err.response.data.message}`,
-                        color: "red",
-                    });
             });
         }
     }
 
     function resendCode() {
-        httpRequest(API_CONFIG.endpoints.resendCode, "POST", {email}).then((res) => {
+        httpRequest(API_CONFIG.endpoints.auth.resendCode, "POST", {email}).then((res) => {
             if (res.status === 200) {
                 notifications.show({
                     message: "Check your email",
                     color: "green",
                 });
             }
-        }).catch((err) => {
-            if (err.response.data.message)
-                notifications.show({
-                    message: `${err.response.data.message}`,
-                    color: "red",
-                });
         });
     }
 

@@ -3,13 +3,13 @@ import {Button, Title} from "@mantine/core";
 import {notifications} from "@mantine/notifications";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import loginUserSchema from './LoginUserSchema/LoginUserSchema';
-import {httpRequest} from "../../../utils/httpHelper.js";
+import {httpRequest} from "../../../utils/httpRequest.js";
 import API_CONFIG from "../../../utils/apiConfig.js";
 
 export default function LoginUser() {
     function loginUser(values) {
 
-        httpRequest(API_CONFIG.endpoints.userLogin, "POST", {
+        httpRequest(API_CONFIG.endpoints.auth.user.login, "POST", {
             "email": values.email,
             "password": values.password,
         }).then(result => {
@@ -23,14 +23,6 @@ export default function LoginUser() {
             setTimeout(() => {
                 location.href = "/"
             }, 1000)
-
-
-        }).catch(err => {
-            notifications.show({
-                message: `${err.response.data.message}`,
-                color: "red",
-            });
-
         });
     }
 

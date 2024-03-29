@@ -45,7 +45,7 @@ export default function SignupCompanies() {
         .then((res) => {
           // console.log(res);
 
-          if (res.status == 201) {
+          if (res.status === 201) {
             notifications.show({
               message: "Success register",
               color: "green",

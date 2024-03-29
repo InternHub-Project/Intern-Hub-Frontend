@@ -4,7 +4,7 @@ import {notifications} from "@mantine/notifications";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {GoogleButton} from "./ButtonGoogle/GoogleButton";
 import RegisterUserSchema from "./RegisterUserSchema/RegisterUserSchema";
-import {httpRequest} from "../../../utils/httpHelper.js";
+import {httpRequest} from "../../../utils/httpRequest.js";
 import API_CONFIG from "../../../utils/apiConfig.js";
 
 export default function SignupUser() {
@@ -24,7 +24,7 @@ export default function SignupUser() {
                 color: "red",
             });
         } else {
-            httpRequest(API_CONFIG.endpoints.userSignup, "POST", data).then((res) => {
+            httpRequest(API_CONFIG.endpoints.auth.user.signup, "POST", data).then((res) => {
                 if (res.status === 201) {
                     notifications.show({
                         message: "Success register",
@@ -33,19 +33,6 @@ export default function SignupUser() {
                     setTimeout(() => {
                         location.href = "/LoginUser";
                     }, 1000);
-                }
-
-            }).catch((err) => {
-                if (err.response.data.message) {
-                    notifications.show({
-                        message: err.response.data.message,
-                        color: "red",
-                    });
-                } else {
-                    notifications.show({
-                        message: "Something went wrong",
-                        color: "red",
-                    });
                 }
             });
         }
