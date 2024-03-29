@@ -4,11 +4,12 @@ import {notifications} from "@mantine/notifications";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import loginUserSchema from './LoginUserSchema/LoginUserSchema';
 import {httpRequest} from "../../../utils/httpHelper.js";
+import API_CONFIG from "../../../utils/apiConfig.js";
 
 export default function LoginUser() {
     function loginUser(values) {
 
-        httpRequest("auth/user/login", "POST", {
+        httpRequest(API_CONFIG.endpoints.userLogin, "POST", {
             "email": values.email,
             "password": values.password,
         }).then(result => {

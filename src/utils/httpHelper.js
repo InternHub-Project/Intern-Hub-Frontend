@@ -18,11 +18,9 @@ export async function httpRequest(endpoint, method = 'GET', data = {}, headers =
 
         return response.data;
     } catch (error) {
-        console.error('Error fetching data:', error);
-        console.error('Error response:', error.response);
-        console.error('Error request:', error.request);
-        console.error('Error config:', error.config);
-        console.error('Error message:', error.message);
+        console.error('Error fetching data => ', error);
+        console.error('Error message => ', error.message);
+        console.error('err.response.data.message => ', error.response.data.message);
         throw error;
     }
 }
