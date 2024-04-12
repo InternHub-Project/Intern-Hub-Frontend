@@ -23,8 +23,8 @@ function App() {
 
 
                 <Route path="/" Component={Home}/>
-                <Route path="/jobs" Component={UpdatePassUser}/>
-                <Route path="/internships" Component={UpdatePassUser}/>
+                <Route path="/jobs" Component={errorPage}/>
+                <Route path="/internships" Component={errorPage}/>
 
                 <Route path="*" Component={errorPage}/>
 
