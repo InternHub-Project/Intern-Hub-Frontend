@@ -38,7 +38,6 @@ import {
   IconEdit,
   IconRepeat,
 } from "@tabler/icons-react";
-import { notifications } from "@mantine/notifications";
 
 // const user = {
 //   name: "Jane Spoonfighter",
@@ -54,12 +53,16 @@ export function UserInfo() {
 
   function logout() {
     axios({
-      method:'post',
-      url:'https://api.codesplus.online/api/v1/user/logout',
-      withCredentials: true
-    }).then((res=>{
-      console.log(res);
-    })).catch((err=>{console.log(err);}))
+      method: "post",
+      url: "https://api.codesplus.online/api/v1/user/logout",
+      withCredentials: true,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // localStorage.clear();
     // notifications.show({
     //   message: "Success logout",
@@ -108,18 +111,24 @@ export function UserInfo() {
                     size={40}
                   />
                   <div style={{ flex: 1 }}>
-                    <Box>
-                      {userData.name ? (
-                        <Text>{userData.name}</Text>
-                      ) : (
-                        <Text size="sm" fw={500}>
-                          {userData.firstName} {userData.lastName}
+                    {user ? (
+                      <>
+                        <Box>
+                          {userData.name ? (
+                            <Text>{userData.name}</Text>
+                          ) : (
+                            <Text size="sm" fw={500}>
+                              {userData.firstName} {userData.lastName}
+                            </Text>
+                          )}
+                        </Box>
+                        <Text c="dimmed" size="xs">
+                          {userData.email}
                         </Text>
-                      )}
-                    </Box>
-                    <Text c="dimmed" size="xs">
-                      {userData.email}
-                    </Text>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   <IconChevronDown
                     style={{ width: rem(15), height: rem(15) }}

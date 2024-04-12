@@ -1,0 +1,25 @@
+.trending {
+  text-align: center;
+  color: var(--gray-color);
+  font-size: 30px;
+  font-weight: bold;
+  margin: 10px 20px 30px 20px;
+  padding: 10px 30px 0px 30px;
+}
+.itemTrending {
+  width: 450px;
+  height: 300px;
+}
+@media (max-width: 900px) {
+  .trending {
+    font-size: 23px;
+    font-weight: 700;
+    margin: 10px 20px 30px 20px;
+    padding: 10px 0px 0px;
+  }
+
+  .itemTrending {
+    width: 330px;
+    height: 230px;
+  }
+}

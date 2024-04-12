@@ -9,6 +9,7 @@ import {
   ScrollArea,
   rem,
   Text,
+  HoverCard,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { UserInfo } from "./../userInfo/UserInfo";
@@ -42,23 +43,42 @@ export default function Header() {
     );
   });
 
+
+  const itemsNav = links.map((link) => {
+    return (
+      <a
+        key={link.id}
+        href={link.link}
+        className={classes.link}
+        data-active-nav={link.link.endsWith(active) || undefined}
+        onClick={() => {}}
+      >
+        {link.label}
+      </a>
+    );
+  });
+
   return (
     <Box pb={20}>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
-          <Box display={"flex"} className={classes.styleMobile}  style={{ alignItems: "center" }}>
+          <Box
+            display={"flex"}
+            className={classes.styleMobile}
+            style={{ alignItems: "center" }}
+          >
             <Box display={"flex"} style={{ alignItems: "center" }}>
               <img
-                src="src/pages/Home/components/Logo/WhatsApp Image 2024-03-18 at 05.38.27_e1f021fa.jpg"
+                src="src/pages/Home/components/Logo/WhatsApp_Image_2024-03-18_at_05.38.27_e1f021fa-removebg-preview.png"
                 alt=""
                 width={"150px"}
                 height={"100px"}
               />
               <Box ml={-50}>
-                <Text c={"rgb(34,139,230)"} fz={25} fw={700}>
+                <Text className={classes.inter} fz={25} fw={700}>
                   Intern
                 </Text>
-                <Text fz={25} fw={700} mt={-13}>
+                <Text className={classes.hub} fz={25} fw={700} mt={-13}>
                   Hub
                 </Text>
               </Box>
@@ -74,14 +94,38 @@ export default function Header() {
               <UserInfo />
             ) : (
               <>
-                <Button
-                  onClick={() => {
-                    location.href = "/LoginUser";
-                  }}
-                  variant="outline"
-                >
-                  Login
-                </Button>
+                <HoverCard width={280} shadow="md">
+                  <HoverCard.Target>
+                    <Button
+                     
+                      variant="outline"
+                    >
+                      Login
+                    </Button>
+                  </HoverCard.Target>
+
+                  <HoverCard.Dropdown style={{ width: "fit-content" }}>
+                    <Button
+                      mr={15}
+                      onClick={() => {
+                        location.href = "/LoginUser";
+                      }}
+                      variant="outline"
+                    >
+                      User Login
+                    </Button>
+
+                    <Button
+                      onClick={() => {
+                        location.href = "/LoginCompanies";
+                      }}
+                      variant="outline"
+                    >
+                      Company Login
+                    </Button>
+                  </HoverCard.Dropdown>
+                </HoverCard>
+
                 <Button
                   onClick={() => {
                     location.href = "/SignupCompanies";
@@ -119,22 +163,20 @@ export default function Header() {
       >
         <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
           <Divider my="sm" />
-
-          <a href="/" className={classes.link}>
-            Home
-          </a>
-          <a href="/jobs" className={classes.link}>
-            Jobs
-          </a>
-          <a href="/internships" className={classes.link}>
-            Internships
-          </a>
+          
+                      {itemsNav}
+         
 
           <Divider my="sm" />
 
           <Group justify="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
+            <Button  onClick={()=>{location.href="/SignupUser"}}> User Sign-up</Button>
+            <Button onClick={()=>{location.href="/SignupCompanies"}}>  Company Sign-up</Button>
+          </Group>
+
+          <Group justify="center" grow pb="xl" px="md" mt={-15}>
+            <Button variant="outline" onClick={()=>{location.href="/LoginUser"}}>User Login</Button>
+            <Button variant="outline" onClick={()=>{location.href="/LoginCompanies"}}>Company Login</Button>
           </Group>
         </ScrollArea>
       </Drawer>

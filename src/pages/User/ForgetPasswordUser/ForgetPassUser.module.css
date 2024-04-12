@@ -9,33 +9,36 @@
   font-weight: 700;
   letter-spacing: -1px;
   margin: 0px;
-  color: rgb(51,51,51);
+  color:var(--gray-color);
   }
 
   .form{
     width: 40%;
     padding: 20px 20px;
-    border: 1px solid #00000029;
+    border: 1px solid var(--outline-field-color);
     border-radius: 10px;
-    box-shadow: -2px -2px 6px rgba(0,107,194,.12), 2px 2px 6px rgba(0,107,194,.12);
+    box-shadow: -2px -2px 6px var(--form-shadow), 2px 2px 6px var(--form-shadow);
 }
 
 
 .field{
+  color: var(--second-color);
+
     width: 100%;
     outline: none;
     margin-top: 5px;
-    border: 0.5px solid #00000029;
+    border: 0.5px solid var(--outline-field-color);
     border-radius: 5px;
     padding: 5px;
 }
 
 .label{
+  color: var(--second-color);
     font-weight: 500;   
 }
 
 .field:focus{
-    box-shadow: -2px -2px 6px rgba(0,107,194,.12), 2px 2px 6px rgba(0,107,194,.12);
+    box-shadow: -2px -2px 6px var(--form-shadow), 2px 2px 6px var(--form-shadow);
     
 }
 

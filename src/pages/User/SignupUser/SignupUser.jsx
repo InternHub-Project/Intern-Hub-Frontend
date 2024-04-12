@@ -71,13 +71,16 @@ export default function SignupUser() {
                         <Form className={classes.form}>
                             <Group grow mb="md" mt="md">
                                 <GoogleButton
+                                   
                                     radius="xl"
                                     onClick={() => {
                                         location.href =
                                             "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=827625755886-edpmpa7jsvq8al2v03utohjqg4j2sd3b.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Finternshala.com%2Flogin%2Fgoogle&scope=profile%20email&response_type=code&state=eyAicm9sZSIgOiAidXNlciIsICJzdWNjZXNzX3BhZ2UiIDogIi9zdHVkZW50L2Rhc2hib2FyZCIsICJ1dG1fc291cmNlIiA6ICJpc19oZWFkZXJfaG9tZXBhZ2UiICwgInV0bV9tZWRpdW0iIDogIiIsICJ1dG1fY2FtcGFpZ24iIDogIiIgfQ%2C%2C&service=lso&o2v=1&theme=glif&flowName=GeneralOAuthFlow";
                                     }}
                                 >
+                                   <span  className={classes.btnGoogle}>
                                     Sign in with Google
+                                    </span> 
                                 </GoogleButton>
                             </Group>
                             <Divider
@@ -171,7 +174,10 @@ export default function SignupUser() {
                             <br/>
                             <Text fz={12} mb={8} mt={-5}>
                                 {" "}
+                                <span className={classes.signing}>
+
                                 By signing up, you agree to our{" "}
+                                </span>
                                 <span style={{color: "#00A5EC", fontWeight: 500}}>
                   Terms and Conditions.
                 </span>
@@ -189,12 +195,9 @@ export default function SignupUser() {
                                         marginBottom: "-10px",
                                     }}
                                 >
-                                    <p
-                                        style={{
-                                            fontWeight: 500,
-                                            marginRight: "5px",
-                                            color: "rgb(51,51,51)",
-                                        }}
+                                    <p 
+                                    className={classes.register}
+                                      
                                     >
                                         Already registered?{" "}
                                     </p>

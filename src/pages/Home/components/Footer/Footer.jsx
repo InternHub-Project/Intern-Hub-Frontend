@@ -62,18 +62,19 @@ export function Footer() {
     <footer className={classes.footer}>
       <Container className={classes.inner}>
         <div className={classes.logo}>
-          <Box me={50} display={"flex"} style={{ alignItems: "center" }}>
+          <Box  me={50} display={"flex"} style={{ alignItems: "center" }}>
             <img
-              src="src/pages/Home/components/Logo/WhatsApp Image 2024-03-18 at 05.38.27_e1f021fa.jpg"
+              
+              src="src/pages/Home/components/Logo/WhatsApp_Image_2024-03-18_at_05.38.27_e1f021fa-removebg-preview.png"
               alt=""
               width={"150px"}
               height={"100px"}
             />
             <Box ml={-50}>
-              <Text c={"rgb(34,139,230)"} fz={25} fw={700}>
+              <Text className={classes.inter} fz={25} fw={700}>
                 Intern
               </Text>
-              <Text fz={25} fw={700} mt={-13}>
+              <Text className={classes.hub} fz={25} fw={700} mt={-13}>
                 Hub
               </Text>
             </Box>

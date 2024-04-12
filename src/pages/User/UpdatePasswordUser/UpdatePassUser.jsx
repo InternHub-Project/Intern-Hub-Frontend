@@ -12,7 +12,7 @@ export default function UpdatePassUser() {
     if (localStorage.getItem("gmail")) {
         email = localStorage.getItem("gmail")
     } else {
-        email = "Please Go To ForgetPassword First"
+        email = "Please Go To Forget Password First"
     }
 
     function updatePassword(values) {
@@ -44,6 +44,8 @@ export default function UpdatePassUser() {
             });
         }
     }
+
+    
 
     function resendCode() {
         httpRequest(API_CONFIG.endpoints.auth.resendCode, "POST", {email}).then((res) => {
@@ -89,7 +91,7 @@ export default function UpdatePassUser() {
                                 <input type="email" name="email" id="firstName" readOnly
                                        className={classes.field}
                                        value={`${email}`}
-                                />
+                                                                    />
                             </div>
                             <br/>
                             <div>
