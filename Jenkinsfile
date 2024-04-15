@@ -3,6 +3,7 @@ def COLOR_MAP = [
     'FAILURE' : 'danger',
 ]
 
+
 pipeline{
 
     agent {label 'FRONT'}
