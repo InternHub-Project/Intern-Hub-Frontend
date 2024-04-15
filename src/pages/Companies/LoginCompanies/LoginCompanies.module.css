@@ -1,40 +1,47 @@
-.style{
-    background-image: url("https://internshala.com/static/images/registration/student_new/background.png");
-    width: 100%;
-    background-size: cover;
+.style {
+  background-image: url("https://internshala.com/static/images/registration/student_new/background.png");
+  width: 100%;
+  background-size: cover;
 }
 
 .title {
-    margin-bottom: -10px;
-    font-family:
-      Greycliff CF,
-      var(--mantine-font-family);
-    font-weight: 900;
-  }
-
-  .form{
-    width: auto;
-    padding: 20px 20px;
-    border: 1px solid #00000029;
-    border-radius: 10px;
-    box-shadow: -2px -2px 6px rgba(0,107,194,.12), 2px 2px 6px rgba(0,107,194,.12);
+  color: var(--gray-color);
+  margin-bottom: -10px;
+  font-family: Greycliff CF, var(--mantine-font-family);
+  font-weight: 900;
 }
 
-
-.field{
-    width: 100%;
-    outline: none;
-    margin-top: 5px;
-    border: 0.5px solid #00000029;
-    border-radius: 5px;
-    padding: 5px;
+.form {
+  width: auto;
+  padding: 20px 20px;
+  border: 1px solid var(--outline-field-color);
+  border-radius: 10px;
+  box-shadow: -2px -2px 6px var(--form-shadow), 2px 2px 6px var(--form-shadow);
 }
 
-.label{
-    font-weight: 500;   
+.label {
+  color: var(--second-color);
+  font-weight: 500;
 }
 
-.field:focus{
-    box-shadow: -2px -2px 6px rgba(0,107,194,.12), 2px 2px 6px rgba(0,107,194,.12);
-    
+.field {
+  color: var(--second-color);
+  width: 100%;
+  outline: none;
+  margin-top: 5px;
+  border: 0.5px solid var(--outline-field-color);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.field:focus {
+  box-shadow: -2px -2px 6px var(--form-shadow), 2px 2px 6px var(--form-shadow);
+}
+
+.registerNow {
+  color: var(--gray-color);
+  text-align: center;
+  font-weight: 500;
+  margin-right: 5px;
+  margin-bottom: 0px;
 }

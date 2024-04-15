@@ -1,0 +1,74 @@
+.up {
+    background-color: var(--background-courses);
+    margin-top: 50p;
+    text-align: center;
+  }
+  .certification{
+    font-size: 28px;
+    line-height: 1.33333333;
+    font-weight: 700;
+    color: var(--gray-color);
+    margin:0px 0px 10px;
+    padding-top: 50px
+  }
+  .fastest{
+    font-size: 18px;
+      line-height: 1.44444444;
+      font-weight: 500;
+      color: var(--gray-color);
+    margin: 0px 0px 30px;
+  
+  }
+  .slide {
+    border: solid 1px var(--outline-field-color);
+    border-radius: 20px;
+    box-shadow: var(--outline-field-color) 0px 2px 8px 0px;
+  }
+  .img {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+  }
+  .weeks{
+    color: var(--search-color)
+  }
+  .description {
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    text-align: justify;
+    margin-top: -6px;
+    padding: 10px 20px;
+    color: var(--second-color);
+    background-color: var(--first-color);
+  }
+  .linkMore {
+    background-image: url("https://internshala.com/static/images/homepage/view_all_certifications.png");
+    background-repeat: no-repeat;
+    background-size: 80% 96%;
+      background-position: 105px 11px;
+    background-color: var(--first-color);
+    height: 284px;
+    box-shadow: var(--outline-field-color) 0px 2px 8px 0px;
+    border-radius: 20px;
+    border: solid 1px var(--outline-field-color);
+    padding: 0px 30px;
+    cursor: pointer;
+  
+  }
+  .titleLinkMore{
+      font-size: 19px;
+      line-height: 1.33333333;
+      font-weight: 600;
+      color: var(--gray-color);
+      margin-top: 30px;
+  }
+  .viewAll{
+      font-size: 14px;
+      line-height: 1.14285714;
+      font-weight: 600;
+      padding: 7px 15px;
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      border-radius: 3px;
+      cursor: pointer;
+      width: fit-content;
+  }

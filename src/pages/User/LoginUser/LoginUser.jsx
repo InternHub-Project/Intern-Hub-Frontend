@@ -110,17 +110,15 @@ export default function LoginUser() {
                                 Login
                             </Button>
                             <p
+                                    className={classes.registerNow}
                                 style={{
-                                    textAlign: "center",
-                                    fontWeight: 500,
-                                    marginRight: "5px",
-                                    color: "rgb(51,51,51)",
-                                    marginBottom: "0px"
+                                  
                                 }}>
                                 don{"'"}t have an account?{" "}
-                                <a
+                                <a  
                                     href="/SignupUser"
-                                    style={{textDecoration: "none", color: "#00A5EC"}}>
+                                    style={{textDecoration: "none", color: "#00A5EC"}}
+                                    >
                                     Register now
                                 </a>
                             </p>

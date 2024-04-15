@@ -1,5 +1,17 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --primary-color:rgb(34,139,230);
+  --first-color:white;
+  --second-color:black;
+  --gray-color:rgb(51,51,51);
+  --form-shadow:rgba(0,107,194,.12);
+  --outline-field-color: #00000029;
+  --outline-field-second:rgb(66,66,66);
+  --search-color:rgb(102,102,102);
+  --second-color-darkMode:rgb(201,201,201);
+  --background-latest:#f8f8f8;
+  --shadow-card:rgba(136, 166, 255, 0.04);
+  --background-courses:#eef6ff;
 }
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -16,6 +28,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -25,13 +44,6 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
 
 h1 {
   font-size: 3.2em;

@@ -11,7 +11,7 @@
     font-weight: 700;
     letter-spacing: -1px;
     margin: 0px;
-    color: rgb(51,51,51);
+    color: var(--gray-color);
 }
 
 .companies{
@@ -19,7 +19,7 @@
   font-weight: 500;
   letter-spacing: -1px;
   margin-top: 5px;
-  color: rgb(51,51,51);
+  color:var(--gray-color);
 }
 
 @media (max-width: 450px) {
@@ -30,36 +30,41 @@
   .companies{
     font-size: 20px; 
     font-weight: 400;
-    /* letter-spacing: -1px; */
     margin-top: 5px;
-    color: rgb(51,51,51);
   }
   
 }
+
+.btnGoogle , .label {
+  color: var(--second-color);
+}
+
 
 
 .form{
     width: auto;
     padding: 20px 20px;
-    border: 1px solid #00000029;
+    border: 1px solid var(--outline-field-color);
     border-radius: 10px;
-    box-shadow: -2px -2px 6px rgba(0,107,194,.12), 2px 2px 6px rgba(0,107,194,.12);
+    box-shadow: -2px -2px 6px var(--form-shadow), 2px 2px 6px var(--form-shadow);
 }
 .label{
     font-weight: 500;   
 }
 
 .field{
+  color: var(--second-color);
+
     width: 100%;
     outline: none;
     margin-top: 5px;
-    border: 0.5px solid #00000029;
+    border: 0.5px solid var(--outline-field-color);
     border-radius: 5px;
     padding: 5px;
 }
 
 .field:focus{
-    box-shadow: -2px -2px 6px rgba(0,107,194,.12), 2px 2px 6px rgba(0,107,194,.12);
+    box-shadow: -2px -2px 6px var(--form-shadow), 2px 2px 6px var(--form-shadow);
     
 }
 
@@ -68,7 +73,6 @@
 }
 
 .underline{
-    /* width:300px; */
     height:5px;
     margin:5px 15px;
     background-color:#00a7fbd9;
@@ -99,4 +103,14 @@
   100% {
     width:0px;
   }
+}
+
+.signing{
+  color: var(--second-color);
+}
+
+.register{
+  font-weight: 500;
+  margin-right: 5px;
+  color: var(--gray-color);
 }

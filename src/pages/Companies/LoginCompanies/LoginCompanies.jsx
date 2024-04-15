@@ -111,13 +111,8 @@ export default function LoginCompanies() {
                                 Login
                             </Button>
                             <p
-                                style={{
-                                    textAlign: "center",
-                                    fontWeight: 500,
-                                    marginRight: "5px",
-                                    color: "rgb(51,51,51)",
-                                    marginBottom: "0px"
-                                }}>
+                            className={classes.registerNow}
+                                >
                                 don{"'"}t have an account?{" "}
                                 <a
                                     href="/SignupCompanies"

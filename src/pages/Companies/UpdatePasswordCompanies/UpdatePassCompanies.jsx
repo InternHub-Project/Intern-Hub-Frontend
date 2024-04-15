@@ -14,7 +14,7 @@ export default function UpdatePassCompanies() {
     if (localStorage.getItem("gmail")) {
         email = localStorage.getItem("gmail")
     } else {
-        email = "Please Go To ForgetPassword Firs"
+        email = "Please Go To Forget Password First"
     }
 
     function updatePassword(values) {
@@ -85,7 +85,7 @@ export default function UpdatePassCompanies() {
     return (
         <div className={classes.style}>
             <div className={classes.titleHeader}>
-                <p className={classes.title}>Update password to user</p>
+                <p className={classes.title}>Update password to com</p>
             </div>
             <div
                 style={{

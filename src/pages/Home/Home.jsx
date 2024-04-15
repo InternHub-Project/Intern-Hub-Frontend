@@ -1,25 +1,24 @@
-import { Text } from "@mantine/core";
-import classes from "./Home.module.css";
+// import { Text } from "@mantine/core";
+// import classes from "./Home.module.css";
+import StartParagraph from "./components/StartPragraphe/StartParagraph";
+import { CarouselTrending } from "./components/CarouselTrending/CarouselTrending";
+import LatestInternships from "./components/LatestInternships/LatestInternships";
+import LatestJobs from "./components/LatestJobs/LatestJobs";
+import CarouselCourses from "./components/CarouselCourses/CarouselCourses";
+import CarouselBigCourses from "./components/CarouselBigCourses/CarouselBigCourses";
+import TopCompany from "./components/TopCompany/TopCompany";
+import StateWebSite from "./components/StateWebSite/StateWebSite";
 export default function Home() {
   return (
     <div>
-       <Text mt={100} mb={100} className={classes.home}>Home page</Text>
-{/*
-      <div style={{ display: "flex", gap: "2rem", marginTop: "20px" }}>
-        <div style={{ display: "grid" }}>
-          <a href="/SignupCompanies">SignupCompanies</a>
-          <a href="/LoginCompanies">LoginCompanies</a>
-          <a href="/ForgetPassCompanies">ForgetPasswordCompanies</a>
-          <a href="/UpdatePasswordCompanies">UpdatePasswordCompanies</a>
-        </div>
-
-        <div style={{ display: "grid" }}>
-          <a href="/SignupUser">SignupUser</a>
-          <a href="/LoginUser">LoginUser</a>
-          <a href="/ForgetPasswordUser">ForgetPasswordUser</a>
-          <a href="/UpdatePasswordUser">UpdatePasswordUser</a>
-        </div>
-      </div> */}
+      <StartParagraph />
+      <CarouselTrending />
+      <LatestInternships />
+      <LatestJobs />
+      <CarouselCourses />
+      <CarouselBigCourses />
+      <TopCompany />
+      <StateWebSite />
     </div>
   );
 }

@@ -7,6 +7,9 @@ import {
   IconHome,
   IconSearch,
 } from "@tabler/icons-react";
+
+import classes from "./Search.module.css";
+
 const actions = [
   {
     id: "home",
@@ -57,9 +60,12 @@ export default function Search() {
           display: "flex",
           gap: "5px",
           alignItems: "center",
-        }}>
-        <i className="fa-solid fa-magnifying-glass"></i>
-        <span>Search</span>
+        }}
+      >
+        <span className={classes.search}>
+          <i className="fa-solid fa-magnifying-glass"></i>
+          <span style={{marginLeft:"5px"}}>Search</span>
+        </span>
       </p>
       <Spotlight
         actions={actions}

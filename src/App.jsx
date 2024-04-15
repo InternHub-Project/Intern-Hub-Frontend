@@ -12,6 +12,7 @@ import "@mantine/core/styles.css";
 import Header from './pages/Home/components/Header/Header';
 import {Footer} from './pages/Home/components/Footer/Footer';
 import {errorPage} from './pages/ErrorPage/errorPage';
+import JobsPage from "./pages/Jobs/JobsPage";
 
 
 function App() {
@@ -23,8 +24,8 @@ function App() {
 
 
                 <Route path="/" Component={Home}/>
-                <Route path="/jobs" Component={UpdatePassUser}/>
-                <Route path="/internships" Component={UpdatePassUser}/>
+                <Route path="/jobs" Component={JobsPage}/>
+                <Route path="/internships" Component={errorPage}/>
 
                 <Route path="*" Component={errorPage}/>
 
