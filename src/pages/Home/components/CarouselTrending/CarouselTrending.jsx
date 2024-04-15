@@ -9,11 +9,12 @@ export function CarouselTrending() {
   const [trending, setTrending] = useState([]);
 
   useEffect(() => {
-    httpRequest(API_CONFIG.endpoints.home.trending, HTTP_METHODS.GET).then(
-      (res) => {
-        setTrending(res.data);
-      },
-    );
+    httpRequest(
+      API_CONFIG.endpoints.jobs.getRecommendedJobs,
+      HTTP_METHODS.GET,
+    ).then((res) => {
+      setTrending(res.data);
+    });
   }, []);
 
   return (

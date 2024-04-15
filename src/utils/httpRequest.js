@@ -17,6 +17,7 @@ export async function httpRequest(
   fullUrl = null,
 ) {
   try {
+    console.log("API URL => ", fullUrl ? fullUrl : API_CONFIG.baseUrl + endpoint);
     const response = await axios({
       method: method.toUpperCase(),
       url: fullUrl ? fullUrl : API_CONFIG.baseUrl + endpoint,
