@@ -16,7 +16,7 @@ export default function ForgetPassCompanies() {
     function sendCode(values) {
 
         const data = {email: values.email};
-        httpRequest(API_CONFIG.endpoints.auth.forgetPassword, "POST", data).then((res) => {
+        httpRequest(API_CONFIG.endpoints.auth.forgetPassword, HTTP_METHODS.POST, data).then((res) => {
             if (res.status === 200) {
                 notifications.show({
                     message: 'check your Gmail',

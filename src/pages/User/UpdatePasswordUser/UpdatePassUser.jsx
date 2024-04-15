@@ -48,7 +48,7 @@ export default function UpdatePassUser() {
     
 
     function resendCode() {
-        httpRequest(API_CONFIG.endpoints.auth.resendCode, "POST", {email}).then((res) => {
+        httpRequest(API_CONFIG.endpoints.auth.resendCode, HTTP_METHODS.POST, {email}).then((res) => {
             if (res.status === 200) {
                 notifications.show({
                     message: "Check your email",

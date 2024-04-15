@@ -9,7 +9,7 @@ import API_CONFIG from "../../../utils/apiConfig.js";
 export default function LoginUser() {
     function loginUser(values) {
 
-        httpRequest(API_CONFIG.endpoints.auth.user.login, "POST", {
+        httpRequest(API_CONFIG.endpoints.auth.user.login, HTTP_METHODS.POST, {
             "email": values.email,
             "password": values.password,
         }).then(result => {

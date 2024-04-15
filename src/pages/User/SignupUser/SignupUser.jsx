@@ -24,7 +24,7 @@ export default function SignupUser() {
                 color: "red",
             });
         } else {
-            httpRequest(API_CONFIG.endpoints.auth.user.signup, "POST", data).then((res) => {
+            httpRequest(API_CONFIG.endpoints.auth.user.signup, HTTP_METHODS.POST, data).then((res) => {
                 if (res.status === 201) {
                     notifications.show({
                         message: "Success register",

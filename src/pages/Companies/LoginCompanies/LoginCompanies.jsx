@@ -12,7 +12,7 @@ export default function LoginCompanies() {
         const data = {"email": values.email, "password": values.password}
 
 
-        httpRequest(API_CONFIG.endpoints.auth.company.login, "POST", data).then((res) => {
+        httpRequest(API_CONFIG.endpoints.auth.company.login, HTTP_METHODS.POST, data).then((res) => {
             if (res.status === 200) {
                 notifications.show({
                     message: 'Success login',

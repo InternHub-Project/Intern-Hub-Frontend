@@ -59,7 +59,7 @@ export default function UpdatePassCompanies() {
         myHeaders.append("Content-Type", "application/json");
 
         axios({
-            method: "post",
+            method: HTTP_METHODS.POST,
             url: "https://api.codesplus.online/api/v1/auth/reSendcode",
             headers: myHeaders,
             data: {email}
