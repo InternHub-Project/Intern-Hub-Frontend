@@ -1,6 +1,6 @@
 const API_CONFIG = {
-    // baseUrl: 'https://api.codesplus.online/api/v1/',
-    baseUrl: 'https://localhost:3003/api/v1/',
+    baseUrl: 'https://api.codesplus.online/api/v1/',
+    //baseUrl: 'https://localhost:3003/api/v1/',
     endpoints: {
         auth: {
             user: {
