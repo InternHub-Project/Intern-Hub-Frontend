@@ -4,8 +4,9 @@ import { notifications } from "@mantine/notifications";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { GoogleButton } from "./ButtonGoogle/GoogleButton";
 import RegisterCompaniesSchema from "./RegisterCompaniesSchema/RegisterCompaniesSchema";
-import { httpRequest } from "../../../utils/httpRequest.js";
-import API_CONFIG from "../../../utils/apiConfig.js";
+import { HTTP_METHODS, httpRequest } from "../../../core/utils/httpRequest.js";
+import API_CONFIG from "../../../core/utils/apiConfig.js";
+import { showNotification } from "../../../core/helperMethods/showNotification.js";
 
 export default function SignupCompanies() {
   function addCompanies(values) {
@@ -35,19 +36,18 @@ export default function SignupCompanies() {
         color: "red",
       });
     } else {
-      httpRequest(API_CONFIG.endpoints.auth.company.signup, "POST", data).then(
-        (res) => {
-          if (res.status === 201) {
-            notifications.show({
-              message: "Success register",
-              color: "green",
-            });
-            setTimeout(() => {
-              location.href = "/LoginCompanies";
-            }, 1000);
-          }
+      httpRequest(
+        API_CONFIG.endpoints.auth.company.signup,
+        HTTP_METHODS.POST,
+        data,
+      ).then((res) => {
+        if (res.status === 201) {
+          showNotification("Success register");
+          setTimeout(() => {
+            location.href = "/LoginCompanies";
+          }, 1000);
         }
-      );
+      });
     }
   }
 

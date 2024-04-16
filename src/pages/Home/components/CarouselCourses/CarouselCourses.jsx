@@ -1,19 +1,25 @@
 import { Carousel } from "@mantine/carousel";
-// import { Link } from "@mongez/react-router";
-// import URLS from "apps/front-office/utils/urls";
 import { useEffect, useState } from "react";
 import classes from "./CarouselCourses.module.css";
 import { Link } from "react-router-dom";
-
-
+import {
+  HTTP_METHODS,
+  httpRequest,
+} from "../../../../core/utils/httpRequest.js";
+import APP_CONFIG from "../../../../core/utils/apiConfig.js";
 
 export default function CarouselCourses() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    fetch("https://internships-api.onrender.com/courses")
-      .then(res => res.json())
-      .then(data => setCourses(data));
+    //  todo: change this endpoint according to the UI requirements and add the query parameters
+    httpRequest(APP_CONFIG.endpoints.jobs.getJobs, HTTP_METHODS.GET).then(
+      (res) => {
+        if (res.status === 200) {
+          setCourses(res.data);
+        }
+      },
+    );
   }, []);
 
   return (
@@ -30,14 +36,16 @@ export default function CarouselCourses() {
         slideSize={{ base: "100%", sm: "50%", md: "33.333333%" }}
         slideGap={{ base: 0, sm: "md" }}
         loop
-        align="start">
-        {courses.map(course => (
+        align="start"
+      >
+        {courses.map((course) => (
           <Carousel.Slide key={course.id} style={{ padding: "0px 20px" }}>
             <Link
               to=""
               style={{
                 textDecoration: "none",
-              }}>
+              }}
+            >
               <div className={classes.slide}>
                 <img
                   src={course.img}
@@ -47,12 +55,13 @@ export default function CarouselCourses() {
                 />
                 <div className={classes.description}>
                   <p
-                  className={classes.weeks}
+                    className={classes.weeks}
                     style={{
                       margin: " 0px 0px 0px",
                       fontSize: "15px",
                       fontWeight: "500",
-                    }}>
+                    }}
+                  >
                     {course.time} Weeks
                   </p>
                   <p
@@ -60,14 +69,16 @@ export default function CarouselCourses() {
                       margin: " 5px 0px",
                       fontSize: "16px",
                       fontWeight: "600",
-                    }}>
+                    }}
+                  >
                     {course.title}
                   </p>
                   <div style={{ margin: "6px 0px 0px" }}>
                     <span>
                       <i
                         className="fa-solid fa-star"
-                        style={{ color: "gold" }}></i>{" "}
+                        style={{ color: "gold" }}
+                      ></i>{" "}
                       {course.rate}
                     </span>
                     <span
@@ -75,7 +86,8 @@ export default function CarouselCourses() {
                         borderLeft: "solid 2px rgb(51 170 238 / 30%)",
                         margin: "0px 8px",
                         padding: "0px 0px 0px 10px",
-                      }}>
+                      }}
+                    >
                       {course.student}
                     </span>
                   </div>
@@ -83,8 +95,9 @@ export default function CarouselCourses() {
                     style={{
                       color: "#008BDC",
                       paddingTop: "5px",
-                      marginTop:"5px"
-                    }}>
+                      marginTop: "5px",
+                    }}
+                  >
                     <span>
                       Know more <i className="fa-solid fa-chevron-right"></i>
                     </span>
@@ -101,7 +114,8 @@ export default function CarouselCourses() {
               width: "100%",
               textDecoration: "none",
               textAlign: "start",
-            }}>
+            }}
+          >
             <div>
               <p className={classes.titleLinkMore}>
                 Learn in-demand skills and get certified

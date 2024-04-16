@@ -1,12 +1,14 @@
 import { Carousel } from "@mantine/carousel";
 import "@mantine/carousel/styles.css";
 import { Button, Text } from "@mantine/core";
-// import { Link } from "@mongez/react-router";
-// import URLS from "apps/front-office/utils/urls";
 import { useEffect, useState } from "react";
-// import { vars } from "../theme";
 import classes from "./LatestInternships.module.css";
 import { Link } from "react-router-dom";
+import {
+  HTTP_METHODS,
+  httpRequest,
+} from "../../../../core/utils/httpRequest.js";
+import APP_CONFIG from "../../../../core/utils/apiConfig.js";
 
 export default function LatestInternships() {
   const [allInternships, setAllInternships] = useState([]);
@@ -14,25 +16,31 @@ export default function LatestInternships() {
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    fetch("https://internships-api.onrender.com/internships")
-      .then((res) => res.json())
-      .then((data) => {
-        setAllInternships(data);
-        setIntrenships(data);
-      });
+    //  todo: change this endpoint according to the UI requirements and add the query parameters
+    httpRequest(APP_CONFIG.endpoints.jobs.getJobs, HTTP_METHODS.GET).then(
+      (res) => {
+        if (res.status === 200) {
+          setAllInternships(res.data);
+          setIntrenships(res.data);
+        }
+      },
+    );
   }, []); // category
 
   useEffect(() => {
-    fetch("https://internships-api.onrender.com/categories")
-      .then((res) => res.json())
-      .then((data) => setCategory(data));
+    //  todo: change this endpoint according to the UI requirements
+    httpRequest(APP_CONFIG.endpoints.jobs.getJobs, HTTP_METHODS.GET).then(
+      (res) => {
+        setCategory(res.data);
+      },
+    );
   }, []);
 
   const [active, setActive] = useState(category[0]);
 
   const handleSelectCategory = (category) => {
     const newInternships = allInternships.filter(
-      (ele) => ele.category === category
+      (ele) => ele.category === category,
     );
     setIntrenships(newInternships);
     setActive(category);
@@ -63,7 +71,7 @@ export default function LatestInternships() {
               className={classes.category} //TODO: Give active button border...
               style={{
                 borderRadius: "22px",
-                padding:"8px 10px",
+                padding: "8px 10px",
                 borderColor: `${item === active ? "" : ""}`,
               }}
             >
@@ -141,23 +149,22 @@ export default function LatestInternships() {
                   </li>
                 </ul>
                 <div className={classes.linkVeiw}>
-
-                    <div>
-                        <p className={classes.logoIntern}>Internship</p>
-                    </div>
+                  <div>
+                    <p className={classes.logoIntern}>Internship</p>
+                  </div>
 
                   <div>
-                  <a
-                    className={classes.viewDetails}
-                    href=""
-                    style={{
-                      margin: "0px 7px 8px ",
-                      textDecoration: "none",
-                    }}
-                  >
-                    View details
-                  </a>
-                  <i className="fa-solid fa-chevron-right"></i>
+                    <a
+                      className={classes.viewDetails}
+                      href=""
+                      style={{
+                        margin: "0px 7px 8px ",
+                        textDecoration: "none",
+                      }}
+                    >
+                      View details
+                    </a>
+                    <i className="fa-solid fa-chevron-right"></i>
                   </div>
                 </div>
               </div>

@@ -1,12 +1,15 @@
 import { Carousel } from "@mantine/carousel";
 import { Button } from "@mantine/core";
-// import { Link } from "@mongez/react-router";
-// import URLS from "apps/front-office/utils/urls";
+
 import { useEffect, useState } from "react";
 // import { vars } from "../theme";
 import classes from "./LatestJobs.module.css";
 import { Link } from "react-router-dom";
-
+import APP_CONFIG from "../../../../core/utils/apiConfig.js";
+import {
+  HTTP_METHODS,
+  httpRequest,
+} from "../../../../core/utils/httpRequest.js";
 
 export default function LatestJobs() {
   const [allJobs, setAllJobs] = useState([]);
@@ -15,22 +18,28 @@ export default function LatestJobs() {
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    fetch("https://internships-api.onrender.com/jobs")
-      .then(res => res.json())
-      .then(data => {
-        setAllJobs(data);
-        setJobs(data);
-      });
-  }, []);
+    //  todo: change this endpoint according to the UI requirements and add the query parameters
+    httpRequest(APP_CONFIG.endpoints.jobs.getJobs, HTTP_METHODS.GET).then(
+      (res) => {
+        if (res.status === 200) {
+          setAllJobs(res.data);
+          setJobs(res.data);
+        }
+      },
+    );
+  }, []); // category
 
   useEffect(() => {
-    fetch("https://internships-api.onrender.com/categories")
-      .then(res => res.json())
-      .then(data => setCategory(data));
+    //  todo: change this endpoint according to the UI requirements
+    httpRequest(APP_CONFIG.endpoints.jobs.getJobs, HTTP_METHODS.GET).then(
+      (res) => {
+        setCategory(res.data);
+      },
+    );
   }, []);
 
-  const handleSelectCategory = category => {
-    const newJobs = allJobs.filter(ele => ele.category === category);
+  const handleSelectCategory = (category) => {
+    const newJobs = allJobs.filter((ele) => ele.category === category);
     setJobs(newJobs);
     setActive(category);
   };
@@ -45,7 +54,7 @@ export default function LatestJobs() {
         <p style={{ margin: "9px 5px", fontSize: "18px", fontWeight: 400 }}>
           POPULAR CATEGORIES:
         </p>
-        {category.map(item => {
+        {category.map((item) => {
           return (
             <Button
               styles={{
@@ -59,9 +68,10 @@ export default function LatestJobs() {
               onClick={() => handleSelectCategory(item)}
               className={classes.category} //TODO: Give active button border...
               style={{
-                borderRadius:"22px",
+                borderRadius: "22px",
                 borderColor: `${item === active ? "" : ""}`,
-              }}>
+              }}
+            >
               {item}
             </Button>
           );
@@ -77,24 +87,29 @@ export default function LatestJobs() {
         // loop
         align="start"
         controlSize={40}
-        controlsOffset="xs">
-        {jobs.map(job => (
+        controlsOffset="xs"
+      >
+        {jobs.map((job) => (
           <Carousel.Slide key={job.id} className={classes.card}>
             <Link to="" className={classes.linkCard}>
               <div className={classes.actively}>
                 <i
                   className="fa-solid fa-arrow-trend-up"
-                  style={{ color: "#3ae" }}></i>
+                  style={{ color: "#3ae" }}
+                ></i>
                 <p className={classes.active_hiring}>Actively hiring</p>
               </div>
               <div className={classes.cardCourses}>
                 <span className={classes.headingCard}>
-                  <p className={classes.titleJob} style={{ margin: "0px" }}>{job.title}</p>
+                  <p className={classes.titleJob} style={{ margin: "0px" }}>
+                    {job.title}
+                  </p>
                   <p
                     style={{
                       margin: "0px",
                       color: "rgb(0 0 0 / 60%)",
-                    }}>
+                    }}
+                  >
                     {job.hint}
                   </p>
                 </span>
@@ -111,37 +126,40 @@ export default function LatestJobs() {
                     padding: "0px",
                     color: "rgb(0 0 0 / 74%)",
                     fontSize: "14px",
-                  }}>
+                  }}
+                >
                   <li>
                     <i
                       className="fa-solid fa-location-dot"
-                      style={{ padding: "5px 5px 10px 0px" }}></i>
+                      style={{ padding: "5px 5px 10px 0px" }}
+                    ></i>
                     {job.country}
                   </li>
                   <li>
                     <i
                       className="fa-solid fa-dollar-sign"
-                      style={{ padding: "5px 5px 5px 0px" }}></i>
+                      style={{ padding: "5px 5px 5px 0px" }}
+                    ></i>
                     ${job.salary} /Monthly
                   </li>
                 </ul>
                 <div className={classes.linkVeiw}>
-                    <div>
-                        <p className={classes.logoJob}>Job</p>
-                    </div>
-                    <div>
-
-                  <a
-                    href=""
-                    className={classes.viewDetails}
-                    style={{
-                      margin: "0px 7px 8px ",
-                      textDecoration: "none",
-                    }}>
-                    View details
-                  </a>
-                  <i className="fa-solid fa-chevron-right"></i>
-                    </div>
+                  <div>
+                    <p className={classes.logoJob}>Job</p>
+                  </div>
+                  <div>
+                    <a
+                      href=""
+                      className={classes.viewDetails}
+                      style={{
+                        margin: "0px 7px 8px ",
+                        textDecoration: "none",
+                      }}
+                    >
+                      View details
+                    </a>
+                    <i className="fa-solid fa-chevron-right"></i>
+                  </div>
                 </div>
               </div>
             </Link>
@@ -151,23 +169,24 @@ export default function LatestJobs() {
           <Link to="/jobs" className={classes.linkCard}>
             <div className={classes.moreInternships}>
               <div>
-                <h1 
-                className={classes.unlock}
+                <h1
+                  className={classes.unlock}
                   style={{
                     fontSize: "25px",
                     textAlign: "start",
                     margin: "0px",
-                    
-                  }}>
+                  }}
+                >
                   Unlock your true potential
                 </h1>
                 <p
-                 className={classes.explore}
+                  className={classes.explore}
                   style={{
                     fontSize: "17px",
                     textAlign: "start",
                     marginTop: "0px",
-                  }}>
+                  }}
+                >
                   Explore more than 15,000+ jobs
                 </p>
               </div>
@@ -179,7 +198,8 @@ export default function LatestJobs() {
                   style={{
                     textDecoration: "none",
                     marginBottom: "21px",
-                  }}>
+                  }}
+                >
                   View internships
                 </a>
                 <i className="fa-solid fa-chevron-right"></i>
