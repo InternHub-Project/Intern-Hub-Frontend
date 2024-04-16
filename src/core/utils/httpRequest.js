@@ -32,7 +32,7 @@ export async function httpRequest(
     });
 
     printResponse(response);
-    return response.data;
+    return response;
   } catch (error) {
     printError(error);
     if (error.response.data.message) {

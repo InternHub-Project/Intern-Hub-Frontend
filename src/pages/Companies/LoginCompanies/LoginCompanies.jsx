@@ -97,7 +97,7 @@ export default function LoginCompanies() {
               }}
             >
               <a
-                href="/ForgetPassCompanies"
+                href="/ForgetPassword"
                 style={{
                   textDecoration: "none",
                   color: "#00A5EC",

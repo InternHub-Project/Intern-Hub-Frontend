@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-const UpdatePassUserSchema = yup.object().shape({
+const UpdatePasswordSchema = yup.object().shape({
   code: yup.string().required("Code is required"),
   password: yup
     .string()
@@ -14,4 +14,4 @@ const UpdatePassUserSchema = yup.object().shape({
 
 //Regex
 
-export default UpdatePassUserSchema;
+export default UpdatePasswordSchema;

@@ -95,7 +95,7 @@ export default function LoginUser() {
               }}
             >
               <a
-                href="/ForgetPasswordUser"
+                href="/ForgetPassword"
                 style={{
                   textDecoration: "none",
                   color: "#00A5EC",

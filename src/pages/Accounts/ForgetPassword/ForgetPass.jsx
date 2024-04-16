@@ -1,27 +1,41 @@
-import classes from "./ForgetPassUser.module.css";
+import classes from "./ForgetPass.module.css";
 import { Button, Title } from "@mantine/core";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import ForgetPassUserSchema from "./ForgetPassUserSchema/ForgetPassUserSchema";
-import { HTTP_METHODS, httpRequest } from "../../../core/utils/httpRequest.js";
+import ForgetPassSchema from "./ForgetPassSchema/ForgetPassSchema";
+import { notifications } from "@mantine/notifications";
+import { httpRequest } from "../../../core/utils/httpRequest.js";
 import API_CONFIG from "../../../core/utils/apiConfig.js";
-import { showNotification } from "../../../core/helperMethods/showNotification.js";
+import { useNavigate } from "react-router-dom";
 
-export default function ForgetPassUser() {
+
+export default function ForgetPass() {
+  const Navigate=useNavigate()
   function sendCode(values) {
-    httpRequest(API_CONFIG.endpoints.auth.forgetPassword, HTTP_METHODS.POST, {
-      email: values.email,
-    }).then((res) => {
-      if (res.status === 200) {
-        showNotification("Code sent successfully");
+    const data = { email: values.email, type: values.type };
+    localStorage.setItem("email", values.email)
+    localStorage.setItem("type", values.type)
+    console.log(data);
+    httpRequest(API_CONFIG.endpoints.auth.forgetPassword, "POST", data).then(
+      (res) => {
+        if (res.status === 200) {
+          notifications.show({
+            message: "Check your email",
+            color: "green",
+          });
+          setTimeout(() => {
+            Navigate("/UpdatePassword")
+            // location.href = "/UpdatePassword";
+          }, 1000);
+        }
       }
-    });
+    );
   }
 
   return (
     <div className={classes.style}>
       <div>
         <Title ta="center" mt={"50px"} className={classes.title}>
-          Forget password to user
+          Forget password
         </Title>
       </div>
       <div
@@ -35,8 +49,9 @@ export default function ForgetPassUser() {
         <Formik
           initialValues={{
             email: "",
+            type: "", 
           }}
-          validationSchema={ForgetPassUserSchema}
+          validationSchema={ForgetPassSchema}
           onSubmit={sendCode}
         >
           <Form className={classes.form}>
@@ -57,6 +72,17 @@ export default function ForgetPassUser() {
                 name="email"
                 component={"div"}
               />
+            </div>
+            <div>
+              <label className={classes.label} htmlFor="type">
+                Type:
+              </label>
+              <br />
+              <Field as="select" className={classes.field} id="type" name="type">
+                <option value="">Select Type</option>
+                <option value="user">User</option>
+                <option value="company">Company</option>
+              </Field>
             </div>
             <br />
             <div>

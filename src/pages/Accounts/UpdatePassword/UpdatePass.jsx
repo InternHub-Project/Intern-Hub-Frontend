@@ -1,63 +1,77 @@
-import classes from "./UpdatePassUser.module.css";
+import classes from "./UpdatePass.module.css";
 import { Button } from "@mantine/core";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import UpdatePassUserSchema from "./UpdatepassUserSchema/UpdatePassUserSchema.jsx";
-import { HTTP_METHODS, httpRequest } from "../../../core/utils/httpRequest.js";
+import { notifications } from "@mantine/notifications";
+import { httpRequest } from "../../../core/utils/httpRequest.js";
 import API_CONFIG from "../../../core/utils/apiConfig.js";
-import {
-  NOTIFICATION_TYPES,
-  showNotification,
-} from "../../../core/helperMethods/showNotification.js";
+import UpdatePasswordSchema from "./UpdatepassSchema/UpdatePasswordSchema.jsx";
+import {  showNotification } from "../../../core/helperMethods/showNotification.js";
+import { useNavigate } from "react-router-dom";
+
+
 
 export default function UpdatePassUser() {
+  const navigate = useNavigate();
+
   let email;
-  if (localStorage.getItem("gmail")) {
-    email = localStorage.getItem("gmail");
+  const type=localStorage.getItem("type")
+  if (localStorage.getItem("email")) {
+    email = localStorage.getItem("email");
   } else {
     email = "Please Go To Forget Password First";
   }
 
   function updatePassword(values) {
-    const data = { email, ...values };
-
+    const data = {email,type,password:values.password,code:values.code,confirmPassword:values.confirmPassword};
     if (
       data.code === "" ||
       data.password === "" ||
       data.confirmPassword === ""
     ) {
-      showNotification("Wrong in one of the inputs", NOTIFICATION_TYPES.ERROR);
+      notifications.show({
+        message: "Wrong in one of the inputs",
+        color: "red",
+      });
     } else {
       delete data.confirmPassword;
-      httpRequest(
-        API_CONFIG.endpoints.auth.setPassword,
-        HTTP_METHODS.PUT,
-        data,
-      ).then((res) => {
-        // console.log(res);
-        if (res.status === 200) {
-          showNotification("Success update password");
-          setTimeout(() => {
-            location.href = "/LoginUser";
-          }, 1000);
+      httpRequest(API_CONFIG.endpoints.auth.setPassword, "PUT", data).then(
+        (res) => {
+          if (res.status === 200) {
+            notifications.show({
+              message: "Success update password",
+              color: "green",
+            });
+            if(type=="user"){
+              setTimeout(() => {
+                navigate("/LoginUser");
+              }, 1000);
+            }
+            else{
+              setTimeout(() => {
+                navigate("/LoginCompanies");
+              }, 1000);
+            }
+           localStorage.clear()
+          }
         }
-      });
+      );
     }
   }
 
   function resendCode() {
-    httpRequest(API_CONFIG.endpoints.auth.resendCode, HTTP_METHODS.POST, {
-      email,
-    }).then((res) => {
-      if (res.status === 200) {
-        showNotification("Code sent successfully");
+    httpRequest(API_CONFIG.endpoints.auth.resendCode, "POST", { email,type }).then(
+      (res) => {
+        if (res.status === 200) {
+        showNotification("Check your email")
+        }
       }
-    });
+    );
   }
 
   return (
     <div className={classes.style}>
       <div className={classes.titleHeader}>
-        <p className={classes.title}>Update password to user</p>
+        <p className={classes.title}>Update password</p>
       </div>
       <div
         style={{
@@ -73,8 +87,9 @@ export default function UpdatePassUser() {
               code: "",
               password: "",
               confirmPassword: "",
+              type: "User", // Default value for type
             }}
-            validationSchema={UpdatePassUserSchema}
+            validationSchema={UpdatePasswordSchema}
             onSubmit={updatePassword}
           >
             <Form className={classes.form}>
@@ -90,6 +105,21 @@ export default function UpdatePassUser() {
                   readOnly
                   className={classes.field}
                   value={`${email}`}
+                />
+              </div>
+              <br />
+              <div>
+                <label className={classes.label} htmlFor="type">
+                  Type:
+                </label>
+                <br />
+                <Field
+                  as="input"
+                  className={classes.field}
+                  id="type"
+                  name="type"
+                  value={`${type}`}
+                  readOnly
                 />
               </div>
               <br />
@@ -169,10 +199,7 @@ export default function UpdatePassUser() {
                   onClick={() => {
                     resendCode();
                   }}
-                  style={{
-                    color: "rgb(34,139,230)",
-                    backgroundColor: "#ffffff00",
-                  }}
+                  style={{ color: "rgb(34,139,230)", backgroundColor: "#ffffff00" }}
                 >
                   Resend code
                 </Button>

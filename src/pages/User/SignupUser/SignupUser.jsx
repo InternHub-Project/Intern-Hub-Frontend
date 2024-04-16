@@ -23,6 +23,9 @@ export default function SignupUser() {
     ) {
       showNotification("Wrong in one of the inputs", NOTIFICATION_TYPES.ERROR);
     } else {
+      data.userName=`${data.firstName} ${data.lastName}`
+      delete data.firstName
+      delete data.lastName
       httpRequest(
         API_CONFIG.endpoints.auth.user.signup,
         HTTP_METHODS.POST,

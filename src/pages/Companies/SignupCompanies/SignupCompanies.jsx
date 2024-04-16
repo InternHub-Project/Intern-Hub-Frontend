@@ -14,11 +14,10 @@ export default function SignupCompanies() {
       name: values.name,
       email: values.email,
       password: values.password,
-      address: {
         address: values.address,
         city: values.city,
         country: values.country,
-      },
+        state:values.state,
       field: values.field,
     };
 
@@ -29,7 +28,7 @@ export default function SignupCompanies() {
       data.address.address === "" ||
       data.address.city === "" ||
       data.address.country === "" ||
-      data.field === ""
+      data.field === "" 
     ) {
       notifications.show({
         message: "Wrong in one of the inputs",
