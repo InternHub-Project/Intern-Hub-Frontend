@@ -20,7 +20,7 @@ export default function JobsFilter({ setFilterQuery }: any) {
   const [_, setInternShip] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/framework")
+    fetch("https://internships-api.onrender.com/framework")
       .then((res) => res.json())
       .then((data) => setInternShip(data));
   }, []);

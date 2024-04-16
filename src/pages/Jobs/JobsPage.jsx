@@ -1,19 +1,57 @@
-import { Container, Grid } from "@mantine/core";
+import { Container, Grid, Pagination } from "@mantine/core";
 import { useEffect, useState } from "react";
 import classes from "./JobsPage.module.css";
 import { Link } from "react-router-dom";
 import JobsFilter from "./component/JobsFilter/JobsFilter";
+import API_CONFIG from "../../utils/apiConfig";
 
 
 
 export default function JobsPage() {
   const [filterQuery, setFilterQuery] = useState();
   const [internShip, setInternShip] = useState([]);
-  useEffect(() => {
-    fetch(`https://internships-api.onrender.com/jobs?${filterQuery}`)
+  useEffect(() => {    
+    fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.job.allJobs}?${filterQuery}`)
       .then(res => res.json())
-      .then(data => setInternShip(data));
+      .then(data =>{
+        setInternShip(data.data)
+        console.log(data.data);
+      } 
+    ).catch(err=>console.log(err))
   }, [filterQuery]);
+
+  function timeSincePublication(publishDate) {
+    const now = new Date();
+    const publishDateObject = new Date(publishDate);
+    const differenceInMilliseconds = now - publishDateObject;
+    const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
+  
+    if (differenceInSeconds < 60) {
+      return 'just now';
+    } else if (differenceInSeconds < 3600) {
+      const minutes = Math.floor(differenceInSeconds / 60);
+      return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+    } else if (differenceInSeconds < 86400) {
+      const hours = Math.floor(differenceInSeconds / 3600);
+      return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+    } else if (differenceInSeconds < 604800) {
+      const days = Math.floor(differenceInSeconds / 86400);
+      return `${days} day${days !== 1 ? 's' : ''} ago`;
+    } else if (differenceInSeconds < 2592000) {
+      const weeks = Math.floor(differenceInSeconds / 604800);
+      return` ${weeks} week${weeks !== 1 ? 's' : ''} ago`;
+    } else if (differenceInSeconds < 31536000) {
+      const months = Math.floor(differenceInSeconds / 2592000);
+      return `${months} month${months !== 1 ? 's' : ''} ago`;
+    } else {
+      const years = Math.floor(differenceInSeconds / 31536000);
+      return `${years} year${years !== 1 ? 's' : ''} ago`;
+    }
+  }
+  
+  const publishDate = '2024-02-27T20:07:10.387Z';
+  console.log(timeSincePublication(publishDate)); 
+
   return (
     <>
       <Container>
@@ -53,8 +91,8 @@ export default function JobsPage() {
                       justifyContent: "space-between",
                     }}>
                     <div>
-                      <p className={classes.hint}>{item.hint}</p>
-                      <p className={classes.title}>{item.title}</p>
+                      <p className={classes.hint}>{item.title}</p>
+                      <p className={classes.title}>{item.companyName}</p>
                     </div>
                     <div>
                       <img src={item.img} width={"50px"} height={"50px"} />
@@ -64,10 +102,10 @@ export default function JobsPage() {
                     <i
                       className="fa-solid fa-location-dot"
                       style={{ color: "#8A8A8A" }}></i>{" "}
-                    {item.country}
+                    {item.internLocation}
                   </div>
                   <div className={classes.info}>
-                    <div style={{ margin: "7px 7px 7px 0px " }}>
+                    <div style={{ margin: "7px 10px 7px 0px " }}>
                       <p className={classes.start}>
                         {" "}
                         <i
@@ -78,20 +116,22 @@ export default function JobsPage() {
                           }}></i>
                         START DATE
                       </p>
-                      <p className={classes.immediately}>Immediately</p>
+                      <p className={classes.immediately}>{item.startDate}</p>
                     </div>
-                    <div style={{ margin: "7px" }}>
+                    <div style={{ margin: "7px 10px 7px 7px" }}>
                       <p className={classes.start}>
                         {" "}
                         <i
-                          className="fa-solid fa-suitcase"
+                          className="fa-regular fa-calendar"
                           style={{
                             color: "#8A8A8A",
                             padding: "0px 2px 2px 0px",
                           }}></i>
-                        Experience
+                        DURATION
                       </p>
-                      <p className={classes.immediately}>{item.experience}</p>
+                      <p className={classes.immediately}>
+                        {item.duration}
+                      </p>
                     </div>
                     <div style={{ margin: "7px" }}>
                       <p className={classes.start}>
@@ -105,7 +145,7 @@ export default function JobsPage() {
                         SALARY
                       </p>
                       <p className={classes.immediately}>
-                        ${item.minSalary} - {item.maxSalary} /month
+                        ${item.Salary}
                       </p>
                     </div>
                   </div>
@@ -123,10 +163,10 @@ export default function JobsPage() {
                       <i
                         className="fa-regular fa-clock"
                         style={{
-                          color: "#8A8A8A",
+                          color: "rgb(19,128,13)",
                           padding: "0px 2px 2px 0px",
                         }}></i>
-                      {item.publication}
+                      {timeSincePublication(item.createdAt)}
                     </p>
                     <p
                       style={{
@@ -138,6 +178,17 @@ export default function JobsPage() {
                         color: "black",
                       }}>
                       Fresher Job
+                    </p>
+                    <p
+                      style={{
+                        margin: "5px 10px 5px 10px",
+                        backgroundColor: "#eee",
+                        borderRadius: "6px",
+                        padding: "4px 7px",
+                        fontSize: "13px",
+                        color: "black",
+                      }}>
+                      {item.internType}
                     </p>
                   </div>
                   <div
@@ -167,6 +218,11 @@ export default function JobsPage() {
           </Grid.Col>
         </Grid>
       </Container>
+      <div style={{display:"flex" , justifyContent:"center"}}>
+
+       <Pagination total={10} color="orange" size="xs" withEdges />
+      </div>
+
     </>
   );
 }
