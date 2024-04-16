@@ -11,7 +11,7 @@ import UpdatePassUser from "./pages/User/UpdatePasswordUser/UpdatePassUser";
 import "@mantine/core/styles.css";
 import Header from "./pages/Home/components/Header/Header";
 import { Footer } from "./pages/Home/components/Footer/Footer";
-import { errorPage } from "./pages/ErrorPage/errorPage";
+import { errorPage } from "./core/shared/component/errorPage/errorPage.jsx";
 import JobsPage from "./pages/Jobs/JobsPage";
 
 function App() {

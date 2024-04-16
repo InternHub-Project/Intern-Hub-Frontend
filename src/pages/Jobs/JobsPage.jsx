@@ -3,17 +3,29 @@ import { useEffect, useState } from "react";
 import classes from "./JobsPage.module.css";
 import { Link } from "react-router-dom";
 import JobsFilter from "./component/JobsFilter/JobsFilter";
-
-
+import { HTTP_METHODS, httpRequest } from "../../core/utils/httpRequest.js";
+import APP_CONFIG from "../../core/utils/apiConfig.js";
 
 export default function JobsPage() {
   const [filterQuery, setFilterQuery] = useState();
   const [internShip, setInternShip] = useState([]);
   useEffect(() => {
-    fetch(`https://internships-api.onrender.com/jobs?${filterQuery}`)
-      .then(res => res.json())
-      .then(data => setInternShip(data));
+    //  todo: change this endpoint according to the UI requirements and add the query parameters
+    httpRequest(
+      APP_CONFIG.endpoints.jobs.getJobs,
+      HTTP_METHODS.GET,
+      {},
+      {},
+      {
+        // size: 10,
+        // skip: 0,
+        // filterQuery,
+      },
+    ).then((res) => {
+      setInternShip(res.data);
+    });
   }, [filterQuery]);
+
   return (
     <>
       <Container>
@@ -26,7 +38,8 @@ export default function JobsPage() {
                     {" "}
                     <i
                       className="fa-solid fa-filter"
-                      style={{ color: "#008BDC", paddingRight: "2px" }}></i>
+                      style={{ color: "#008BDC", paddingRight: "2px" }}
+                    ></i>
                     Filter
                   </p>
                 </div>
@@ -35,23 +48,22 @@ export default function JobsPage() {
             </div>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 8 }}>
-            {internShip.map(item => (
-              <Link
-                key={item.id}
-                to={""}
-                className={classes.styleIntern}>
+            {internShip.map((item) => (
+              <Link key={item.id} to={""} className={classes.styleIntern}>
                 <div>
                   <div className={classes.actively}>
                     <i
                       className="fa-solid fa-arrow-trend-up"
-                      style={{ color: "#3ae" }}></i>
+                      style={{ color: "#3ae" }}
+                    ></i>
                     <p className={classes.active_hiring}>Actively hiring</p>
                   </div>
                   <div
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
-                    }}>
+                    }}
+                  >
                     <div>
                       <p className={classes.hint}>{item.hint}</p>
                       <p className={classes.title}>{item.title}</p>
@@ -63,7 +75,8 @@ export default function JobsPage() {
                   <div className={classes.country}>
                     <i
                       className="fa-solid fa-location-dot"
-                      style={{ color: "#8A8A8A" }}></i>{" "}
+                      style={{ color: "#8A8A8A" }}
+                    ></i>{" "}
                     {item.country}
                   </div>
                   <div className={classes.info}>
@@ -75,7 +88,8 @@ export default function JobsPage() {
                           style={{
                             color: "#8A8A8A",
                             padding: "0px 2px 2px 0px",
-                          }}></i>
+                          }}
+                        ></i>
                         START DATE
                       </p>
                       <p className={classes.immediately}>Immediately</p>
@@ -88,7 +102,8 @@ export default function JobsPage() {
                           style={{
                             color: "#8A8A8A",
                             padding: "0px 2px 2px 0px",
-                          }}></i>
+                          }}
+                        ></i>
                         Experience
                       </p>
                       <p className={classes.immediately}>{item.experience}</p>
@@ -101,7 +116,8 @@ export default function JobsPage() {
                           style={{
                             color: "#8A8A8A",
                             padding: "0px 2px 2px 0px",
-                          }}></i>
+                          }}
+                        ></i>
                         SALARY
                       </p>
                       <p className={classes.immediately}>
@@ -119,13 +135,15 @@ export default function JobsPage() {
                         padding: "4px 7px",
                         fontSize: "13px",
                         color: "rgb(19,128,13)",
-                      }}>
+                      }}
+                    >
                       <i
                         className="fa-regular fa-clock"
                         style={{
                           color: "#8A8A8A",
                           padding: "0px 2px 2px 0px",
-                        }}></i>
+                        }}
+                      ></i>
                       {item.publication}
                     </p>
                     <p
@@ -136,7 +154,8 @@ export default function JobsPage() {
                         padding: "4px 7px",
                         fontSize: "13px",
                         color: "black",
-                      }}>
+                      }}
+                    >
                       Fresher Job
                     </p>
                   </div>
@@ -145,7 +164,8 @@ export default function JobsPage() {
                       backgroundColor: "#eee",
                       height: "1px",
                       margin: "10px 5px",
-                    }}></div>
+                    }}
+                  ></div>
                 </div>
                 <div style={{ textAlign: "end", margin: "0px 5px" }}>
                   <a
@@ -158,7 +178,8 @@ export default function JobsPage() {
                       border: "1px solid #008BDC",
                       borderRadius: "6px",
                       color: "#008BDC",
-                    }}>
+                    }}
+                  >
                     view details
                   </a>
                 </div>

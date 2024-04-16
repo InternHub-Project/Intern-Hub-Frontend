@@ -1,80 +1,47 @@
-// import {
-//   Avatar,
-//   Box,
-//   Button,
-//   Group,
-//   Text,
-//   UnstyledButton,
-// } from "@mantine/core";
-// import { notifications } from "@mantine/notifications";
 import classes from "./UserInfo.module.css";
-// import Search from "./component/search/Search";
-import axios from "axios";
 
-/* eslint-disable react-hooks/rules-of-hooks */
 import cx from "clsx";
 import { useState } from "react";
 import {
-  Container,
   Avatar,
-  UnstyledButton,
-  Group,
-  Text,
-  Menu,
-  Burger,
-  rem,
-  useMantineTheme,
   Box,
+  Burger,
+  Container,
+  Group,
+  Menu,
+  rem,
+  Text,
+  UnstyledButton,
+  useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
-  IconLogout,
-  IconStar,
-  IconSettings,
-  IconTrash,
-  IconSwitchHorizontal,
   IconChevronDown,
-  IconFile,
   IconEdit,
+  IconFile,
+  IconLogout,
   IconRepeat,
+  IconSettings,
+  IconStar,
+  IconSwitchHorizontal,
+  IconTrash,
 } from "@tabler/icons-react";
-
-// const user = {
-//   name: "Jane Spoonfighter",
-//   email: "janspoon@fighter.dev",
-//   image:
-//     "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-9.png",
-// };
+import {
+  HTTP_METHODS,
+  httpRequest,
+} from "../../../../core/utils/httpRequest.js";
+import APP_CONFIG from "../../../../core/utils/apiConfig.js";
 
 export function UserInfo() {
   const user = localStorage.getItem("userId");
   const userData = JSON.parse(user);
-  // console.log(userData);
 
   function logout() {
-    axios({
-      method: HTTP_METHODS.POST,
-      url: "https://api.codesplus.online/api/v1/user/logout",
-      withCredentials: true,
-    })
-      .then((res) => {
+    httpRequest(APP_CONFIG.endpoints.user.logout, HTTP_METHODS.POST).then(
+      (res) => {
         console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // localStorage.clear();
-    // notifications.show({
-    //   message: "Success logout",
-    //   color: "green",
-    // });
-    // setTimeout(() => {
-    //   if (userData.companyId) {
-    //     location.href = "/LoginCompanies";
-    //   } else {
-    //     location.href = "/LoginUser";
-    //   }
-    // }, 500);
+      },
+    );
   }
 
   const theme = useMantineTheme();

@@ -2,13 +2,17 @@ import { Carousel } from "@mantine/carousel";
 import "@mantine/carousel/styles.css";
 import { useEffect, useState } from "react";
 import classes from "./CarouselTrending.module.css";
-import { HTTP_METHODS, httpRequest } from "../../../../utils/httpRequest.js";
-import API_CONFIG from "../../../../utils/apiConfig.js";
+import {
+  HTTP_METHODS,
+  httpRequest,
+} from "../../../../core/utils/httpRequest.js";
+import API_CONFIG from "../../../../core/utils/apiConfig.js";
 
 export function CarouselTrending() {
   const [trending, setTrending] = useState([]);
 
   useEffect(() => {
+    //  todo: change this endpoint according to the UI requirements and add the query parameters
     httpRequest(
       API_CONFIG.endpoints.jobs.getRecommendedJobs,
       HTTP_METHODS.GET,

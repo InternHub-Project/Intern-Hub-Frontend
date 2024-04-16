@@ -5,6 +5,11 @@ import { useEffect, useState } from "react";
 // import { vars } from "../theme";
 import classes from "./LatestJobs.module.css";
 import { Link } from "react-router-dom";
+import APP_CONFIG from "../../../../core/utils/apiConfig.js";
+import {
+  HTTP_METHODS,
+  httpRequest,
+} from "../../../../core/utils/httpRequest.js";
 
 export default function LatestJobs() {
   const [allJobs, setAllJobs] = useState([]);
@@ -13,18 +18,24 @@ export default function LatestJobs() {
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    fetch("https://internships-api.onrender.com/jobs")
-      .then((res) => res.json())
-      .then((data) => {
-        setAllJobs(data);
-        setJobs(data);
-      });
-  }, []);
+    //  todo: change this endpoint according to the UI requirements and add the query parameters
+    httpRequest(APP_CONFIG.endpoints.jobs.getJobs, HTTP_METHODS.GET).then(
+      (res) => {
+        if (res.status === 200) {
+          setAllJobs(res.data);
+          setJobs(res.data);
+        }
+      },
+    );
+  }, []); // category
 
   useEffect(() => {
-    fetch("https://internships-api.onrender.com/categories")
-      .then((res) => res.json())
-      .then((data) => setCategory(data));
+    //  todo: change this endpoint according to the UI requirements
+    httpRequest(APP_CONFIG.endpoints.jobs.getJobs, HTTP_METHODS.GET).then(
+      (res) => {
+        setCategory(res.data);
+      },
+    );
   }, []);
 
   const handleSelectCategory = (category) => {

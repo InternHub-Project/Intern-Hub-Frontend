@@ -14,13 +14,14 @@ export async function httpRequest(
   method = HTTP_METHODS.GET,
   data = {},
   headers = {},
+  queryParameters = {},
   fullUrl = null,
 ) {
   try {
-    console.log("API URL => ", fullUrl ? fullUrl : API_CONFIG.baseUrl + endpoint);
+    let url = prepareUrl();
     const response = await axios({
+      url: url,
       method: method.toUpperCase(),
-      url: fullUrl ? fullUrl : API_CONFIG.baseUrl + endpoint,
       data,
       headers: {
         ...headers,
@@ -46,6 +47,15 @@ export async function httpRequest(
       });
     }
     throw error;
+  }
+
+  function prepareUrl() {
+    let url = fullUrl ? fullUrl : API_CONFIG.baseUrl + endpoint;
+    if (Object.keys(queryParameters).length > 0) {
+      const queryString = new URLSearchParams(queryParameters).toString();
+      url += `?${queryString}`;
+    }
+    return url;
   }
 
   function printResponse(response) {

@@ -1,8 +1,8 @@
-import { Text, Container, ActionIcon, Group, rem, Box } from "@mantine/core";
+import { ActionIcon, Box, Container, Group, rem, Text } from "@mantine/core";
 import {
+  IconBrandInstagram,
   IconBrandTwitter,
   IconBrandYoutube,
-  IconBrandInstagram,
 } from "@tabler/icons-react";
 import classes from "./Footer.module.css";
 
@@ -51,7 +51,7 @@ export function Footer() {
     ));
 
     return (
-      <div  className={classes.wrapper} key={group.title}>
+      <div className={classes.wrapper} key={group.title}>
         <Text className={classes.title}>{group.title}</Text>
         {links}
       </div>
@@ -62,10 +62,9 @@ export function Footer() {
     <footer className={classes.footer}>
       <Container className={classes.inner}>
         <div className={classes.logo}>
-          <Box  me={50} display={"flex"} style={{ alignItems: "center" }}>
+          <Box me={50} display={"flex"} style={{ alignItems: "center" }}>
             <img
-              
-              src="src/pages/Home/components/Logo/WhatsApp_Image_2024-03-18_at_05.38.27_e1f021fa-removebg-preview.png"
+              src="src/assets/images/logo.png"
               alt=""
               width={"150px"}
               height={"100px"}
@@ -79,12 +78,16 @@ export function Footer() {
               </Text>
             </Box>
           </Box>
-          <Text ta={"center"} size="xs" c="dimmed" className={classes.description}>
+          <Text
+            ta={"center"}
+            size="xs"
+            c="dimmed"
+            className={classes.description}
+          >
             Build fully functional accessible web applications faster than ever
           </Text>
         </div>
 
-  
         <div className={classes.groups}>{groups}</div>
       </Container>
       <Container className={classes.afterFooter}>

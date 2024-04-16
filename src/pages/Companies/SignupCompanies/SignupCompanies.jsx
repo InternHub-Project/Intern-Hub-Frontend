@@ -4,8 +4,9 @@ import { notifications } from "@mantine/notifications";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { GoogleButton } from "./ButtonGoogle/GoogleButton";
 import RegisterCompaniesSchema from "./RegisterCompaniesSchema/RegisterCompaniesSchema";
-import { HTTP_METHODS, httpRequest } from "../../../utils/httpRequest.js";
-import API_CONFIG from "../../../utils/apiConfig.js";
+import { HTTP_METHODS, httpRequest } from "../../../core/utils/httpRequest.js";
+import API_CONFIG from "../../../core/utils/apiConfig.js";
+import { showNotification } from "../../../core/helperMethods/showNotification.js";
 
 export default function SignupCompanies() {
   function addCompanies(values) {
@@ -41,10 +42,7 @@ export default function SignupCompanies() {
         data,
       ).then((res) => {
         if (res.status === 201) {
-          notifications.show({
-            message: "Success register",
-            color: "green",
-          });
+          showNotification("Success register");
           setTimeout(() => {
             location.href = "/LoginCompanies";
           }, 1000);
