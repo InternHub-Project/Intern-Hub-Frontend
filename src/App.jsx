@@ -11,6 +11,7 @@ import { errorPage } from "./core/shared/component/errorPage/errorPage.jsx";
 import JobsPage from "./pages/Jobs/JobsPage";
 import ForgetPass from "./pages/Accounts/ForgetPassword/ForgetPass.jsx";
 import UpdatePassUser from "./pages/Accounts/UpdatePassword/UpdatePass.jsx";
+import ConfirmationPage from "./pages/Accounts/ConfirmationEmail/ConfirmationPage.jsx";
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
 
         <Route path="/ForgetPassword" Component={ForgetPass} />
         <Route path="/UpdatePassword" Component={UpdatePassUser} />
+        
+        <Route path="/confirmation/:token"  Component={ConfirmationPage} />
       </Routes>
       <Footer />
     </>

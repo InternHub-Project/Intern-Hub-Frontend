@@ -15,7 +15,7 @@ export default function LoginUser() {
       email: values.email,
       password: values.password,
     }).then((result) => {
-      showNotification(result.message, NOTIFICATION_TYPES.SUCCESS);
+      showNotification("login Success", NOTIFICATION_TYPES.SUCCESS);
       localStorage.setItem("userInfo", JSON.stringify(result.data));
       setTimeout(() => {
         location.href = "/";

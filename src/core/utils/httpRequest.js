@@ -26,9 +26,10 @@ export async function httpRequest(
       headers: {
         ...headers,
         "Content-Type": "application/json",
-        Authorization: "internHub__" + localStorage.getItem("token"),
+        Authorization: "internHub__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVc2VyN2FkNjc1NTUtZTQwMi00NTIyLWFjMjQtNzEwMTBiNTA3Mzk5Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTMzNDk3MzMsImV4cCI6MTcxMzQzNjEzM30.2L_IFmoS0jP1k0NX-QN9gMYyQR1kSmZcpMlrlKIxmtI",
         "X-API-Key": "internHub__" + localStorage.getItem("token"),
       },
+      withCredentials:true
     });
 
     printResponse(response);

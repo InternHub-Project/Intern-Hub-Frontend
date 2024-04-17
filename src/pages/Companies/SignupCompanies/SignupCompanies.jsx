@@ -129,7 +129,6 @@ export default function SignupCompanies() {
                   Email:
                 </label>
                 <br />
-
                 <Field
                   className={classes.field}
                   id="email"
