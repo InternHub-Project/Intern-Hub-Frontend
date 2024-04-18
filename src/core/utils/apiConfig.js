@@ -21,6 +21,7 @@ const API_CONFIG = {
     user: {
       fetchUser: "user/userdata",
       updateUser: "user/updateUserprofile",
+      logout: "auth/logout",
     },
     company: {
       fetchCompany: "company/companydata",

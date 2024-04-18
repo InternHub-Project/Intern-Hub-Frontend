@@ -12,6 +12,7 @@ import JobsPage from "./pages/Jobs/JobsPage";
 import ForgetPass from "./pages/Accounts/ForgetPassword/ForgetPass.jsx";
 import UpdatePassUser from "./pages/Accounts/UpdatePassword/UpdatePass.jsx";
 import ConfirmationPage from "./pages/Accounts/ConfirmationEmail/ConfirmationPage.jsx";
+import MyApplication from "./pages/User/ApplicationUser/myApplication.jsx";
 
 function App() {
   return (
@@ -35,6 +36,10 @@ function App() {
         <Route path="/UpdatePassword" Component={UpdatePassUser} />
         
         <Route path="/confirmation/:token"  Component={ConfirmationPage} />
+        {/* my application component route */}
+				<Route path="/user/myapps" Component={MyApplication} />
+
+
       </Routes>
       <Footer />
     </>

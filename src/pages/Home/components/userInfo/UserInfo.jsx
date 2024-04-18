@@ -37,12 +37,23 @@ export function UserInfo() {
   const userData = JSON.parse(user);
 
   function logout() {
+    // navigate to login page
+      if(JSON.parse(localStorage.getItem("userInfo")).data.userId){
+      location.href = "LoginUser";
+      } else if(JSON.parse(localStorage.getItem("userInfo")).data.companyId){
+          location.href = "LoginCompanies";
+      }
+      else{
+        location.href = "LoginUser";
+      }
+    localStorage.clear();
+
     httpRequest(APP_CONFIG.endpoints.user.logout, HTTP_METHODS.POST).then(
       (res) => {
         console.log(res);
-      },
-    );
-  }
+  },
+);
+}
 
   const theme = useMantineTheme();
   const [opened, { toggle }] = useDisclosure(false);
