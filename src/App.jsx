@@ -10,6 +10,7 @@ import { Footer } from "./pages/Home/components/Footer/Footer";
 import { errorPage } from "./core/shared/component/errorPage/errorPage.jsx";
 import JobsPage from "./pages/Jobs/JobsPage";
 import ForgetPass from "./pages/Accounts/ForgetPassword/ForgetPass.jsx";
+import ChangePass from "./pages/Accounts/ChangePassword/ChangePass.jsx";
 import UpdatePassUser from "./pages/Accounts/UpdatePassword/UpdatePass.jsx";
 import ConfirmationPage from "./pages/Accounts/ConfirmationEmail/ConfirmationPage.jsx";
 import MyApplication from "./pages/User/ApplicationUser/myApplication.jsx";
@@ -34,6 +35,7 @@ function App() {
 
         <Route path="/ForgetPassword" Component={ForgetPass} />
         <Route path="/UpdatePassword" Component={UpdatePassUser} />
+        <Route path="/ChangePassword" Component={ChangePass} />
         
         <Route path="/confirmation/:token"  Component={ConfirmationPage} />
         {/* my application component route */}
