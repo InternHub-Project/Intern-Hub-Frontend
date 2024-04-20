@@ -1,56 +1,90 @@
-import { Container, Grid, Pagination } from "@mantine/core";
+import { Box, Container, Grid, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import classes from "./JobsPage.module.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import JobsFilter from "./component/JobsFilter/JobsFilter";
 import API_CONFIG from "../../utils/apiConfig";
+import PaginationJobs from "./component/Pagination/PaginationJobs";
+import axios from "axios";
 
-
+const JOBS_PER_PAGE = 10;
 
 export default function JobsPage() {
   const [filterQuery, setFilterQuery] = useState();
+  const [searchValue, setSearchValue] = useState();
   const [internShip, setInternShip] = useState([]);
-  useEffect(() => {    
-    fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.job.allJobs}?${filterQuery}`)
-      .then(res => res.json())
-      .then(data =>{
-        setInternShip(data.data)
-        console.log(data.data);
-      } 
-    ).catch(err=>console.log(err))
-  }, [filterQuery]);
+  const [totalElements, setTotalElements] = useState(0);
+  const { page: numberOfPage } = useParams();
 
-  function timeSincePublication(publishDate) {
-    const now = new Date();
-    const publishDateObject = new Date(publishDate);
-    const differenceInMilliseconds = now - publishDateObject;
-    const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
+
+  useEffect(() => {
+    let url = `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.job.allJobs}?size=${JOBS_PER_PAGE}&page=${numberOfPage || 1}`;
   
-    if (differenceInSeconds < 60) {
-      return 'just now';
-    } else if (differenceInSeconds < 3600) {
-      const minutes = Math.floor(differenceInSeconds / 60);
-      return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-    } else if (differenceInSeconds < 86400) {
-      const hours = Math.floor(differenceInSeconds / 3600);
-      return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-    } else if (differenceInSeconds < 604800) {
-      const days = Math.floor(differenceInSeconds / 86400);
-      return `${days} day${days !== 1 ? 's' : ''} ago`;
-    } else if (differenceInSeconds < 2592000) {
-      const weeks = Math.floor(differenceInSeconds / 604800);
-      return` ${weeks} week${weeks !== 1 ? 's' : ''} ago`;
-    } else if (differenceInSeconds < 31536000) {
-      const months = Math.floor(differenceInSeconds / 2592000);
-      return `${months} month${months !== 1 ? 's' : ''} ago`;
-    } else {
-      const years = Math.floor(differenceInSeconds / 31536000);
-      return `${years} year${years !== 1 ? 's' : ''} ago`;
+    if (searchValue) {
+      url += `&search=${searchValue}`;
+    } else if (filterQuery) {
+      url += `&${filterQuery}`;
     }
-  }
+    setTotalElements(45);
+    getData(url);
+  }, [filterQuery, numberOfPage, searchValue]);
+      
+
+      const getData=(url)=>{
+        axios({
+          method:"get",
+          url:url,
+          headers:{"Content-Type":"application/json"}
+        }).then(res=>{
+          setInternShip(res.data.data);
+          console.log(res.data.data);
+        }).catch(err=>{
+          console.log(err);
+        })
+      }
+        function timeSincePublication(publishDate) {
+          const now = new Date();
+          const publishDateObject = new Date(publishDate);
+          const differenceInMilliseconds = now - publishDateObject;
+          const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
+      
+          if (differenceInSeconds < 60) {
+            return "just now";
+          } else if (differenceInSeconds < 3600) {
+            const minutes = Math.floor(differenceInSeconds / 60);
+            return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+          } else if (differenceInSeconds < 86400) {
+            const hours = Math.floor(differenceInSeconds / 3600);
+            return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+          } else if (differenceInSeconds < 604800) {
+            const days = Math.floor(differenceInSeconds / 86400);
+            return `${days} day${days !== 1 ? "s" : ""} ago`;
+          } else if (differenceInSeconds < 2592000) {
+            const weeks = Math.floor(differenceInSeconds / 604800);
+            return ` ${weeks} week${weeks !== 1 ? "s" : ""} ago`;
+          } else if (differenceInSeconds < 31536000) {
+            const months = Math.floor(differenceInSeconds / 2592000);
+            return `${months} month${months !== 1 ? "s" : ""} ago`;
+          } else {
+            const years = Math.floor(differenceInSeconds / 31536000);
+            return `${years} year${years !== 1 ? "s" : ""} ago`;
+          }
+        }
+      
   
-  const publishDate = '2024-02-27T20:07:10.387Z';
-  console.log(timeSincePublication(publishDate)); 
+
+
+  const searchInput = (e) => {
+    e.preventDefault();
+    setSearchValue(e.target.value)
+  if (e.target.value && filterQuery) {
+    setFilterQuery("");
+  }
+}
+
+
+  
+  
 
   return (
     <>
@@ -64,7 +98,8 @@ export default function JobsPage() {
                     {" "}
                     <i
                       className="fa-solid fa-filter"
-                      style={{ color: "#008BDC", paddingRight: "2px" }}></i>
+                      style={{ color: "#008BDC", paddingRight: "2px" }}
+                    ></i>
                     Filter
                   </p>
                 </div>
@@ -73,35 +108,60 @@ export default function JobsPage() {
             </div>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 8 }}>
-            {internShip.map(item => (
+            <Box  className={classes.search} mx={"xs"}  >
+              <Box>
+                <Text className={classes.label} mb={10} fz={16} fw={700}>
+                  Search
+                </Text>
+              </Box>
+
+
+              <Box>
+
+              <input
+                className={classes.input}
+                value={searchValue}
+                onChange={searchInput}
+                placeholder="title , skills , descrepation"
+              />
+              </Box>
+
+
+              
+            </Box>
+            {internShip.map((item) => (
               <Link
                 key={item.id}
-                to={""}
-                className={classes.styleIntern}>
+                to={`/jobs/details/${item.jobId}`}
+                className={classes.styleIntern}
+              >
                 <div>
                   <div className={classes.actively}>
                     <i
                       className="fa-solid fa-arrow-trend-up"
-                      style={{ color: "#3ae" }}></i>
+                      style={{ color: "#3ae" }}
+                    ></i>
                     <p className={classes.active_hiring}>Actively hiring</p>
                   </div>
                   <div
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
-                    }}>
+                    }}
+                  >
                     <div>
                       <p className={classes.hint}>{item.title}</p>
                       <p className={classes.title}>{item.companyName}</p>
                     </div>
                     <div>
-                      <img src={item.img} width={"50px"} height={"50px"} />
+                      <img src={item.companyImage} width={"50px"} height={"50px"} />
                     </div>
                   </div>
                   <div className={classes.country}>
                     <i
                       className="fa-solid fa-location-dot"
-                      style={{ color: "#8A8A8A" }}></i>{" "}
+                      style={{ color: "#8A8A8A" }}
+                    ></i>{" "}
                     {item.internLocation}
                   </div>
                   <div className={classes.info}>
@@ -113,7 +173,8 @@ export default function JobsPage() {
                           style={{
                             color: "#8A8A8A",
                             padding: "0px 2px 2px 0px",
-                          }}></i>
+                          }}
+                        ></i>
                         START DATE
                       </p>
                       <p className={classes.immediately}>{item.startDate}</p>
@@ -126,11 +187,12 @@ export default function JobsPage() {
                           style={{
                             color: "#8A8A8A",
                             padding: "0px 2px 2px 0px",
-                          }}></i>
+                          }}
+                        ></i>
                         DURATION
                       </p>
                       <p className={classes.immediately}>
-                        {item.duration}
+                        {item.duration} / {item.durationType}
                       </p>
                     </div>
                     <div style={{ margin: "7px" }}>
@@ -141,11 +203,12 @@ export default function JobsPage() {
                           style={{
                             color: "#8A8A8A",
                             padding: "0px 2px 2px 0px",
-                          }}></i>
+                          }}
+                        ></i>
                         SALARY
                       </p>
                       <p className={classes.immediately}>
-                        ${item.Salary}
+                        ${item.Salary} /monthly
                       </p>
                     </div>
                   </div>
@@ -159,13 +222,15 @@ export default function JobsPage() {
                         padding: "4px 7px",
                         fontSize: "13px",
                         color: "rgb(19,128,13)",
-                      }}>
+                      }}
+                    >
                       <i
                         className="fa-regular fa-clock"
                         style={{
                           color: "rgb(19,128,13)",
                           padding: "0px 2px 2px 0px",
-                        }}></i>
+                        }}
+                      ></i>
                       {timeSincePublication(item.createdAt)}
                     </p>
                     <p
@@ -176,7 +241,8 @@ export default function JobsPage() {
                         padding: "4px 7px",
                         fontSize: "13px",
                         color: "black",
-                      }}>
+                      }}
+                    >
                       Fresher Job
                     </p>
                     <p
@@ -187,7 +253,8 @@ export default function JobsPage() {
                         padding: "4px 7px",
                         fontSize: "13px",
                         color: "black",
-                      }}>
+                      }}
+                    >
                       {item.internType}
                     </p>
                   </div>
@@ -196,7 +263,8 @@ export default function JobsPage() {
                       backgroundColor: "#eee",
                       height: "1px",
                       margin: "10px 5px",
-                    }}></div>
+                    }}
+                  ></div>
                 </div>
                 <div style={{ textAlign: "end", margin: "0px 5px" }}>
                   <a
@@ -209,20 +277,22 @@ export default function JobsPage() {
                       border: "1px solid #008BDC",
                       borderRadius: "6px",
                       color: "#008BDC",
-                    }}>
+                    }}
+                  >
                     view details
                   </a>
                 </div>
               </Link>
             ))}
+            <PaginationJobs
+              route={"/jobs"}
+              totalElements={totalElements}
+              ITEMS_PER_PAGE={JOBS_PER_PAGE}
+              numberOfPage={numberOfPage}
+            />
           </Grid.Col>
         </Grid>
       </Container>
-      <div style={{display:"flex" , justifyContent:"center"}}>
-
-       <Pagination total={10} color="orange" size="xs" withEdges />
-      </div>
-
     </>
   );
 }

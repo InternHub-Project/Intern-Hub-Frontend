@@ -293,17 +293,22 @@
   dependencies:
     "@mantine/store" "7.6.1"
 
-"@mantine/spotlight@^7.6.1":
-  version "7.6.1"
-  resolved "https://registry.npmjs.org/@mantine/spotlight/-/spotlight-7.6.1.tgz"
-  integrity sha512-o7ZvAmi8wW47z39zw9r3wQnGrZXa3wBAL0vEl3Vd9WIDu+WnFKSfxw7SW1ovEu6WWtjXkQM9rgyAP2YSNfo9Fw==
+"@mantine/spotlight@^7.8.0":
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/@mantine/spotlight/-/spotlight-7.8.0.tgz#6cb83c21ed2dc1a2e4d5aff4205a7c71785f053f"
+  integrity sha512-HpYWxYyO9lnFwWFz8+M1KOzL7hpNPQVqUwD7xJec6XwlnisiOM9Qw0g2tvgxwDNm1rETOw8O3mPohMXy46D7Eg==
   dependencies:
-    "@mantine/store" "7.6.1"
+    "@mantine/store" "7.8.0"
 
 "@mantine/store@7.6.1":
   version "7.6.1"
   resolved "https://registry.npmjs.org/@mantine/store/-/store-7.6.1.tgz"
   integrity sha512-UqSsJLlAL53OSSUNK/aTXpkss9DX0TppTbtBKXPyflYfq0B9vKwQKumxEsg3UGVC4cjiQq2VD4mjGT94r+deug==
+
+"@mantine/store@7.8.0":
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/@mantine/store/-/store-7.8.0.tgz#d3ac70a96b71cbc0a4ef506bf751d8e290666d28"
+  integrity sha512-oN/BXGYdUywRi0zj9ppaShv2sw5QON2DaRisB4ewJ5tDDz8qyeckgdE0NMaaU2TwpoScs8ibSnOVWV5y+vYkMA==
 
 "@mantine/tiptap@^7.6.1":
   version "7.6.1"

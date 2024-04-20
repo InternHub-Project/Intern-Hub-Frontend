@@ -65,7 +65,7 @@ export function Footer() {
           <Box  me={50} display={"flex"} style={{ alignItems: "center" }}>
             <img
               
-              src="src/pages/Home/components/Logo/WhatsApp_Image_2024-03-18_at_05.38.27_e1f021fa-removebg-preview.png"
+              src="https://ik.imagekit.io/abdullahAhmed/internHub/internHub-logo/WhatsApp%20Image%202024-04-18%20at%2019.22.21_b3fd28be.jpg?updatedAt=1713557100914"
               alt=""
               width={"150px"}
               height={"100px"}

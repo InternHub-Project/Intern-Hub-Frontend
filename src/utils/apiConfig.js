@@ -24,8 +24,9 @@ const API_CONFIG = {
       allJobs: "job/jobs",
       recommendedJobs: "job/recommendedjobs",
       userApllications: "job/applications",
-      jobDetails: "/job/jobdetails",
+      jobDetails: "job/jobdetails",
       jobApplications_for_company: "/job/jobapplicants",
+      jobsFiltration:"job/jobsfiltration"
     },
   },
 };

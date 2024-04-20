@@ -13,6 +13,8 @@ import Header from './pages/Home/components/Header/Header';
 import {Footer} from './pages/Home/components/Footer/Footer';
 import {errorPage} from './pages/ErrorPage/errorPage';
 import JobsPage from "./pages/Jobs/JobsPage";
+import JobDetails from "./pages/Jobs/JobDetails/JobDetails";
+
 
 
 function App() {
@@ -24,7 +26,9 @@ function App() {
 
 
                 <Route path="/" Component={Home}/>
-                <Route path="/jobs" Component={JobsPage}/>
+                <Route path="/jobs/:page?" Component={JobsPage}/>
+                <Route path="/jobs/details/:jobId" Component={JobDetails}/>
+
                 <Route path="/internships" Component={errorPage}/>
 
                 <Route path="*" Component={errorPage}/>

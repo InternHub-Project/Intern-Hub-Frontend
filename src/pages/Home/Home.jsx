@@ -9,6 +9,7 @@ import CarouselBigCourses from "./components/CarouselBigCourses/CarouselBigCours
 import TopCompany from "./components/TopCompany/TopCompany";
 import StateWebSite from "./components/StateWebSite/StateWebSite";
 
+
 export default function Home() {
   return (
     <div>
