@@ -31,8 +31,10 @@ import {
   httpRequest,
 } from "../../../../core/utils/httpRequest.js";
 import APP_CONFIG from "../../../../core/utils/apiConfig.js";
+import { useNavigate } from "react-router-dom";
 
 export function UserInfo() {
+  const navigate=useNavigate()
   const user = localStorage.getItem("userId");
   const userData = JSON.parse(user);
 
@@ -47,13 +49,18 @@ export function UserInfo() {
         location.href = "LoginUser";
       }
     localStorage.clear();
-
     httpRequest(APP_CONFIG.endpoints.user.logout, HTTP_METHODS.POST).then(
       (res) => {
         console.log(res);
   },
 );
 }
+
+const handleChangePassword=()=>{
+    navigate("/changePassword");
+}
+
+ 
 
   const theme = useMantineTheme();
   const [opened, { toggle }] = useDisclosure(false);
@@ -176,6 +183,7 @@ export function UserInfo() {
 
                 <Menu.Dropdown>
                   <Menu.Item
+                  onClick={handleChangePassword}
                     leftSection={
                       <IconSwitchHorizontal
                         style={{ width: rem(16), height: rem(16) }}

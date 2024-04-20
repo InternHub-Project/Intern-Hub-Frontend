@@ -3,12 +3,12 @@ import { Button } from "@mantine/core";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { notifications } from "@mantine/notifications";
 import ChangePasswordSchema from "./ChangePassSchema/ChangePasswordSchema.jsx";
-import axios from "axios";
-
+import { httpRequest } from "../../../core/utils/httpRequest.js";
+import API_CONFIG from "../../../core/utils/apiConfig.js";
 
 
 export default function ChangePass() {
-
+  const token=JSON.parse(localStorage.getItem("userInfo")).data.token;
   function changePassword(values) {
     const data = {currentPassword:values.currentPassword,newPassword:values.newPassword,confirmPassword:values.confirmPassword};
     if (
@@ -23,26 +23,7 @@ export default function ChangePass() {
       
     } else {
       delete data.confirmPassword
-      axios({
-        method: 'put',
-        url: "https://api.codesplus.online/api/v1/account/changePassword",
-        headers:{
-          "Content-Type": "application/json",
-          "Authorization": "internHub__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVc2VyN2FkNjc1NTUtZTQwMi00NTIyLWFjMjQtNzEwMTBiNTA3Mzk5Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTM1NjEyMTEsImV4cCI6MTcxMzY0NzYxMX0.5oYzlUE6wKXn0fckkCRvEDag1RObmN-BdUAJb2PPmzs",
-        },data
-      }).then((res=>{
-        console.log(res);
-        notifications.show({
-          message: `${res.data.message}`,
-          color: "green",
-        });
-      })).catch((err=>{
-        console.log(err);
-        notifications.show({
-          message: `${err.response.data.message}`,
-          color: "red",
-        });
-      }))
+      httpRequest(API_CONFIG.endpoints.accounts.changePassword,"PUT",data,{Authorization:`internHub__${token}`})
     }
   }
 

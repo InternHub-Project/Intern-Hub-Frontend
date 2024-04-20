@@ -1,7 +1,8 @@
 import classes from "./SignupUser.module.css";
 import { Button, Divider, Group, Text } from "@mantine/core";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { GoogleButton } from "./ButtonGoogle/GoogleButton";
+// import { GoogleButton } from "./ButtonGoogle/GoogleButton";
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import RegisterUserSchema from "./RegisterUserSchema/RegisterUserSchema";
 import { HTTP_METHODS, httpRequest } from "../../../core/utils/httpRequest.js";
 import API_CONFIG from "../../../core/utils/apiConfig.js";
@@ -9,8 +10,9 @@ import {
   NOTIFICATION_TYPES,
   showNotification,
 } from "../../../core/helperMethods/showNotification.js";
-
+import { useNavigate } from "react-router-dom";
 export default function SignupUser() {
+  const Navigate=useNavigate()
   console.log("SignupUser");
 
   function addUser(values) {
@@ -38,6 +40,18 @@ export default function SignupUser() {
           }, 1000);
         }
       });
+    }
+  }
+const clientId = "660288962062-oute3qb7ecihdoogaqb2nijlht714o7i.apps.googleusercontent.com"
+  function handleGoogleLogin (response){
+    const accessToken = response?.credential;
+    if (accessToken) {
+      httpRequest(API_CONFIG.endpoints.auth.user.loginWithGoogle,"POST",JSON.stringify({accessToken})).then((res=>{
+        if(res.status==200||res.status==201){
+          Navigate("/")
+          localStorage.setItem("userInfo",JSON.stringify(res.data))
+        }
+      }))
     }
   }
 
@@ -73,15 +87,15 @@ export default function SignupUser() {
           >
             <Form className={classes.form}>
               <Group grow mb="md" mt="md">
-                <GoogleButton
-                  radius="xl"
-                  onClick={() => {
-                    location.href =
-                      "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=827625755886-edpmpa7jsvq8al2v03utohjqg4j2sd3b.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Finternshala.com%2Flogin%2Fgoogle&scope=profile%20email&response_type=code&state=eyAicm9sZSIgOiAidXNlciIsICJzdWNjZXNzX3BhZ2UiIDogIi9zdHVkZW50L2Rhc2hib2FyZCIsICJ1dG1fc291cmNlIiA6ICJpc19oZWFkZXJfaG9tZXBhZ2UiICwgInV0bV9tZWRpdW0iIDogIiIsICJ1dG1fY2FtcGFpZ24iIDogIiIgfQ%2C%2C&service=lso&o2v=1&theme=glif&flowName=GeneralOAuthFlow";
-                  }}
-                >
-                  <span className={classes.btnGoogle}>Sign in with Google</span>
-                </GoogleButton>
+                <GoogleOAuthProvider   clientId={clientId}
+                
+                 >
+                <GoogleLogin
+                 onSuccess={(response)=>{handleGoogleLogin(response)}}
+                 onError={(error) => console.error(error)}
+                 buttonText="Sign in with Google"/>
+                </GoogleOAuthProvider>
+             
               </Group>
               <Divider
                 label="OR"
