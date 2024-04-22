@@ -26,8 +26,7 @@ export async function httpRequest(
       headers: {
         ...headers,
         "Content-Type": "application/json",
-      },
-      withCredentials:true
+      }
     });
 
     printResponse(response);
