@@ -31,18 +31,42 @@ import {
   httpRequest,
 } from "../../../../core/utils/httpRequest.js";
 import APP_CONFIG from "../../../../core/utils/apiConfig.js";
+import { useNavigate } from "react-router-dom";
 
 export function UserInfo() {
+  const navigate=useNavigate()
   const user = localStorage.getItem("userId");
   const userData = JSON.parse(user);
 
   function logout() {
+    // navigate to login page
+      if(JSON.parse(localStorage.getItem("userInfo")).data.userId){
+      location.href = "LoginUser";
+      } else if(JSON.parse(localStorage.getItem("userInfo")).data.companyId){
+          location.href = "LoginCompanies";
+      }
+      else{
+        location.href = "LoginUser";
+      }
+    localStorage.clear();
     httpRequest(APP_CONFIG.endpoints.user.logout, HTTP_METHODS.POST).then(
       (res) => {
         console.log(res);
-      },
-    );
-  }
+  },
+);
+}
+
+const handleChangePassword=()=>{
+    navigate("/changePassword");
+}
+const handleProfile=()=>{
+    navigate("/user_profile");
+}
+const handleApplication=()=>{
+  navigate("/user/myapps")
+}
+
+ 
 
   const theme = useMantineTheme();
   const [opened, { toggle }] = useDisclosure(false);
@@ -105,7 +129,35 @@ export function UserInfo() {
               </UnstyledButton>
             </Menu.Target>
             <Menu.Dropdown>
+
+            <Menu.Item
+                leftSection={
+                  <IconFile
+                    style={{ width: rem(16), height: rem(16) }}
+                    color={theme.colors.blue[6]}
+                    stroke={1.5}
+                  />
+                }
+              >
+                Profile
+              </Menu.Item>
+
+            <Menu.Item
+                  onClick={handleProfile}
+                leftSection={
+                  <IconEdit
+                    style={{ width: rem(16), height: rem(16) }}
+                    color={theme.colors.blue[6]}
+                    stroke={1.5}
+                  />
+                }
+              >
+                Edit Profile
+              </Menu.Item>
+
+              {/* user || company application */}
               <Menu.Item
+              onClick={handleApplication}
                 leftSection={
                   <IconFile
                     style={{ width: rem(16), height: rem(16) }}
@@ -116,6 +168,8 @@ export function UserInfo() {
               >
                 My Application
               </Menu.Item>
+
+              {/* saved jobs */}
               <Menu.Item
                 leftSection={
                   <IconStar
@@ -128,17 +182,7 @@ export function UserInfo() {
                 Saved Jobs
               </Menu.Item>
 
-              <Menu.Item
-                leftSection={
-                  <IconEdit
-                    style={{ width: rem(16), height: rem(16) }}
-                    color={theme.colors.blue[6]}
-                    stroke={1.5}
-                  />
-                }
-              >
-                Edit Resume
-              </Menu.Item>
+      
 
               <Menu.Label>Settings</Menu.Label>
 
@@ -165,6 +209,7 @@ export function UserInfo() {
 
                 <Menu.Dropdown>
                   <Menu.Item
+                  onClick={handleChangePassword}
                     leftSection={
                       <IconSwitchHorizontal
                         style={{ width: rem(16), height: rem(16) }}

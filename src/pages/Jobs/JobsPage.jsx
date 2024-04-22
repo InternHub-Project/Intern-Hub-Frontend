@@ -1,30 +1,57 @@
-import { Container, Grid } from "@mantine/core";
+import { Box, Container, Grid, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import classes from "./JobsPage.module.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import JobsFilter from "./component/JobsFilter/JobsFilter";
-import { HTTP_METHODS, httpRequest } from "../../core/utils/httpRequest.js";
-import APP_CONFIG from "../../core/utils/apiConfig.js";
+import PaginationJobs from "./component/Pagination/PaginationJobs";
+import axios from "axios";
+import API_CONFIG from "../../core/utils/apiConfig.js";
+import { timeSincePublication } from "../../core/utils/helper.js";
+
+const JOBS_PER_PAGE = 10;
 
 export default function JobsPage() {
   const [filterQuery, setFilterQuery] = useState();
+  const [searchValue, setSearchValue] = useState();
   const [internShip, setInternShip] = useState([]);
+  const [totalElements, setTotalElements] = useState(0);
+  const { page: numberOfPage } = useParams();
+
+
   useEffect(() => {
-    //  todo: change this endpoint according to the UI requirements and add the query parameters
-    httpRequest(
-      APP_CONFIG.endpoints.jobs.getJobs,
-      HTTP_METHODS.GET,
-      {},
-      {},
-      {
-        // size: 10,
-        // skip: 0,
-        // filterQuery,
-      },
-    ).then((res) => {
-      setInternShip(res.data);
-    });
-  }, [filterQuery]);
+    let url = `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.jobs.allJobs}?size=${JOBS_PER_PAGE}&page=${numberOfPage || 1}`;
+  
+    if (searchValue) {
+      url += `&search=${searchValue}`;
+    } else if (filterQuery) {
+      url += `&${filterQuery}`;
+    }
+    setTotalElements(45);
+    getData(url);
+  }, [filterQuery, numberOfPage, searchValue]);
+      
+
+      const getData=(url)=>{
+        axios({
+          method:"get",
+          url:url,
+          headers:{"Content-Type":"application/json"}
+        }).then(res=>{
+          setInternShip(res.data.data);
+          console.log(res.data.data);
+        }).catch(err=>{
+          console.log(err);
+        })
+      }
+
+      
+  const searchInput = (e) => {
+    e.preventDefault();
+    setSearchValue(e.target.value)
+  if (e.target.value && filterQuery) {
+    setFilterQuery("");
+  }
+}
 
   return (
     <>
@@ -48,8 +75,33 @@ export default function JobsPage() {
             </div>
           </Grid.Col>
           <Grid.Col span={{ base: 12, sm: 8 }}>
+            <Box  className={classes.search} mx={"xs"}  >
+              <Box>
+                <Text className={classes.label} mb={10} fz={16} fw={700}>
+                  Search
+                </Text>
+              </Box>
+
+
+              <Box>
+
+              <input
+                className={classes.input}
+                value={searchValue}
+                onChange={searchInput}
+                placeholder="title , skills , descrepation"
+              />
+              </Box>
+
+
+              
+            </Box>
             {internShip.map((item) => (
-              <Link key={item.id} to={""} className={classes.styleIntern}>
+              <Link
+                key={item.id}
+                to={`/jobs/details/${item.jobId}`}
+                className={classes.styleIntern}
+              >
                 <div>
                   <div className={classes.actively}>
                     <i
@@ -65,11 +117,11 @@ export default function JobsPage() {
                     }}
                   >
                     <div>
-                      <p className={classes.hint}>{item.hint}</p>
-                      <p className={classes.title}>{item.title}</p>
+                      <p className={classes.hint}>{item.title}</p>
+                      <p className={classes.title}>{item.companyName}</p>
                     </div>
                     <div>
-                      <img src={item.img} width={"50px"} height={"50px"} />
+                      <img src={item.companyImage} width={"50px"} height={"50px"} />
                     </div>
                   </div>
                   <div className={classes.country}>
@@ -77,10 +129,10 @@ export default function JobsPage() {
                       className="fa-solid fa-location-dot"
                       style={{ color: "#8A8A8A" }}
                     ></i>{" "}
-                    {item.country}
+                    {item.internLocation}
                   </div>
                   <div className={classes.info}>
-                    <div style={{ margin: "7px 7px 7px 0px " }}>
+                    <div style={{ margin: "7px 10px 7px 0px " }}>
                       <p className={classes.start}>
                         {" "}
                         <i
@@ -92,21 +144,23 @@ export default function JobsPage() {
                         ></i>
                         START DATE
                       </p>
-                      <p className={classes.immediately}>Immediately</p>
+                      <p className={classes.immediately}>{item.startDate}</p>
                     </div>
-                    <div style={{ margin: "7px" }}>
+                    <div style={{ margin: "7px 10px 7px 7px" }}>
                       <p className={classes.start}>
                         {" "}
                         <i
-                          className="fa-solid fa-suitcase"
+                          className="fa-regular fa-calendar"
                           style={{
                             color: "#8A8A8A",
                             padding: "0px 2px 2px 0px",
                           }}
                         ></i>
-                        Experience
+                        DURATION
                       </p>
-                      <p className={classes.immediately}>{item.experience}</p>
+                      <p className={classes.immediately}>
+                        {item.duration} / {item.durationType}
+                      </p>
                     </div>
                     <div style={{ margin: "7px" }}>
                       <p className={classes.start}>
@@ -121,7 +175,7 @@ export default function JobsPage() {
                         SALARY
                       </p>
                       <p className={classes.immediately}>
-                        ${item.minSalary} - {item.maxSalary} /month
+                        ${item.Salary} /monthly
                       </p>
                     </div>
                   </div>
@@ -140,11 +194,11 @@ export default function JobsPage() {
                       <i
                         className="fa-regular fa-clock"
                         style={{
-                          color: "#8A8A8A",
+                          color: "rgb(19,128,13)",
                           padding: "0px 2px 2px 0px",
                         }}
                       ></i>
-                      {item.publication}
+                      {timeSincePublication(item.createdAt)}
                     </p>
                     <p
                       style={{
@@ -157,6 +211,18 @@ export default function JobsPage() {
                       }}
                     >
                       Fresher Job
+                    </p>
+                    <p
+                      style={{
+                        margin: "5px 10px 5px 10px",
+                        backgroundColor: "#eee",
+                        borderRadius: "6px",
+                        padding: "4px 7px",
+                        fontSize: "13px",
+                        color: "black",
+                      }}
+                    >
+                      {item.internType}
                     </p>
                   </div>
                   <div
@@ -185,6 +251,12 @@ export default function JobsPage() {
                 </div>
               </Link>
             ))}
+            <PaginationJobs
+              route={"/jobs"}
+              totalElements={totalElements}
+              ITEMS_PER_PAGE={JOBS_PER_PAGE}
+              numberOfPage={numberOfPage}
+            />
           </Grid.Col>
         </Grid>
       </Container>

@@ -1,7 +1,8 @@
 import classes from "./SignupUser.module.css";
 import { Button, Divider, Group, Text } from "@mantine/core";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { GoogleButton } from "./ButtonGoogle/GoogleButton";
+// import { GoogleButton } from "./ButtonGoogle/GoogleButton";
+// import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import RegisterUserSchema from "./RegisterUserSchema/RegisterUserSchema";
 import { HTTP_METHODS, httpRequest } from "../../../core/utils/httpRequest.js";
 import API_CONFIG from "../../../core/utils/apiConfig.js";
@@ -9,7 +10,8 @@ import {
   NOTIFICATION_TYPES,
   showNotification,
 } from "../../../core/helperMethods/showNotification.js";
-
+import SignupAndLoginwithgoogle from "../SocialGoogle/SignupAndLoginwithgoogle.jsx";
+// import { useNavigate } from "react-router-dom";
 export default function SignupUser() {
   console.log("SignupUser");
 
@@ -23,6 +25,9 @@ export default function SignupUser() {
     ) {
       showNotification("Wrong in one of the inputs", NOTIFICATION_TYPES.ERROR);
     } else {
+      data.userName=`${data.firstName} ${data.lastName}`
+      delete data.firstName
+      delete data.lastName
       httpRequest(
         API_CONFIG.endpoints.auth.user.signup,
         HTTP_METHODS.POST,
@@ -37,6 +42,8 @@ export default function SignupUser() {
       });
     }
   }
+
+  
 
   return (
     <div className={classes.style}>
@@ -70,15 +77,8 @@ export default function SignupUser() {
           >
             <Form className={classes.form}>
               <Group grow mb="md" mt="md">
-                <GoogleButton
-                  radius="xl"
-                  onClick={() => {
-                    location.href =
-                      "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=827625755886-edpmpa7jsvq8al2v03utohjqg4j2sd3b.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Finternshala.com%2Flogin%2Fgoogle&scope=profile%20email&response_type=code&state=eyAicm9sZSIgOiAidXNlciIsICJzdWNjZXNzX3BhZ2UiIDogIi9zdHVkZW50L2Rhc2hib2FyZCIsICJ1dG1fc291cmNlIiA6ICJpc19oZWFkZXJfaG9tZXBhZ2UiICwgInV0bV9tZWRpdW0iIDogIiIsICJ1dG1fY2FtcGFpZ24iIDogIiIgfQ%2C%2C&service=lso&o2v=1&theme=glif&flowName=GeneralOAuthFlow";
-                  }}
-                >
-                  <span className={classes.btnGoogle}>Sign in with Google</span>
-                </GoogleButton>
+         
+             <SignupAndLoginwithgoogle />
               </Group>
               <Divider
                 label="OR"

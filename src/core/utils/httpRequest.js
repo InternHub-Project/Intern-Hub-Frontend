@@ -26,13 +26,12 @@ export async function httpRequest(
       headers: {
         ...headers,
         "Content-Type": "application/json",
-        Authorization: "internHub__" + localStorage.getItem("token"),
-        "X-API-Key": "internHub__" + localStorage.getItem("token"),
       },
+      withCredentials:true
     });
 
     printResponse(response);
-    return response.data;
+    return response;
   } catch (error) {
     printError(error);
     if (error.response.data.message) {
