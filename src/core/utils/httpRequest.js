@@ -27,7 +27,7 @@ export async function httpRequest(
         ...headers,
         "Content-Type": "application/json",
       },
-      withCredentials:true
+      withCredentials:true //using for testing local
     });
 
     printResponse(response);

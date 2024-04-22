@@ -135,24 +135,47 @@ export const EditeProfilePage = () => {
 		}
 		if(cv){
             formData.append('file', cv);
+			console.log(cv);
 		}
+		if(profilePicture){
 			formData.append('profileImage', profilePicture);
+		}		
+		if(address.address){
 			formData.append('address', address.address);
+		}
+		if(address.city){
 			formData.append('city', address.city);
+		}
+		if(address.country){
 			formData.append('country', address.country);
+		}
+		if(userName){
 			formData.append('userName', userName);
+		}
+		if(phoneNumber){
 			formData.append('phone', phoneNumber);
+		}
+		if(exprienceYears){
 			formData.append('experienceYears', exprienceYears);
-			formData.append('cv', cv); // Assuming cv is a File object
+		}
+		if(gender){
 			formData.append('gender', gender);
-			formData.append('birthdate', birthdate);
+		}
+		if(birthdate){
+			formData.append("birthdate",birthdate)
+		}
+		if(bio){
 			formData.append('bio', bio);
+		}
+		if(allSkills){
 			formData.append('skills',JSON.stringify(SkillsArr)); // Convert array to string
+		}
+		if(allInterested){
 			formData.append('fieldOfInterest', JSON.stringify(interestedArr)); // Convert array to string
-		
+		}
 		axios({
 			method:"PUT",
-			url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.updateUser}`,
+			url:`http://localhost:3003/api/v1/user/updateuserprofile`,
 			headers:{
 				"Content-Type":"multipart/form-data",
 				Authorization:
@@ -165,7 +188,8 @@ export const EditeProfilePage = () => {
 				window.location.reload()
 			}
 		})).catch((err=>{
-			if(err.status)
+			console.log(err);
+			if(err.response.status==400)
 			showNotification({message:err.response.data.message,color:"red"})
 		}))
 
@@ -183,27 +207,26 @@ export const EditeProfilePage = () => {
 			}
 		).then((result) => {
 			const userData = result.data.data;
-			console.log(userData);
-			setProfilePicture(userData.profileImage || "");
-			setEmail(userData.email);
-			setUserName(userData.userName || "");
+			console.log(userData?.phone);
+			setProfilePicture(userData?.profileImage || "");
+			setEmail(userData?.email);
+			setUserName(userData?.userName || "");
 			const backendDate = userData.birthdate
 				? userData.birthdate.split("T")[0]
 				: "";
 			setBirthdate(backendDate || "");
-			setBio(userData.bio || "");
-			setPhoneNumber(userData.phone || "");
+			setBio(userData?.bio || "");
+			setPhoneNumber(userData?.phone || "");
 			setAddress({
-				city: userData.address.city || "",
-				country: userData.address.country || "",
-				address: userData.address.address || "",
-				// country:userData.address.country || "",
+				city: userData.address?.city || "",
+				country: userData.address?.country || "",
+				address: userData.address?.address || "",
 			});
-			setGender(userData.gender || "");
-			setExprienceYears(userData.experienceYears || "");
-			setAllSkills(userData.skills || "");
-			setAllInterested(userData.fieldOfInterest || "");
-			setCV(userData.cv || "");
+			setGender(userData?.gender || "");
+			setExprienceYears(userData?.experienceYears || "");
+			setAllSkills(userData?.skills || "");
+			setAllInterested(userData?.fieldOfInterest || "");
+			setCV(userData?.cv || "");
 		});
 	}, []);
 
