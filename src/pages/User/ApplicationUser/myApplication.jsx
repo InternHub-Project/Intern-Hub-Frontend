@@ -2,7 +2,6 @@ import { Container, Table } from "@mantine/core";
 // import { Container, Table } from "react-bootstrap";
 
 import "./myApplication.css";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { HiMiniArrowTopRightOnSquare } from "react-icons/hi2";
 import { MdHelpOutline } from "react-icons/md";
@@ -10,26 +9,17 @@ import { FaRocket } from "react-icons/fa6";
 import { FiFileText } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import Pagination from "./pagination.jsx";
+import { httpRequest } from "../../../core/utils/httpRequest.js";
+import API_CONFIG from "../../../core/utils/apiConfig.js";
 
 export const MyApplication = () => {
+	const token = JSON.parse(localStorage.getItem("userInfo")).data.token;
 	const [appData, setAppData] = useState([]);
 	const getAppDataFromApi = async () => {
-		axios({
-			method: "get",
-			url: "https://api.codesplus.online/api/v1/job/applications",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization:
-					"internHub__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVc2VyN2FkNjc1NTUtZTQwMi00NTIyLWFjMjQtNzEwMTBiNTA3Mzk5Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTMzNTIyNDQsImV4cCI6MTcxMzQzODY0NH0.qZLOyanF7NNah8M3XY_yfZ-_1RSs0AtOjfoYuIKWUaY",
-			},
-		})
-			.then((res) => {
-				console.log(res.data.data);
-				setAppData(res.data.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		httpRequest(API_CONFIG.endpoints.user.userApplication,"GET",{},{Authorization:`${API_CONFIG.secretKey}${token}`}).then((res=>{
+			console.log(res);
+			setAppData(res.data.data)
+		}))
 	};
 
 	// const getPageNumber = async (pageNumber) => {

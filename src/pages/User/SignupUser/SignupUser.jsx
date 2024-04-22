@@ -2,7 +2,7 @@ import classes from "./SignupUser.module.css";
 import { Button, Divider, Group, Text } from "@mantine/core";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 // import { GoogleButton } from "./ButtonGoogle/GoogleButton";
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+// import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
 import RegisterUserSchema from "./RegisterUserSchema/RegisterUserSchema";
 import { HTTP_METHODS, httpRequest } from "../../../core/utils/httpRequest.js";
 import API_CONFIG from "../../../core/utils/apiConfig.js";
@@ -10,9 +10,9 @@ import {
   NOTIFICATION_TYPES,
   showNotification,
 } from "../../../core/helperMethods/showNotification.js";
-import { useNavigate } from "react-router-dom";
+import SignupAndLoginwithgoogle from "../SocialGoogle/SignupAndLoginwithgoogle.jsx";
+// import { useNavigate } from "react-router-dom";
 export default function SignupUser() {
-  const Navigate=useNavigate()
   console.log("SignupUser");
 
   function addUser(values) {
@@ -42,18 +42,8 @@ export default function SignupUser() {
       });
     }
   }
-const clientId = "660288962062-oute3qb7ecihdoogaqb2nijlht714o7i.apps.googleusercontent.com"
-  function handleGoogleLogin (response){
-    const accessToken = response?.credential;
-    if (accessToken) {
-      httpRequest(API_CONFIG.endpoints.auth.user.loginWithGoogle,"POST",JSON.stringify({accessToken})).then((res=>{
-        if(res.status==200||res.status==201){
-          Navigate("/")
-          localStorage.setItem("userInfo",JSON.stringify(res.data))
-        }
-      }))
-    }
-  }
+
+  
 
   return (
     <div className={classes.style}>
@@ -87,15 +77,8 @@ const clientId = "660288962062-oute3qb7ecihdoogaqb2nijlht714o7i.apps.googleuserc
           >
             <Form className={classes.form}>
               <Group grow mb="md" mt="md">
-                <GoogleOAuthProvider   clientId={clientId}
-                
-                 >
-                <GoogleLogin
-                 onSuccess={(response)=>{handleGoogleLogin(response)}}
-                 onError={(error) => console.error(error)}
-                 buttonText="Sign in with Google"/>
-                </GoogleOAuthProvider>
-             
+         
+             <SignupAndLoginwithgoogle />
               </Group>
               <Divider
                 label="OR"

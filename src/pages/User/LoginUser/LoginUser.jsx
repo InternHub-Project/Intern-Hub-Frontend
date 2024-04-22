@@ -1,5 +1,5 @@
 import classes from "./LoginUser.module.css";
-import { Button, Title } from "@mantine/core";
+import { Button, Divider, Title } from "@mantine/core";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import loginUserSchema from "./LoginUserSchema/LoginUserSchema";
 import { HTTP_METHODS, httpRequest } from "../../../core/utils/httpRequest.js";
@@ -8,6 +8,7 @@ import {
   NOTIFICATION_TYPES,
   showNotification,
 } from "../../../core/helperMethods/showNotification.js";
+import SignupAndLoginwithgoogle from "../SocialGoogle/SignupAndLoginwithgoogle.jsx";
 
 export default function LoginUser() {
   function loginUser(values) {
@@ -47,6 +48,13 @@ export default function LoginUser() {
           onSubmit={loginUser}
         >
           <Form className={classes.form}>
+          <SignupAndLoginwithgoogle />
+          <Divider
+                label="OR"
+                labelPosition="center"
+                my="lg"
+                color="black"
+              />
             <div>
               <label className={classes.label} htmlFor="email">
                 Email:

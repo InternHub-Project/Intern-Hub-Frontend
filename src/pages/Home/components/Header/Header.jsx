@@ -68,7 +68,7 @@ export default function Header() {
           >
             <Box display={"flex"} style={{ alignItems: "center" }}>
               <img
-                src="src/assets/images/logo.png"
+                src="https://ik.imagekit.io/abdullahAhmed/internHub/internHub-logo/WhatsApp%20Image%202024-04-18%20at%2019.22.21_b3fd28be.jpg?updatedAt=1713557100914"
                 alt=""
                 width={"150px"}
                 height={"100px"}

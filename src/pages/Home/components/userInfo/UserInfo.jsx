@@ -59,6 +59,12 @@ export function UserInfo() {
 const handleChangePassword=()=>{
     navigate("/changePassword");
 }
+const handleProfile=()=>{
+    navigate("/user_profile");
+}
+const handleApplication=()=>{
+  navigate("/user/myapps")
+}
 
  
 
@@ -123,7 +129,35 @@ const handleChangePassword=()=>{
               </UnstyledButton>
             </Menu.Target>
             <Menu.Dropdown>
+
+            <Menu.Item
+                leftSection={
+                  <IconFile
+                    style={{ width: rem(16), height: rem(16) }}
+                    color={theme.colors.blue[6]}
+                    stroke={1.5}
+                  />
+                }
+              >
+                Profile
+              </Menu.Item>
+
+            <Menu.Item
+                  onClick={handleProfile}
+                leftSection={
+                  <IconEdit
+                    style={{ width: rem(16), height: rem(16) }}
+                    color={theme.colors.blue[6]}
+                    stroke={1.5}
+                  />
+                }
+              >
+                Edit Profile
+              </Menu.Item>
+
+              {/* user || company application */}
               <Menu.Item
+              onClick={handleApplication}
                 leftSection={
                   <IconFile
                     style={{ width: rem(16), height: rem(16) }}
@@ -134,6 +168,8 @@ const handleChangePassword=()=>{
               >
                 My Application
               </Menu.Item>
+
+              {/* saved jobs */}
               <Menu.Item
                 leftSection={
                   <IconStar
@@ -146,17 +182,7 @@ const handleChangePassword=()=>{
                 Saved Jobs
               </Menu.Item>
 
-              <Menu.Item
-                leftSection={
-                  <IconEdit
-                    style={{ width: rem(16), height: rem(16) }}
-                    color={theme.colors.blue[6]}
-                    stroke={1.5}
-                  />
-                }
-              >
-                Edit Resume
-              </Menu.Item>
+      
 
               <Menu.Label>Settings</Menu.Label>
 

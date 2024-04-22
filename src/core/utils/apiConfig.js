@@ -1,6 +1,7 @@
 const API_CONFIG = {
-  // baseUrl: "https://api.codesplus.online/api/v1/",
-  baseUrl: "http://localhost:3003/api/v1/",
+  baseUrl: "https://api.codesplus.online/api/v1/",
+  // baseUrl: "http://localhost:3003/api/v1/",
+  secretKey:"internHub__",
   endpoints: {
     auth: {
       user: {
@@ -23,12 +24,15 @@ const API_CONFIG = {
       fetchUser: "user/userdata",
       updateUser: "user/updateUserprofile",
       logout: "auth/logout",
+      applyToJob: "user/apply",
+      userApplication:"job/applications"
     },
     company: {
       fetchCompany: "company/companydata",
     },
     jobs: {
-      getJobs: "job/jobs",
+      allJobs: "job/jobs",
+      jobDetails: "job/jobdetails",
       getRecommendedJobs: "job/recommendedjobs",
       getCompanyJobs: "company/companyjobs",
       createJob: "company/createJob",
