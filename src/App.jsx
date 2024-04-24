@@ -16,6 +16,7 @@ import MyApplication from "./pages/User/ApplicationUser/myApplication.jsx";
 import EditeProfilePage from "./pages/User/editeProfilePage/EditeProfilePage.jsx";
 import JobDetails from "./pages/Jobs/JobDetails/JobDetails.jsx";
 import JobsPage from "./pages/Jobs/JobsPage.jsx";
+// import Chat from "./pages/chat/Chat.jsx";
 
 function App() {
   return (
@@ -43,6 +44,11 @@ function App() {
         {/* my application component route */}
 				<Route path="/user/myapps" Component={MyApplication} />
 				<Route path="/user_profile" Component={EditeProfilePage} />
+				{/* <Route path="/chat" Component={Chat} /> */}
+	
+
+
+        
 
       </Routes>
       <Footer />
