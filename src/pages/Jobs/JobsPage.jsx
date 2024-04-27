@@ -7,8 +7,10 @@ import PaginationJobs from "./component/Pagination/PaginationJobs";
 import axios from "axios";
 import API_CONFIG from "../../core/utils/apiConfig.js";
 import { timeSincePublication } from "../../core/utils/helper.js";
+
 import RecommendJobs from "../Home/components/RecommendJobs/RecommendJobs.jsx";
 import CompanyJobs from "./CompanyJobs/CompanyJobs.jsx";
+
 
 const JOBS_PER_PAGE = 10;
 
@@ -57,7 +59,6 @@ export default function JobsPage() {
     setFilterQuery("");
   }
 }
-
 
 
   return (

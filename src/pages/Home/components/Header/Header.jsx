@@ -164,12 +164,15 @@ export default function Header() {
 
 
 
+
           {localStorage.length ? (
               <UserInfo />
             ) :(
               <Box>
 
             <Group justify="center" grow pb="xl" px="md">
+
+
             <Button
               onClick={() => {
                 location.href = "/SignupUser";

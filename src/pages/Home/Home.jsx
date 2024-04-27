@@ -1,3 +1,4 @@
+
 /* eslint-disable no-unused-vars */
 // import { Text } from "@mantine/core";
 // import classes from "./Home.module.css";
@@ -5,6 +6,7 @@
 import RecommendJobs from "./components/RecommendJobs/RecommendJobs";
 import Companies from "./components/seaction-Companies/Companies";
 import LestJobs from "./components/sectionJobs/LestJobs";
+
 
 // import StartParagraph from "./components/StartPragraphe/StartParagraph";
 // import { CarouselTrending } from "./components/CarouselTrending/CarouselTrending";
@@ -26,9 +28,11 @@ export default function Home() {
       {/* <CarouselBigCourses /> */}
       {/* <TopCompany /> */}
       {/* <StateWebSite /> */}
+
       <RecommendJobs />
       <LestJobs />
       <Companies />
+
     </div>
   );
 }

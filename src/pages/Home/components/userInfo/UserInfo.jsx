@@ -20,7 +20,9 @@ import {
   IconEdit,
   IconFile,
   IconLogout,
+
   IconRepeat,
+
   IconSettings,
   IconStar,
   IconSwitchHorizontal,
@@ -66,7 +68,7 @@ const handleApplication=()=>{
   navigate("/user/myapps")
 }
 
- 
+
 
   const theme = useMantineTheme();
   const [opened, { toggle }] = useDisclosure(false);
@@ -140,6 +142,7 @@ const handleApplication=()=>{
                 }
               >
                 Profile
+
               </Menu.Item>
 
             <Menu.Item
@@ -154,6 +157,7 @@ const handleApplication=()=>{
               >
                 Edit Profile
               </Menu.Item>
+
 
               {/* user || company application */}
               <Menu.Item
@@ -180,7 +184,9 @@ const handleApplication=()=>{
                   />
                 }
               >
+
                 Favorite
+
               </Menu.Item>
 
       
@@ -221,19 +227,7 @@ const handleApplication=()=>{
                   >
                     Change Password
                   </Menu.Item>
-
-                  <Menu.Item
-                    leftSection={
-                      <IconRepeat
-                        style={{ width: rem(16), height: rem(16) }}
-                        color={theme.colors[6]}
-                        stroke={1.5}
-                      />
-                    }
-                  >
-                    Change Email
-                  </Menu.Item>
-
+                  
                   <Menu.Item
                     color="red"
                     leftSection={
@@ -244,7 +238,7 @@ const handleApplication=()=>{
                       />
                     }
                   >
-                    Delete Account
+                   Delete Acoount
                   </Menu.Item>
                 </Menu.Dropdown>
               </Menu>

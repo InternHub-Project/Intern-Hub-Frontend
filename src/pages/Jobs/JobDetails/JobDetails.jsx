@@ -17,7 +17,9 @@ export default function JobDetails() {
   const [job, setJob] = useState({});
   const [nameJob, setNameJob]=useState()
   const [companyNameJob, setCompanyName]=useState()
+
   const [jodID, setJobID]=useState()
+
 
   useEffect( () => {
      axios({
@@ -34,8 +36,10 @@ export default function JobDetails() {
         setJob(res.data.data);
         setNameJob(res.data.data.title)
         setCompanyName(res.data.data.companyName)
+
         setJobID(res.data.data.jobId)
-        console.log(res.data.data.skills);
+
+
       })
       .catch((err) => {
         console.log(err);
@@ -50,9 +54,11 @@ export default function JobDetails() {
   return (
     <>
       
+
         <Text ta={"center"} mb={25} fz={"25px"} fw={700}>
           {job.title}
         </Text>
+
       <Container className={classes.container}>
         <div className={classes.actively}>
           <i
@@ -383,9 +389,13 @@ export default function JobDetails() {
           </Button>
         </div> */}
         <div style={{ textAlign: "center" }}>
+
           <ApplyButton  companyNameJob={companyNameJob} nameJob={nameJob} JobID={jodID}/>
+
         </div>
       </Container>
     </>
   );
+
 }
+

@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function PaginationJobs({
   totalElements,
+
+
   numberOfPage,
   ITEMS_PER_PAGE,
   route,
@@ -12,7 +14,10 @@ export default function PaginationJobs({
   const navigate = useNavigate();
 
   let paginationBtn = [];
+
   for (let i = 0 ; i < totalPages; i++) {
+
+
     paginationBtn.push(
       <Button
         variant={numberOfPage == i + 1 ? "filled" : "outline"}
@@ -26,7 +31,7 @@ export default function PaginationJobs({
   function goToPage(pageNum) {
     navigate(route + "/" + pageNum);
   }
-  
+
   return (
     <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
       {/* <Pagination
@@ -44,4 +49,6 @@ export default function PaginationJobs({
       {paginationBtn}
     </div>
   );
+
 }
+

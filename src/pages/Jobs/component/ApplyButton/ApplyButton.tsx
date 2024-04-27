@@ -11,6 +11,7 @@ import {
 import classes from "./ApplyButton.module.css";
 import React, { useEffect } from "react";
 
+
 import { FileButton, Group } from "@mantine/core";
 import { useState, useRef } from "react";
 import axios from "axios";
@@ -51,6 +52,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
 
   console.log(applyData);
 
+
   const [file, setFile] = useState<File | null>(null);
   const resetRef = useRef<() => void>(null);
 
@@ -58,6 +60,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
     setFile(null);
     resetRef.current?.();
   };
+
 
   const title = (
     <Box className={classes.containerHeader}>
@@ -69,6 +72,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
       </Text>
     </Box>
   );
+
 
   const [questionApply, setQuestionApply] = useState<any>();
 
@@ -110,6 +114,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
       });
   }
 
+
   return (
     <>
       <Drawer
@@ -131,6 +136,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
             backgroundColor: "rgb(244 244 244)",
             borderBottom: "rgb(201,201,201) solid 1px",
           },
+
           inner: {
             display: "flex",
             justifyContent: "center",
@@ -143,6 +149,8 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
         style={{ marginLeft: "10px", marginRight: "10px" }}
       >
         <form onSubmit={applyToJob}>
+
+
           <Box>
             <Box mt={10}>
               <Text fz={"19px"} fw={600}>
@@ -170,6 +178,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
               <Text fz={"19px"} fw={600}>
                 Cover letter
               </Text>
+
               <Text mb={5} fz={"15px"} c={"#454545"}>
                 Why should you be heired for this role?
               </Text>
@@ -178,6 +187,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
                 required
                 onChange={setData}
                 value={applyData.coverLetter}
+
                 autosize
                 minRows={5}
                 resize="vertical"
@@ -186,6 +196,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
             </Box>
 
             <Box mt={20}>
+
               <Box>
                 {questionApply ? (
                   <>
@@ -254,6 +265,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
                 setQuestion={questionApply}
                 onChange={setData}
               /> */}
+
             </Box>
 
             <Box mt={20}>
@@ -271,11 +283,14 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
 
               <Group justify="start">
                 <FileButton resetRef={resetRef} onChange={setFile} accept="pdf">
+
                   {(props) => (
                     <Button {...props} value={applyData.resume}>
                       Upload file
                     </Button>
                   )}
+
+
                 </FileButton>
                 <Button disabled={!file} color="red" onClick={clearFile}>
                   Reset
@@ -307,8 +322,11 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
 
       <div style={{ textAlign: "center" }}>
         <Button
+
           onClick={clickApply}
           type="submit"
+
+
           bg={"rgb(0,165,236)"}
           size="lg"
         >
@@ -317,4 +335,6 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
       </div>
     </>
   );
+
 }
+
