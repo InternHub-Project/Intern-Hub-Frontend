@@ -4,8 +4,9 @@ import { notifications } from "@mantine/notifications";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { GoogleButton } from "./ButtonGoogle/GoogleButton";
 import RegisterCompaniesSchema from "./RegisterCompaniesSchema/RegisterCompaniesSchema";
-import { httpRequest } from "../../../utils/httpRequest.js";
-import API_CONFIG from "../../../utils/apiConfig.js";
+import { HTTP_METHODS, httpRequest } from "../../../core/utils/httpRequest.js";
+import API_CONFIG from "../../../core/utils/apiConfig.js";
+import { showNotification } from "../../../core/helperMethods/showNotification.js";
 
 export default function SignupCompanies() {
   function addCompanies(values) {
@@ -13,11 +14,10 @@ export default function SignupCompanies() {
       name: values.name,
       email: values.email,
       password: values.password,
-      address: {
         address: values.address,
         city: values.city,
         country: values.country,
-      },
+        state:values.state,
       field: values.field,
     };
 
@@ -28,26 +28,25 @@ export default function SignupCompanies() {
       data.address.address === "" ||
       data.address.city === "" ||
       data.address.country === "" ||
-      data.field === ""
+      data.field === "" 
     ) {
       notifications.show({
         message: "Wrong in one of the inputs",
         color: "red",
       });
     } else {
-      httpRequest(API_CONFIG.endpoints.auth.company.signup, "POST", data).then(
-        (res) => {
-          if (res.status === 201) {
-            notifications.show({
-              message: "Success register",
-              color: "green",
-            });
-            setTimeout(() => {
-              location.href = "/LoginCompanies";
-            }, 1000);
-          }
+      httpRequest(
+        API_CONFIG.endpoints.auth.company.signup,
+        HTTP_METHODS.POST,
+        data,
+      ).then((res) => {
+        if (res.status === 201) {
+          showNotification("Success register");
+          setTimeout(() => {
+            location.href = "/LoginCompanies";
+          }, 1000);
         }
-      );
+      });
     }
   }
 
@@ -130,7 +129,6 @@ export default function SignupCompanies() {
                   Email:
                 </label>
                 <br />
-
                 <Field
                   className={classes.field}
                   id="email"

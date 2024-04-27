@@ -64,7 +64,7 @@ export default function Search() {
       >
         <span className={classes.search}>
           <i className="fa-solid fa-magnifying-glass"></i>
-          <span style={{marginLeft:"5px"}}>Search</span>
+          <span style={{ marginLeft: "5px" }}>Search</span>
         </span>
       </p>
       <Spotlight

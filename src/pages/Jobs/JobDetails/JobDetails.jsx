@@ -1,13 +1,14 @@
 import { useParams } from "react-router-dom";
 import classes from "./JobDetails.module.css";
 import { useEffect, useState } from "react";
-import API_CONFIG from "../../../utils/apiConfig";
 import axios from "axios";
 import { Container } from "@mantine/core";
-import { Title } from "@mantine/core";
+// import { Title } from "@mantine/core";
 import { Text } from "@mantine/core";
 // import { Button } from "@mantine/core";
 import ApplyButton from './../component/ApplyButton/ApplyButton';
+import API_CONFIG from "../../../core/utils/apiConfig.js";
+import { timeSincePublication } from "../../../core/utils/helper.js";
 
 
 
@@ -16,11 +17,12 @@ export default function JobDetails() {
   const [job, setJob] = useState({});
   const [nameJob, setNameJob]=useState()
   const [companyNameJob, setCompanyName]=useState()
+  const [jodID, setJobID]=useState()
 
   useEffect( () => {
      axios({
       method: "get",
-      url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.job.jobDetails}/${jobId}`,
+      url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.jobs.jobDetails}/${jobId}`,
       headers: {
         "Content-type": "application/json",
         Authorization:
@@ -32,6 +34,7 @@ export default function JobDetails() {
         setJob(res.data.data);
         setNameJob(res.data.data.title)
         setCompanyName(res.data.data.companyName)
+        setJobID(res.data.data.jobId)
         console.log(res.data.data.skills);
       })
       .catch((err) => {
@@ -41,46 +44,15 @@ export default function JobDetails() {
 
   
 
-  function timeSincePublication(publishDate) {
-    const now = new Date();
-    const publishDateObject = new Date(publishDate);
-    const differenceInMilliseconds = now - publishDateObject;
-    const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
 
-    if (differenceInSeconds < 60) {
-      return "just now";
-    } else if (differenceInSeconds < 3600) {
-      const minutes = Math.floor(differenceInSeconds / 60);
-      return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
-    } else if (differenceInSeconds < 86400) {
-      const hours = Math.floor(differenceInSeconds / 3600);
-      return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
-    } else if (differenceInSeconds < 604800) {
-      const days = Math.floor(differenceInSeconds / 86400);
-      return `${days} day${days !== 1 ? "s" : ""} ago`;
-    } else if (differenceInSeconds < 2592000) {
-      const weeks = Math.floor(differenceInSeconds / 604800);
-      return ` ${weeks} week${weeks !== 1 ? "s" : ""} ago`;
-    } else if (differenceInSeconds < 31536000) {
-      const months = Math.floor(differenceInSeconds / 2592000);
-      return `${months} month${months !== 1 ? "s" : ""} ago`;
-    } else {
-      const years = Math.floor(differenceInSeconds / 31536000);
-      return `${years} year${years !== 1 ? "s" : ""} ago`;
-    }
-  }
 
-  const publishDate = "2024-02-27T20:07:10.387Z";
-  console.log(timeSincePublication(publishDate));
 
   return (
     <>
-      <Container mb={20}>
-        <Title my={25} className={classes.title}>
+      
+        <Text ta={"center"} mb={25} fz={"25px"} fw={700}>
           {job.title}
-        </Title>
-      </Container>
-
+        </Text>
       <Container className={classes.container}>
         <div className={classes.actively}>
           <i
@@ -229,14 +201,10 @@ export default function JobDetails() {
               }}
             >
               <li>
-                {" "}
-                Work with backend developers to integrate frontend interfaces
-                with backend services and APIs{" "}
+                Work with backend developers to integrate frontend interfaces with backend services and APIs
               </li>
               <li>
-                Collaborate with designers, developers, and project managers to
-                ensure the best possible user experience and implementation of
-                web designs
+                Collaborate with designers, developers, and project managers to ensure the best possible user experience and implementation of web designs
               </li>
               <li> Write clean, maintainable, and efficient code</li>
               <li>
@@ -415,7 +383,7 @@ export default function JobDetails() {
           </Button>
         </div> */}
         <div style={{ textAlign: "center" }}>
-          <ApplyButton  companyNameJob={companyNameJob} nameJob={nameJob}/>
+          <ApplyButton  companyNameJob={companyNameJob} nameJob={nameJob} JobID={jodID}/>
         </div>
       </Container>
     </>

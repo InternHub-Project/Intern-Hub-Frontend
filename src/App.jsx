@@ -1,55 +1,61 @@
-import {Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import LoginCompanies from "./pages/Companies/LoginCompanies/LoginCompanies";
 import SignupCompanies from "./pages/Companies/SignupCompanies/SignupCompanies";
-import ForgetPassCompanies from './pages/Companies/ForgetPasswordCompanies/ForgetPassCompanies';
-import UpdatePassCompanies from './pages/Companies/UpdatePasswordCompanies/UpdatePassCompanies';
-import ForgetPassUser from "./pages/User/ForgetPasswordUser/ForgetPassUser";
 import LoginUser from "./pages/User/LoginUser/LoginUser";
 import SignupUser from "./pages/User/SignupUser/SignupUser";
-import UpdatePassUser from "./pages/User/UpdatePasswordUser/UpdatePassUser";
 import "@mantine/core/styles.css";
-import Header from './pages/Home/components/Header/Header';
-import {Footer} from './pages/Home/components/Footer/Footer';
-import {errorPage} from './pages/ErrorPage/errorPage';
-import JobsPage from "./pages/Jobs/JobsPage";
-import JobDetails from "./pages/Jobs/JobDetails/JobDetails";
-
+import Header from "./pages/Home/components/Header/Header";
+import { Footer } from "./pages/Home/components/Footer/Footer";
+import { errorPage } from "./core/shared/component/errorPage/errorPage.jsx";
+import ForgetPass from "./pages/Accounts/ForgetPassword/ForgetPass.jsx";
+import ChangePass from "./pages/Accounts/ChangePassword/ChangePass.jsx";
+import UpdatePassUser from "./pages/Accounts/UpdatePassword/UpdatePass.jsx";
+import ConfirmationPage from "./pages/Accounts/ConfirmationEmail/ConfirmationPage.jsx";
+import MyApplication from "./pages/User/ApplicationUser/myApplication.jsx";
+import EditeProfilePage from "./pages/User/editeProfilePage/EditeProfilePage.jsx";
+import JobDetails from "./pages/Jobs/JobDetails/JobDetails.jsx";
+import JobsPage from "./pages/Jobs/JobsPage.jsx";
+import '@mantine/carousel/styles.css';
+import Favorite from "./pages/Favorite/Favorite.jsx";
+import CompanyJobs from "./pages/Jobs/CompanyJobs/CompanyJobs.jsx";
 
 
 function App() {
-    return (
-        <>
-            <Header/>
+  return (
+    <>
+      <Header />
 
-            <Routes>
+      <Routes>
+        <Route path="/" Component={Home} />
+        <Route path="/jobs/:page?" Component={JobsPage}/>
+        <Route path="/jobs/details/:jobId" Component={JobDetails}/>
+        <Route path="/internships" Component={errorPage} />
 
+        <Route path="/favorite/:page?" Component={Favorite} />
+        <Route path="/companyJobs" Component={CompanyJobs} />
 
-                <Route path="/" Component={Home}/>
-                <Route path="/jobs/:page?" Component={JobsPage}/>
-                <Route path="/jobs/details/:jobId" Component={JobDetails}/>
+        <Route  path="*" Component={errorPage} />
+        
+        <Route path="/SignupCompanies" Component={SignupCompanies} />
+        <Route path="/LoginCompanies" Component={LoginCompanies} />
 
-                <Route path="/internships" Component={errorPage}/>
+        <Route path="/SignupUser" Component={SignupUser} />
+        <Route path="/LoginUser" Component={LoginUser} />
+        <Route path="/ForgetPassword" Component={ForgetPass} />
+        <Route path="/UpdatePassword" Component={UpdatePassUser} />
+        <Route path="/ChangePassword" Component={ChangePass} />
+        <Route path="/confirmation/:token"  Component={ConfirmationPage} />
 
-                <Route path="*" Component={errorPage}/>
+        
+        {/* my application component route */}
+				<Route path="/user/myapps" Component={MyApplication} />
+				<Route path="/user_profile" Component={EditeProfilePage} />
 
-
-                <Route path="/SignupCompanies" Component={SignupCompanies}/>
-                <Route path="/LoginCompanies" Component={LoginCompanies}/>
-                <Route path="/ForgetPassCompanies" Component={ForgetPassCompanies}/>
-                <Route path="/UpdatePasswordCompanies" Component={UpdatePassCompanies}/>
-
-                <Route path="/SignupUser" Component={SignupUser}/>
-                <Route path="/LoginUser" Component={LoginUser}/>
-                <Route path="/ForgetPasswordUser" Component={ForgetPassUser}/>
-                <Route path="/UpdatePasswordUser" Component={UpdatePassUser}/>
-
-
-            </Routes>
-            <Footer/>
-
-        </>
-    );
+      </Routes>
+      <Footer />
+    </>
+  );
 }
 
 export default App;

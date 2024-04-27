@@ -1,15 +1,24 @@
-/* eslint-disable react/jsx-key */
 import { Carousel } from "@mantine/carousel";
 import "@mantine/carousel/styles.css";
 import { useEffect, useState } from "react";
 import classes from "./CarouselTrending.module.css";
+import {
+  HTTP_METHODS,
+  httpRequest,
+} from "../../../../core/utils/httpRequest.js";
+import API_CONFIG from "../../../../core/utils/apiConfig.js";
 
 export function CarouselTrending() {
   const [trending, setTrending] = useState([]);
+
   useEffect(() => {
-    fetch("https://internships-api.onrender.com/trending")
-      .then(res => res.json())
-      .then(data => setTrending(data));
+    //  todo: change this endpoint according to the UI requirements and add the query parameters
+    httpRequest(
+      API_CONFIG.endpoints.jobs.getRecommendedJobs,
+      HTTP_METHODS.GET,
+    ).then((res) => {
+      setTrending(res.data);
+    });
   }, []);
 
   return (
@@ -27,11 +36,16 @@ export function CarouselTrending() {
         dragFree
         align="start"
         controlsOffset="sm"
-        controlSize={40}>
-        {trending.map(item => (
+        controlSize={40}
+      >
+        {trending.map((item) => (
           <Carousel.Slide key={item.id}>
             <a href={item.link} key={item.id}>
-              <img src={item.img} className={classes.itemTrending} />
+              <img
+                src={item.img}
+                className={classes.itemTrending}
+                alt={item.title}
+              />
             </a>
           </Carousel.Slide>
         ))}

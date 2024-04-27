@@ -1,5 +1,6 @@
 import Marquee from "react-fast-marquee";
 import classes from "./TopCompany.module.css";
+
 const imageCompanies = [
   {
     image:

@@ -3,13 +3,19 @@ import { useEffect, useState } from "react";
 import classes from "./JobsPage.module.css";
 import { Link, useParams } from "react-router-dom";
 import JobsFilter from "./component/JobsFilter/JobsFilter";
-import API_CONFIG from "../../utils/apiConfig";
 import PaginationJobs from "./component/Pagination/PaginationJobs";
 import axios from "axios";
+import API_CONFIG from "../../core/utils/apiConfig.js";
+import { timeSincePublication } from "../../core/utils/helper.js";
+import RecommendJobs from "../Home/components/RecommendJobs/RecommendJobs.jsx";
+import CompanyJobs from "./CompanyJobs/CompanyJobs.jsx";
 
 const JOBS_PER_PAGE = 10;
 
 export default function JobsPage() {
+  const id = JSON.parse(localStorage.getItem("userInfo")).data;
+
+
   const [filterQuery, setFilterQuery] = useState();
   const [searchValue, setSearchValue] = useState();
   const [internShip, setInternShip] = useState([]);
@@ -18,7 +24,7 @@ export default function JobsPage() {
 
 
   useEffect(() => {
-    let url = `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.job.allJobs}?size=${JOBS_PER_PAGE}&page=${numberOfPage || 1}`;
+    let url = `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.jobs.allJobs}?size=${JOBS_PER_PAGE}&page=${numberOfPage || 1}`;
   
     if (searchValue) {
       url += `&search=${searchValue}`;
@@ -42,38 +48,8 @@ export default function JobsPage() {
           console.log(err);
         })
       }
-        function timeSincePublication(publishDate) {
-          const now = new Date();
-          const publishDateObject = new Date(publishDate);
-          const differenceInMilliseconds = now - publishDateObject;
-          const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
-      
-          if (differenceInSeconds < 60) {
-            return "just now";
-          } else if (differenceInSeconds < 3600) {
-            const minutes = Math.floor(differenceInSeconds / 60);
-            return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
-          } else if (differenceInSeconds < 86400) {
-            const hours = Math.floor(differenceInSeconds / 3600);
-            return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
-          } else if (differenceInSeconds < 604800) {
-            const days = Math.floor(differenceInSeconds / 86400);
-            return `${days} day${days !== 1 ? "s" : ""} ago`;
-          } else if (differenceInSeconds < 2592000) {
-            const weeks = Math.floor(differenceInSeconds / 604800);
-            return ` ${weeks} week${weeks !== 1 ? "s" : ""} ago`;
-          } else if (differenceInSeconds < 31536000) {
-            const months = Math.floor(differenceInSeconds / 2592000);
-            return `${months} month${months !== 1 ? "s" : ""} ago`;
-          } else {
-            const years = Math.floor(differenceInSeconds / 31536000);
-            return `${years} year${years !== 1 ? "s" : ""} ago`;
-          }
-        }
-      
-  
 
-
+      
   const searchInput = (e) => {
     e.preventDefault();
     setSearchValue(e.target.value)
@@ -83,11 +59,14 @@ export default function JobsPage() {
 }
 
 
-  
-  
 
   return (
     <>
+{ !id.companyId ?
+    (<>
+    <Box>
+      <RecommendJobs />
+    </Box>
       <Container>
         <Grid style={{ margin: "30px" }}>
           <Grid.Col span={{ base: 12, sm: 4 }}>
@@ -293,6 +272,9 @@ export default function JobsPage() {
           </Grid.Col>
         </Grid>
       </Container>
+      </>):(<>
+      <CompanyJobs />
+      </>)}
     </>
   );
 }

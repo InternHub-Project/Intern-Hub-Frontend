@@ -1,15 +1,15 @@
 import classes from "./Header.module.css";
 import {
-  Group,
-  Button,
-  Divider,
   Box,
   Burger,
+  Button,
+  Divider,
   Drawer,
-  ScrollArea,
-  rem,
-  Text,
+  Group,
   HoverCard,
+  rem,
+  ScrollArea,
+  Text,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { UserInfo } from "./../userInfo/UserInfo";
@@ -42,7 +42,6 @@ export default function Header() {
       </a>
     );
   });
-
 
   const itemsNav = links.map((link) => {
     return (
@@ -96,12 +95,7 @@ export default function Header() {
               <>
                 <HoverCard width={280} shadow="md">
                   <HoverCard.Target>
-                    <Button
-                     
-                      variant="outline"
-                    >
-                      Login
-                    </Button>
+                    <Button variant="outline">Login</Button>
                   </HoverCard.Target>
 
                   <HoverCard.Dropdown style={{ width: "fit-content" }}>
@@ -163,21 +157,60 @@ export default function Header() {
       >
         <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
           <Divider my="sm" />
-          
-                      {itemsNav}
-         
+
+          {itemsNav}
 
           <Divider my="sm" />
 
-          <Group justify="center" grow pb="xl" px="md">
-            <Button  onClick={()=>{location.href="/SignupUser"}}> User Sign-up</Button>
-            <Button onClick={()=>{location.href="/SignupCompanies"}}>  Company Sign-up</Button>
+
+
+          {localStorage.length ? (
+              <UserInfo />
+            ) :(
+              <Box>
+
+            <Group justify="center" grow pb="xl" px="md">
+            <Button
+              onClick={() => {
+                location.href = "/SignupUser";
+              }}
+            >
+              {" "}
+              User Sign-up
+            </Button>
+            <Button
+              onClick={() => {
+                location.href = "/SignupCompanies";
+              }}
+            >
+              {" "}
+              Company Sign-up
+            </Button>
           </Group>
 
           <Group justify="center" grow pb="xl" px="md" mt={-15}>
-            <Button variant="outline" onClick={()=>{location.href="/LoginUser"}}>User Login</Button>
-            <Button variant="outline" onClick={()=>{location.href="/LoginCompanies"}}>Company Login</Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                location.href = "/LoginUser";
+              }}
+            >
+              User Login
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => {
+                location.href = "/LoginCompanies";
+              }}
+            >
+              Company Login
+            </Button>
           </Group>
+
+              </Box>
+            )}
+
+          
         </ScrollArea>
       </Drawer>
     </Box>
