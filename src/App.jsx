@@ -16,7 +16,10 @@ import MyApplication from "./pages/User/ApplicationUser/myApplication.jsx";
 import EditeProfilePage from "./pages/User/editeProfilePage/EditeProfilePage.jsx";
 import JobDetails from "./pages/Jobs/JobDetails/JobDetails.jsx";
 import JobsPage from "./pages/Jobs/JobsPage.jsx";
-// import Chat from "./pages/chat/Chat.jsx";
+import Chat from "./pages/chat/Chat.jsx";
+import UserProfile from "./pages/User/UserProfile/UserProfile.jsx";
+import CompanyProfile from "./pages/Companies/CompanyProfile/CompanyProfile.jsx";
+import JobPostingForm from "./pages/Companies/CompanyJob/JobPostingForm.jsx";
 
 function App() {
   return (
@@ -40,11 +43,17 @@ function App() {
         <Route path="/UpdatePassword" Component={UpdatePassUser} />
         <Route path="/ChangePassword" Component={ChangePass} />
         <Route path="/confirmation/:token"  Component={ConfirmationPage} />
+
+        <Route path="/user_profile"  Component={UserProfile} />
+        <Route path="/company_profile"  Component={CompanyProfile} />
+
+        <Route path="/companyjobs"  Component={JobPostingForm} />
+
         
         {/* my application component route */}
 				<Route path="/user/myapps" Component={MyApplication} />
-				<Route path="/user_profile" Component={EditeProfilePage} />
-				{/* <Route path="/chat" Component={Chat} /> */}
+				<Route path="/edite_user_profile" Component={EditeProfilePage} />
+				<Route path="/chat" Component={Chat} />
 	
 
 
