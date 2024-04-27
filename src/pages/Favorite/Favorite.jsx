@@ -1,114 +1,47 @@
-import { Box, Container, Grid, Text } from "@mantine/core";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, Container, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
-import classes from "./JobsPage.module.css";
-import { Link, useParams } from "react-router-dom";
-import JobsFilter from "./component/JobsFilter/JobsFilter";
-import PaginationJobs from "./component/Pagination/PaginationJobs";
-import axios from "axios";
+import classes from "./Favorite.module.css";
+import { Link } from "react-router-dom";
 import API_CONFIG from "../../core/utils/apiConfig.js";
 import { timeSincePublication } from "../../core/utils/helper.js";
+// import PaginationJobs from "../Jobs/component/Pagination/PaginationJobs.jsx";
+import axios from "axios";
 
-import RecommendJobs from "../Home/components/RecommendJobs/RecommendJobs.jsx";
-import CompanyJobs from "./CompanyJobs/CompanyJobs.jsx";
+// const JOBS_PER_PAGE = 10;
 
+export default function Favorite() {
+  const token = JSON.parse(localStorage.getItem("userInfo")).data.token;
 
-const JOBS_PER_PAGE = 10;
-
-export default function JobsPage() {
-  const id = JSON.parse(localStorage.getItem("userInfo")).data;
-
-
-  const [filterQuery, setFilterQuery] = useState();
-  const [searchValue, setSearchValue] = useState();
   const [internShip, setInternShip] = useState([]);
-  const [totalElements, setTotalElements] = useState(0);
-  const { page: numberOfPage } = useParams();
+  // const [totalElements, setTotalElements] = useState(0);
+  // const { page: numberOfPage } = useParams();
 
+  useEffect(()=>{
 
-  useEffect(() => {
-    let url = `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.jobs.allJobs}?size=${JOBS_PER_PAGE}&page=${numberOfPage || 1}`;
-  
-    if (searchValue) {
-      url += `&search=${searchValue}`;
-    } else if (filterQuery) {
-      url += `&${filterQuery}`;
-    }
-    setTotalElements(45);
-    getData(url);
-  }, [filterQuery, numberOfPage, searchValue]);
-      
+    axios({
+      url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.favorite}`,
+      headers:{
+       Authorization :`internHub__${token}`
+      },
+      method:"GET"
+    }).then(res=>{
+      console.log(res);
+      setInternShip(res.data.data);
+    }).catch(err=>console.log(err))
+  },[])
 
-      const getData=(url)=>{
-        axios({
-          method:"get",
-          url:url,
-          headers:{"Content-Type":"application/json"}
-        }).then(res=>{
-          setInternShip(res.data.data);
-          console.log(res.data.data);
-        }).catch(err=>{
-          console.log(err);
-        })
-      }
-
-      
-  const searchInput = (e) => {
-    e.preventDefault();
-    setSearchValue(e.target.value)
-  if (e.target.value && filterQuery) {
-    setFilterQuery("");
-  }
-}
 
 
   return (
-    <>
-{ !id.companyId ?
-    (<>
-    <Box>
-      <RecommendJobs />
-    </Box>
+    <Container>
       <Container>
-        <Grid style={{ margin: "30px" }}>
-          <Grid.Col span={{ base: 12, sm: 4 }}>
-            <div className={classes.filter}>
-              <div>
-                <div style={{ textAlign: "center" }}>
-                  <p className={classes.filterIcon}>
-                    {" "}
-                    <i
-                      className="fa-solid fa-filter"
-                      style={{ color: "#008BDC", paddingRight: "2px" }}
-                    ></i>
-                    Filter
-                  </p>
-                </div>
-                <JobsFilter setFilterQuery={setFilterQuery} />
-              </div>
-            </div>
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, sm: 8 }}>
-            <Box  className={classes.search} mx={"xs"}  >
-              <Box>
-                <Text className={classes.label} mb={10} fz={16} fw={700}>
-                  Search
-                </Text>
-              </Box>
-
-
-              <Box>
-
-              <input
-                className={classes.input}
-                value={searchValue}
-                onChange={searchInput}
-                placeholder="title , skills , descrepation"
-              />
-              </Box>
-
-
-              
-            </Box>
+        <Text ta={"center"} fz={30} fw={700}>
+          Favorite Jobs
+        </Text>
+        <Box style={{ margin: "30px" }}>
+          <Box>
+            
             {internShip.map((item) => (
               <Link
                 key={item.id}
@@ -134,7 +67,11 @@ export default function JobsPage() {
                       <p className={classes.title}>{item.companyName}</p>
                     </div>
                     <div>
-                      <img src={item.companyImage} width={"50px"} height={"50px"} />
+                      <img
+                        src={item.companyImage}
+                        width={"50px"}
+                        height={"50px"}
+                      />
                     </div>
                   </div>
                   <div className={classes.country}>
@@ -264,18 +201,15 @@ export default function JobsPage() {
                 </div>
               </Link>
             ))}
-            <PaginationJobs
-              route={"/jobs"}
+            {/* <PaginationJobs
+              route={"/favorite"}
               totalElements={totalElements}
               ITEMS_PER_PAGE={JOBS_PER_PAGE}
               numberOfPage={numberOfPage}
-            />
-          </Grid.Col>
-        </Grid>
+            /> */}
+          </Box>
+        </Box>
       </Container>
-      </>):(<>
-      <CompanyJobs />
-      </>)}
-    </>
+    </Container>
   );
 }

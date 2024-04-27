@@ -162,7 +162,17 @@ export default function Header() {
 
           <Divider my="sm" />
 
-          <Group justify="center" grow pb="xl" px="md">
+
+
+
+          {localStorage.length ? (
+              <UserInfo />
+            ) :(
+              <Box>
+
+            <Group justify="center" grow pb="xl" px="md">
+
+
             <Button
               onClick={() => {
                 location.href = "/SignupUser";
@@ -199,6 +209,11 @@ export default function Header() {
               Company Login
             </Button>
           </Group>
+
+              </Box>
+            )}
+
+          
         </ScrollArea>
       </Drawer>
     </Box>

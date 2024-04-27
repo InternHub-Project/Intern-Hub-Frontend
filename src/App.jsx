@@ -16,10 +16,14 @@ import MyApplication from "./pages/User/ApplicationUser/myApplication.jsx";
 import EditeProfilePage from "./pages/User/editeProfilePage/EditeProfilePage.jsx";
 import JobDetails from "./pages/Jobs/JobDetails/JobDetails.jsx";
 import JobsPage from "./pages/Jobs/JobsPage.jsx";
+import '@mantine/carousel/styles.css';
+import Favorite from "./pages/Favorite/Favorite.jsx";
+import CompanyJobs from "./pages/Jobs/CompanyJobs/CompanyJobs.jsx";
 import Chat from "./pages/chat/Chat.jsx";
 import UserProfile from "./pages/User/UserProfile/UserProfile.jsx";
 import CompanyProfile from "./pages/Companies/CompanyProfile/CompanyProfile.jsx";
 import JobPostingForm from "./pages/Companies/CompanyJob/JobPostingForm.jsx";
+
 
 function App() {
   return (
@@ -31,6 +35,10 @@ function App() {
         <Route path="/jobs/:page?" Component={JobsPage}/>
         <Route path="/jobs/details/:jobId" Component={JobDetails}/>
         <Route path="/internships" Component={errorPage} />
+
+
+        <Route path="/favorite/:page?" Component={Favorite} />
+        <Route path="/companyJobs" Component={CompanyJobs} />
 
         <Route  path="*" Component={errorPage} />
         
@@ -44,10 +52,13 @@ function App() {
         <Route path="/ChangePassword" Component={ChangePass} />
         <Route path="/confirmation/:token"  Component={ConfirmationPage} />
 
+
+        
+      
+
         <Route path="/user_profile"  Component={UserProfile} />
         <Route path="/company_profile"  Component={CompanyProfile} />
 
-        <Route path="/companyjobs"  Component={JobPostingForm} />
 
         
         {/* my application component route */}
@@ -57,7 +68,7 @@ function App() {
 	
 
 
-        
+       
 
       </Routes>
       <Footer />

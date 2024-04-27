@@ -25,10 +25,15 @@ const API_CONFIG = {
       updateUser: "user/updateUserprofile",
       logout: "auth/logout",
       applyToJob: "user/apply",
-      userApplication:"job/applications"
+
+      userApplication:"job/applications",
+      favorite:"user/userfavourite"
     },
     company: {
       fetchCompany: "company/companydata",
+      topBrands:"job/topbrands",
+      companyjobs:"company/companyjobs"
+
     },
     jobs: {
       allJobs: "job/jobs",
@@ -36,6 +41,11 @@ const API_CONFIG = {
       getRecommendedJobs: "job/recommendedjobs",
       getCompanyJobs: "company/companyjobs",
       createJob: "company/createJob",
+
+      applyJob:"job/apply_requirement",
+      newjobs:"job/newjobs",
+      
+
     },
     accounts:{
       changePassword:"account/changePassword"

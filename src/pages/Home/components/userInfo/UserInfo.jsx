@@ -20,6 +20,9 @@ import {
   IconEdit,
   IconFile,
   IconLogout,
+
+  IconRepeat,
+
   IconSettings,
   IconStar,
   IconSwitchHorizontal,
@@ -139,6 +142,7 @@ const handleApplication=()=>{
                 }
               >
                 Profile
+
               </Menu.Item>
 
             <Menu.Item
@@ -153,6 +157,7 @@ const handleApplication=()=>{
               >
                 Edit Profile
               </Menu.Item>
+
 
               {/* user || company application */}
               <Menu.Item
@@ -170,6 +175,7 @@ const handleApplication=()=>{
 
               {/* saved jobs */}
               <Menu.Item
+                onClick={()=>{location.href="/favorite"}}
                 leftSection={
                   <IconStar
                     style={{ width: rem(16), height: rem(16) }}
@@ -178,7 +184,9 @@ const handleApplication=()=>{
                   />
                 }
               >
-                Saved Jobs
+
+                Favorite
+
               </Menu.Item>
 
       

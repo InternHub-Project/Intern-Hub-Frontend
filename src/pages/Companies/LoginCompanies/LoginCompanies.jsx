@@ -20,7 +20,9 @@ export default function LoginCompanies() {
         setTimeout(() => {
           location.href = "/";
         }, 1000);
+
         localStorage.setItem("userInfo", JSON.stringify(res.data));
+
       }
     });
   }
