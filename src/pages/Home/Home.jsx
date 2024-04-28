@@ -6,29 +6,32 @@ import RecommendJobs from "./components/RecommendJobs/RecommendJobs";
 import Companies from "./components/seaction-Companies/Companies";
 import LestJobs from "./components/sectionJobs/LestJobs";
 
-// import StartParagraph from "./components/StartPragraphe/StartParagraph";
-// import { CarouselTrending } from "./components/CarouselTrending/CarouselTrending";
+import StartParagraph from "./components/StartPragraphe/StartParagraph";
+import { CarouselTrending } from "./components/CarouselTrending/CarouselTrending";
 // import LatestInternships from "./components/LatestInternships/LatestInternships";
 // import LatestJobs from "./components/LatestJobs/LatestJobs";
-// import CarouselCourses from "./components/CarouselCourses/CarouselCourses";
-// import CarouselBigCourses from "./components/CarouselBigCourses/CarouselBigCourses";
+import CarouselCourses from "./components/CarouselCourses/CarouselCourses";
+import CarouselBigCourses from "./components/CarouselBigCourses/CarouselBigCourses";
 // import TopCompany from "./components/TopCompany/TopCompany";
-// import StateWebSite from "./components/StateWebSite/StateWebSite";
+import StateWebSite from "./components/StateWebSite/StateWebSite";
+import SeactionRegister from './components/seactionRegister/Register';
+
 
 export default function Home() {
   return (
     <div>
-      {/* <StartParagraph /> */}
-      {/* <CarouselTrending /> */}
+      <StartParagraph />
+      <CarouselTrending />
       {/* <LatestInternships /> */}
       {/* <LatestJobs /> */}
-      {/* <CarouselCourses /> */}
-      {/* <CarouselBigCourses /> */}
       {/* <TopCompany /> */}
-      {/* <StateWebSite /> */}
       <RecommendJobs />
       <LestJobs />
+      <CarouselCourses />
+      <CarouselBigCourses />
       <Companies />
+      <StateWebSite />
+      <SeactionRegister />
     </div>
   );
 }

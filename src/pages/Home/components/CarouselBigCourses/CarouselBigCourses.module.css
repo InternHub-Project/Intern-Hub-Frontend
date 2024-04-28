@@ -1,5 +1,4 @@
 
-
 .box {
   box-shadow: var(--outline-field-color) 0px 2px 8px 0px;
   border-radius:10px
@@ -43,7 +42,7 @@
 
 .description {
   background-color: var(--first-color);
-  margin-top: -22px;
+  margin-top: 0px;
   padding: 10px 20px;
   text-align: start;
   border-bottom-right-radius: 10px;
