@@ -1,6 +1,6 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import "./EditeProfilePage.css";
-import "./vars.css";
+import "../../User/editeProfilePage/EditeProfilePage.css";
+import "../../User/editeProfilePage/vars.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "react-avatar-edit";
@@ -8,38 +8,33 @@ import AvatarPicture from "../../../assets/images/avatar.png"
 import { Dialog } from "primereact/dialog";
 import API_CONFIG from "../../../core/utils/apiConfig.js";
 import { httpRequest } from "../../../core/utils/httpRequest.js";
+// import { Notifications } from "@mantine/notifications";
 import axios from "axios";
 import { showNotification } from "@mantine/notifications";
+// import { showNotification } from "@mantine/notifications";
 
 
 
+// you can recomented your import above dependent your project
 
-export const EditeProfilePage = () => {
+export const EditCompanyProfile = () => {
 	const token = JSON.parse(localStorage.getItem("userInfo")).data.token;
-	const [userName, setUserName] = useState("");
+	const [companyName, setCompanyName] = useState("");
 	const [emailValue, setEmail] = useState("");
 
-	const [birthdate, setBirthdate] = useState("");
-	const [bio, setBio] = useState("");
+	const [description, setDescription] = useState("");
 	const [phoneNumber, setPhoneNumber] = useState();
 	const [address, setAddress] = useState({
 		city: "",
 		country: "",
 		address: "",
+        state:""
 	});
-	const [gender, setGender] = useState("");
-	// const [status, setStatus] = useState("");
-	const [exprienceYears, setExprienceYears] = useState("");
-	const [skills, setSkills] = useState("");
-	const [allSkills, setAllSkills] = useState([]);
-	const [interested, setInterested] = useState("");
-	const [allInterested, setAllInterested] = useState([]);
-	const [cv, setCV] = useState(null);
+	const [employeesNumber, setEmployeesNumber] = useState("");
+	const [fields, setFields] = useState("");
+	const [allFields, setAllFields] = useState([]);
 
-	const handleCVChange = (e) => {
-		const file = e.target.files[0];
-		setCV(file);
-	};
+
 	// profile ficture edit
 	const [imageCrop, setImageCrop] = useState(false);
 	const [profilePicture, setProfilePicture] = useState(AvatarPicture);
@@ -61,142 +56,100 @@ export const EditeProfilePage = () => {
 		return Math.floor(Math.random() * 1000000);
 	};
 	const onAddSkillsHandler = () => {
-		if (skills) {
+		if (fields) {
 			// Check if the skill already exists
-			const skillExists = allSkills.some((skill) => skill.title === skills);
+			const skillExists = allFields.some((skill) => skill.title === fields);
 			if (!skillExists) {
-				setAllSkills([...allSkills, { title: skills }]); // Use skill title as ID
+				setAllFields([...allFields,  fields ]); // Use skill title as ID
 			}
-			setSkills("");
+			setFields("");
 		} else {
 			return;
 		}
 	};
 
 	const deleteSkillHandler = (skillTitle) => {
-		let data = allSkills.filter((skill) => skill.title||skill!== skillTitle);
-		setAllSkills(data);
+        console.log(skillTitle);
+        console.log(allFields);
+		let data = allFields.filter((skill) => skill.title||skill!== skillTitle);
+		setAllFields(data);
 	};
 
-	const onAddInterestHandler = () => {
-		if (interested) {
-			const interestedExist = allInterested.some((interest) => interest.title === interested);
-			{		
-				if(!interestedExist){
-					setAllInterested([
-						...allInterested,
-						{ title: interested, id: generateRandomId() },
-					]),
-						setInterested("");
-				}
-				
-			}
-		} else {
-			return;
-		}
-	};
 
-	const deleteInterestedHandler = (interestedDelete) => {
-		let data = allInterested.filter(
-			(single) => single.title||single !== interestedDelete
-		);
-		setAllInterested(data);
-	};
+
 	// PUT requist
 	const onSubmitHandler = async(e) => {
 		e.preventDefault();
-		let interestedArr=[]
-		let SkillsArr=[]
-		const formData = new FormData();
+		let fieldsArr=[]
+        const Data={}
 
-		if(allInterested.length>0){
-			allInterested.map((aa=>{
+
+		if(allFields.length>=0){
+            allFields.map((aa=>{
 				if(!aa.title){
-					interestedArr.push(aa)
+					fieldsArr.push(aa);
 				}
 				else{
-					interestedArr.push(aa.title)
-				}
-			}))
-		}
-		
-		if(allSkills.length>=0){
-		allSkills.map((aa=>{
-				if(!aa.title){
-					SkillsArr.push(aa);
-				}
-				else{
-					SkillsArr.push(aa.title);
+					fieldsArr.push(aa.title);
 				}
 			}))
 			
 		}
-		if(cv){
-            formData.append('file', cv);
-			console.log(cv);
-		}
 		if(profilePicture){
-			formData.append('profileImage', profilePicture);
-		}		
+			Data.image=profilePicture
+		}	
+        if(description){
+			Data.description= description;
+		}
+        if(companyName){
+			Data.name =companyName
+		}
+        if(phoneNumber){
+			Data.phone=phoneNumber;
+        }
+        if(employeesNumber){
+			Data.employees_number=employeesNumber
+		}
 		if(address.address){
-			formData.append('address', address.address);
+			Data.address= address.address;
 		}
 		if(address.city){
-			formData.append('city', address.city);
+            Data.city= address.city;
 		}
 		if(address.country){
-			formData.append('country', address.country);
+			Data.country= address.country;
 		}
-		if(userName){
-			formData.append('userName', userName);
+        if(address.state){
+			Data.state= address.state;
 		}
-		if(phoneNumber){
-			formData.append('phone', phoneNumber);
-		}
-		if(exprienceYears){
-			formData.append('experienceYears', exprienceYears);
-		}
-		if(gender){
-			formData.append('gender', gender);
-		}
-		if(birthdate){
-			formData.append("birthdate",birthdate)
-		}
-		if(bio){
-			formData.append('bio', bio);
-		}
-		if(allSkills){
-			formData.append('skills',JSON.stringify(SkillsArr)); // Convert array to string
-		}
-		if(allInterested){
-			formData.append('fieldOfInterest', JSON.stringify(interestedArr)); // Convert array to string
-		}
+        if(allFields){
+            Data.field=fieldsArr
+        }
+        console.log(Data);
+	
 		axios({
-			method:"PUT",
-			url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.updateUser}`,
-			headers:{
-				"Content-Type":"multipart/form-data",
-				Authorization:
-				`internHub__${token}`,
-			},
-			data:formData
-		}).then((res=>{
-			if(res.status==200){
+            method:"PUT",
+            url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.company.updateCompany}`,
+            data:Data,
+            headers:{Authorization:`${API_CONFIG.secretKey}${token}`,"Content-Type":"application/json"}
+        }).then((res)=>{
+            if(res.status==200){
 				showNotification({message:"Profile Update successfully",color:"green"})
 				window.location.reload()
 			}
-		})).catch((err=>{
-			console.log(err);
-			if(err.response.status==400)
+            
+        }).catch((err)=>{
+            console.log(err);
+            if(err.response.status==400)
 			showNotification({message:err.response.data.message,color:"red"})
-		}))
+        })
 
 	
 	};
 	// get user data
 	useEffect(() => {
 		httpRequest(
-			API_CONFIG.endpoints.user.fetchUser,
+			API_CONFIG.endpoints.company.fetchCompany,
 			"GET",
 			{},
 			{
@@ -205,26 +158,19 @@ export const EditeProfilePage = () => {
 			}
 		).then((result) => {
 			const userData = result.data.data;
-			console.log(userData?.phone);
-			setProfilePicture(userData?.profileImage || "");
+			setProfilePicture(userData?.image || "");
 			setEmail(userData?.email);
-			setUserName(userData?.userName || "");
-			const backendDate = userData.birthdate
-				? userData.birthdate.split("T")[0]
-				: "";
-			setBirthdate(backendDate || "");
-			setBio(userData?.bio || "");
+			setCompanyName(userData?.name || "");
+			setDescription(userData?.description || "");
 			setPhoneNumber(userData?.phone || "");
 			setAddress({
 				city: userData.address?.city || "",
 				country: userData.address?.country || "",
 				address: userData.address?.address || "",
+                state:userData.address?.state ||"",
 			});
-			setGender(userData?.gender || "");
-			setExprienceYears(userData?.experienceYears || "");
-			setAllSkills(userData?.skills || "");
-			setAllInterested(userData?.fieldOfInterest || "");
-			setCV(userData?.cv || "");
+			setEmployeesNumber(userData?.employees_number|| "");
+			setAllFields(userData?.field || "");
 		});
 	}, []);
 
@@ -233,7 +179,7 @@ export const EditeProfilePage = () => {
 			<Container>
 				<Row className="bg-page-color">
 					<div className="header">
-						<h1 className="profile-header">UPDATE PROFILE</h1>
+						<h1 className="profile-header">UPDATE COMPANY PROFILE</h1>
 					</div>
 					<Form onSubmit={onSubmitHandler}>
 						{/* image */}
@@ -277,41 +223,32 @@ export const EditeProfilePage = () => {
 								</div>
 							</div>
 						</div>
-						{/* user img */}
-						{/* <Col>
-							<Form.Group as={Row} className="mb-3">
-								<Col sm="2">
-									<Form.Label>Profile Picture</Form.Label>
-								</Col>
-								<Col sm="10">
-									<Form.Control value={profilePicture} disabled readOnly />
-								</Col>
-							</Form.Group>
-						</Col> */}
+			
 						{/* user name */}
 						<Col>
 							<Form.Group as={Row} className="mb-3">
 								<Col sm="2">
-									<Form.Label>User Name</Form.Label>
+									<Form.Label>Comapny Name</Form.Label>
 								</Col>
 								<Col sm="10">
 									<Form.Control
-										value={userName}
-										onChange={(e) => setUserName(e.target.value)}
+										value={companyName}
+										onChange={(e) => setCompanyName(e.target.value)}
 									/>
 								</Col>
 							</Form.Group>
 						</Col>
-						{/* Bio */}
+
+						{/* Description */}
 						<Col>
 							<Form.Group as={Row} className="mb-3">
 								<Col sm="2">
-									<Form.Label>Bio</Form.Label>
+									<Form.Label>Description</Form.Label>
 								</Col>
 								<Col sm="10">
 									<Form.Control
-										value={bio}
-										onChange={(e) => setBio(e.target.value)}
+										value={description}
+										onChange={(e) => setDescription(e.target.value)}
 									/>
 								</Col>
 							</Form.Group>
@@ -327,31 +264,12 @@ export const EditeProfilePage = () => {
 								</Col>
 							</Form.Group>
 						</Col>
-						{/* gender */}
-						<Col>
-							<Form.Group as={Row} className="mb-3">
-								<Col sm="2">
-									<Form.Label>Gender</Form.Label>
-								</Col>
-								<Col sm="10">
-									<Form.Select
-										aria-label="Default select example"
-										sm="6"
-										value={gender}
-										onChange={(e) => setGender(e.target.value)}
-									>
-										<option value="1">select gender</option>
-										<option value="male">male</option>
-										<option value="female">female</option>
-									</Form.Select>
-								</Col>
-							</Form.Group>
-						</Col>
+				
 						{/* phone */}
 						<Col>
 							<Form.Group as={Row} className="mb-3">
 								<Col sm="2">
-									<Form.Label>Phon Number</Form.Label>
+									<Form.Label>Company Phone</Form.Label>
 								</Col>
 								<Col sm="10">
 									<Form.Control
@@ -363,21 +281,7 @@ export const EditeProfilePage = () => {
 								</Col>
 							</Form.Group>
 						</Col>
-						{/* birthdate */}
-						<Col>
-							<Form.Group as={Row} className="mb-3">
-								<Col sm="2">
-									<Form.Label>Birthdate</Form.Label>
-								</Col>
-								<Col sm="10">
-									<Form.Control
-										type="date"
-										value={birthdate}
-										onChange={(e) => setBirthdate(e.target.value)}
-									/>
-								</Col>
-							</Form.Group>
-						</Col>
+
 						{/* city */}
 						<Col>
 							<Form.Group as={Row} className="mb-3">
@@ -441,29 +345,52 @@ export const EditeProfilePage = () => {
 							</Form.Group>
 						</Col>
 
+                        {/* State */}
+                        <Col>
+							<Form.Group as={Row} className="mb-3">
+								<Col sm="2">
+									<Form.Label>State</Form.Label>
+								</Col>
+								<Col sm="10">
+									<Form.Control
+										className="address"
+										value={address.state}
+										onChange={(e) =>
+											setAddress({
+												city: address.city,
+												country: address.country,
+												address: address.address,
+												state: e.target.value,
+											})
+										}
+									/>
+								</Col>
+							</Form.Group>
+						</Col>
+
 						{/* exprience year */}
 						<Form.Group as={Row} className="mb-3">
 							<Col sm="2">
-								<Form.Label>Exprience Years</Form.Label>
+								<Form.Label>Employees Number</Form.Label>
 							</Col>
 							<Col sm="10">
 								<Form.Control
 									type="number"
-									value={exprienceYears}
-									onChange={(e) => setExprienceYears(e.target.value)}
+									value={employeesNumber}
+									onChange={(e) => setEmployeesNumber(e.target.value)}
 								/>
 							</Col>
 						</Form.Group>
-						{/* skills */}
+						{/* fields */}
 						
 						<Form.Group as={Row} className="mb-3">
 							<Col sm="2">
-								<Form.Label>Skills</Form.Label>
+								<Form.Label>Comapny Fields</Form.Label>
 							</Col>
 							<Col sm="9">
 								<Form.Control
-									value={skills}
-									onChange={(e) => setSkills(e.target.value)}
+									value={fields}
+									onChange={(e) => setFields(e.target.value)}
 								/>
 							</Col>
 							<Col sm="1">
@@ -479,8 +406,8 @@ export const EditeProfilePage = () => {
 
 						<div className="skills">
 							<ul className="privateUl">
-								{allSkills &&
-									allSkills.map((single) => (
+								{allFields &&
+									allFields.map((single) => (
 										<li className="privateLi"
 											key={generateRandomId()}
 											onClick={() => deleteSkillHandler(single)}
@@ -491,58 +418,9 @@ export const EditeProfilePage = () => {
 									))}
 							</ul>
 						</div>
-						{/* interested */}
-						<Form.Group as={Row} className="mb-3">
-							<Col sm="2">
-								<Form.Label>Interested</Form.Label>
-							</Col>
-							<Col sm="9">
-								<Form.Control
-									value={interested}
-									onChange={(e) => setInterested(e.target.value)}
-								/>
-							</Col>
-							<Col sm="1">
-								<button
-									className="btn btn-success add-skill-btn"
-									type="button"
-									onClick={onAddInterestHandler}
-								>
-									Add
-								</button>
-							</Col>
-						</Form.Group>
 
-						<div className="skills">
-							<ul className="privateUl">
-								{allInterested &&
-									allInterested.map((single) => (
-										<li className="privateLi"
-											key={generateRandomId()}
-											onClick={() => deleteInterestedHandler(single)}
-										>
-											{single.title?single.title:single}
-											<span className="delete-skill">Delete</span>
-										</li>
-									))}
-							</ul>
-						</div>
-
-						{/* resume */}
-						<Form.Group as={Row} controlId="formFileLg" className="mb-3">
-							<Col sm="2">
-								<Form.Label>Upload CV</Form.Label>
-							</Col>
-							<Col sm="10">
-								{/* <div>{cv ? <div>{cv}</div> : <div>No file selected</div>}</div> */}
-								<Form.Control
-									type="file"
-									size="lg"
-									name="cv"
-									onChange={handleCVChange}
-								/>
-							</Col>
-						</Form.Group>
+                        
+				
 						<Col className="buttons">
 							<Link variant="danger" to="/" className="btn btn-danger">
 								Cancel
@@ -556,4 +434,4 @@ export const EditeProfilePage = () => {
 	);
 };
 
-export default EditeProfilePage;
+export default EditCompanyProfile;

@@ -1,0 +1,21 @@
+.favorate-icon,
+.favorate-icon:hover {
+	background-color: #fff;
+	padding: 0px;
+	font-size: 150%;
+	border-color: #ddd;
+	color: #999;
+}
+
+.favorate-icon.btn:first-child:active,
+:not(.btn-check) + .btn:active {
+	color: var(--bs-btn-active-color);
+	background-color: #dc3545;
+	border-color: #be0a3b;
+}
+
+.favorate-icon svg {
+	height: 100%;
+	margin-top: -8px;
+	width: 30px;
+}

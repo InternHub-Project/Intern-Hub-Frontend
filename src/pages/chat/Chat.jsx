@@ -27,10 +27,10 @@ function Chat() {
 
   }
   // Replace with your logic to fetch user list
-  let  socketIo = io("http://localhost:3003");
+  let  socketIo = io("https://api.codesplus.online");
   useEffect(() => {
     const fetchUserList = async () => {
-      const response = await fetch('http://localhost:3003/api/v1/account/user_or_company_list',
+      const response = await fetch('https://api.codesplus.online/api/v1/account/user_or_company_list',
     {
         headers:{"Authorization":`internHub__${token}`}
     }); // Replace with your API endpoint
@@ -60,7 +60,7 @@ function Chat() {
       setLoading(true);
       axios({
         method: "post",
-        url: "http://localhost:3003/api/v1/account/user_or_company_chat",
+        url: "https://api.codesplus.online/api/v1/account/user_or_company_chat",
         headers: {
           "Content-Type": "application/json",
           Authorization: `internHub__${token}`

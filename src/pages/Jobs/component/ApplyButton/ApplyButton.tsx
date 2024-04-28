@@ -33,21 +33,31 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
 
   const [applyData, setApplyData] = useState({
     coverLetter: "",
-    // question: [
-    //   {
-    //     question: "",
-    //   },
-    //   {
-    //     answer: "",
-    //   },
-    // ],
-    proLang:"",
-    desExp:"",
-    resume: "",
+    questions:[]
   });
+  
 
-  function setData(e) {
-    setApplyData({ ...applyData, [e.target.name]: e.target.value });
+  const setData = (e, index) => {
+    const { name, value } = e.target;
+  
+    // Create a copy of the current state
+    const updatedApplyData = { ...applyData };
+  
+    if (!updatedApplyData.questions[index]) {
+      updatedApplyData.questions[index] = {};
+    }
+  
+    // Update the answer for the current question
+    updatedApplyData.questions[index][name] = value;
+     
+    // Set the updated state
+    setApplyData(updatedApplyData);
+  };
+
+
+  const setCoverLetter=(e)=>{
+    const cover=e.target.value;
+    setApplyData({...applyData,coverLetter:cover})
   }
 
   console.log(applyData);
@@ -97,14 +107,20 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
     e.preventDefault();
 
     axios({
-      url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.applyToJob}/Jobb04b3fb6-f2c4-4075-846d-56e758537258`,
+      url: `http://localhost:3003/api/v1/user/apply/Jobb04b3fb6-f2c4-4075-846d-56e758537258`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `internHub__${token}`,
       },
       method: "POST",
+      data:applyData
     })
-      .then((res) => console.log(res))
+      .then((res) => {console.log(res)
+        notifications.show({
+          message: res.data.message,
+          color: "green",
+        });
+      })
       .catch((err) => {
         console.log(err);
         notifications.show({
@@ -185,7 +201,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
               <Textarea
                 name="coverLetter"
                 required
-                onChange={setData}
+                onChange={setCoverLetter}
                 value={applyData.coverLetter}
 
                 autosize
@@ -200,7 +216,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
               <Box>
                 {questionApply ? (
                   <>
-                    {questionApply.map((item) => (
+                    {questionApply.map((item,index) => (
                       <Box key={item._id}>
                         {item.type === "multiple_choice" ? (
                           <Box>
@@ -211,10 +227,10 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
                               <Box key={option}>
                                 <input
                                   required
-                                   onChange={setData}
+                                   onChange={(e)=>setData(e,index)}
                                   type="radio"
                                   value={option}
-                                  name={"proLang"}
+                                  name={`answer`} 
                                   id={option}/>{" "}
                                 <label
                                   style={{
@@ -237,9 +253,9 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
                             <Box>
                               <Textarea
                                 required
-                                onChange={setData}
-                                name={"desExp"}
-                                value={applyData.desExp}
+                                onChange={(e) => setData(e, index)}
+                                name={"answer"}
+                                value={applyData.questions[index]?.answer || ""}
                                 autosize
                                 minRows={5}
                                 resize="vertical"

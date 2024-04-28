@@ -2,9 +2,14 @@ import { useState } from 'react';
 import reactLogo from "../../../assets/images/avatar.png";
 import DynamicFieldForm from "./DynamicFieldForm.jsx";
 import "./Companyjob.css"
+import { httpRequest } from '../../../core/utils/httpRequest.js';
+import API_CONFIG from '../../../core/utils/apiConfig.js';
+import {HTTP_METHODS} from '../../../core/utils/httpRequest.js'
+import { showNotification } from "../../../core/helperMethods/showNotification.js";
 
 
 const JobPostingForm = () => {
+  const [fields, setFields] = useState([]);
   const [formData, setFormData] = useState({
     title: '',
     startDate: '',
@@ -16,23 +21,36 @@ const JobPostingForm = () => {
     numberOfOpenings: '',
     skills: [],
     description: '',
-    questions: [
-      {
-        question: "What programming languages do you know?",
-        type: "multiple_choice",
-        options: ["JavaScript", "Python", "Java", "C++"]
-      },
-      {
-        question: "Describe your relevant experience.",
-        type: "text"
-      }
-    ]
+    questions: []
   });
+
+
+  
+  //onsole.log('me', fields);
+  const handleFieldsChange = (updatedFields) => {
+    setFields(updatedFields); // Update fields state based on changes from DynamicFieldForm
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    formData.questions.push(...fields);
     console.log(formData);
-   
+    const data = JSON.parse(localStorage.getItem('userInfo'));
+    const token = data.token;
+    const headers = {
+      'Authorization': `${API_CONFIG.secretKey}${token}`,
+    }
+    httpRequest(
+      API_CONFIG.endpoints.company.createJob,
+      HTTP_METHODS.POST,
+      formData,
+      headers
+    ).then((res) => {
+      if (res.status === 201) {
+        showNotification("Created");
+      }
+      console.log(res); 
+    })
   };
 
   const handleChange = (event) => {
@@ -62,12 +80,7 @@ const JobPostingForm = () => {
 		<input type="text" name="startDate" placeholder="Start Date" value={formData.startDate} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }} />
         <br />
 		<br />
-		<select name="duration" value={formData.duration} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }}>
-          <option value="">Duration</option>
-          <option value="month">Month</option>
-          <option value="year">Year</option>
-          <option value="day">Day</option>
-        </select>
+    <input type="number" name="duration" placeholder="Number of duration" value={formData.duration} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }} />
 		<br />
 		<br />
         <select name="job" value={formData.job} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }}>
@@ -104,7 +117,7 @@ const JobPostingForm = () => {
         {/* زر الإرسال */}
 		<br />
 		<br />
-         <DynamicFieldForm/>
+        <DynamicFieldForm onFieldsChange={handleFieldsChange}/>
 		<br />
 		<br />
         <button type="submit" style={inputStyle}>Submit</button>

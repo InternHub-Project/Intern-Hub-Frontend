@@ -23,6 +23,8 @@ import Chat from "./pages/chat/Chat.jsx";
 import UserProfile from "./pages/User/UserProfile/UserProfile.jsx";
 import CompanyProfile from "./pages/Companies/CompanyProfile/CompanyProfile.jsx";
 import JobPostingForm from "./pages/Companies/CompanyJob/JobPostingForm.jsx";
+import EditCompanyProfile from "./pages/Companies/EditCompanyProfile/EditCompanyProfile.jsx";
+// import JobPostingForm from "./pages/Companies/CompanyJob/JobPostingForm.jsx";
 
 
 function App() {
@@ -53,6 +55,7 @@ function App() {
         <Route path="/confirmation/:token"  Component={ConfirmationPage} />
 
 
+        <Route path="/createjob"  Component={JobPostingForm} />
         
       
 
@@ -64,6 +67,8 @@ function App() {
         {/* my application component route */}
 				<Route path="/user/myapps" Component={MyApplication} />
 				<Route path="/edite_user_profile" Component={EditeProfilePage} />
+				<Route path="/edite_company_profile" Component={EditCompanyProfile} />
+
 				<Route path="/chat" Component={Chat} />
 	
 

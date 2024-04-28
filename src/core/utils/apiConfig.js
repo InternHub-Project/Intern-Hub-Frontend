@@ -32,7 +32,9 @@ const API_CONFIG = {
     company: {
       fetchCompany: "company/companydata",
       topBrands:"job/topbrands",
-      companyjobs:"company/companyjobs"
+      companyjobs:"company/companyjobs",
+      createJob: "company/createJob",
+      updateCompany: "company/updatecompanyprofile",
 
     },
     jobs: {
@@ -40,7 +42,6 @@ const API_CONFIG = {
       jobDetails: "job/jobdetails",
       getRecommendedJobs: "job/recommendedjobs",
       getCompanyJobs: "company/companyjobs",
-      createJob: "company/createJob",
 
       applyJob:"job/apply_requirement",
       newjobs:"job/newjobs",

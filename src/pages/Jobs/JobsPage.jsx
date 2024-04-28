@@ -10,6 +10,7 @@ import { timeSincePublication } from "../../core/utils/helper.js";
 
 import RecommendJobs from "../Home/components/RecommendJobs/RecommendJobs.jsx";
 import CompanyJobs from "./CompanyJobs/CompanyJobs.jsx";
+import FavoriteBtn from "./component/FavoritBtn/FavoriteBtn.jsx";
 
 
 const JOBS_PER_PAGE = 10;
@@ -106,7 +107,7 @@ export default function JobsPage() {
               />
               </Box>
 
-
+            
               
             </Box>
             {internShip.map((item) => (
@@ -262,7 +263,9 @@ export default function JobsPage() {
                     view details
                   </a>
                 </div>
+                    
               </Link>
+              
             ))}
             <PaginationJobs
               route={"/jobs"}
