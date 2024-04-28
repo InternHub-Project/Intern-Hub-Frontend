@@ -89,7 +89,7 @@ export default function Reco() {
                       <li>
                         <i
                           className="fa-solid fa-location-dot"
-                          style={{ padding: "5px 5px 10px 0px" }}
+                          style={{ padding: "5px 5px 5px 0px" }}
                         ></i>
                         {job.internLocation}
                       </li>

@@ -2,24 +2,16 @@ import { Carousel } from "@mantine/carousel";
 import { useEffect, useState } from "react";
 import classes from "./CarouselCourses.module.css";
 import { Link } from "react-router-dom";
-import {
-  HTTP_METHODS,
-  httpRequest,
-} from "../../../../core/utils/httpRequest.js";
-import APP_CONFIG from "../../../../core/utils/apiConfig.js";
+
 
 export default function CarouselCourses() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    //  todo: change this endpoint according to the UI requirements and add the query parameters
-    httpRequest(APP_CONFIG.endpoints.jobs.getJobs, HTTP_METHODS.GET).then(
-      (res) => {
-        if (res.status === 200) {
-          setCourses(res.data);
-        }
-      },
-    );
+    fetch("https://internships-api.onrender.com/courses")
+      .then((res) => res.json())
+      .then((data) => setCourses(data))
+      .then((err) => console.log(err));
   }, []);
 
   return (

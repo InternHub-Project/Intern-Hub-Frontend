@@ -2,31 +2,16 @@ import { Carousel } from "@mantine/carousel";
 import { useEffect, useState } from "react";
 import classes from "./CarouselBigCourses.module.css";
 import { Link } from "react-router-dom";
-import {
-  HTTP_METHODS,
-  httpRequest,
-} from "../../../../core/utils/httpRequest.js";
-import APP_CONFIG from "../../../../core/utils/apiConfig.js";
+
 
 export default function CarouselBigCourses() {
   const [bigCourses, setBigCourses] = useState([]);
 
   useEffect(() => {
-    //  todo: change this endpoint according to the UI requirements
-    httpRequest(
-      APP_CONFIG.endpoints.jobs.getJobs,
-      HTTP_METHODS.GET,
-      {},
-      {},
-      {
-        size: 5,
-        skip: 0,
-      },
-    ).then((res) => {
-      if (res.status === 200) {
-        setBigCourses(res.data);
-      }
-    });
+    fetch("https://internships-api.onrender.com/bigCourses")
+      .then((res) => res.json())
+      .then((data) => setBigCourses(data))
+      .then((err) => console.log(err));
   }, []);
 
   return (
@@ -79,6 +64,7 @@ export default function CarouselBigCourses() {
                       fontWeight: 700,
                       fontSize: "20px ",
                       marginBottom: "0px",
+                      // marginTop: "18px",
                     }}
                   >
                     {item.title}
