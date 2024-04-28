@@ -35,6 +35,7 @@ export default function JobsFilter({ setFilterQuery }) {
 
   
 
+
   function setData(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
@@ -235,7 +236,9 @@ export default function JobsFilter({ setFilterQuery }) {
             className={classes.submit}
             onClick={() => {
               setFilterQuery("");
+
               setFormData({ 
+
                 title: "",
                 salary: 0,
                 salaryType: "",
@@ -252,6 +255,7 @@ export default function JobsFilter({ setFilterQuery }) {
           />
           <input className={classes.submit} type="submit" name="submit" />
         </div>
+        <Divider mx="xs" my="xs" label="OR" labelPosition="center" />
       </form>
      
     </div>

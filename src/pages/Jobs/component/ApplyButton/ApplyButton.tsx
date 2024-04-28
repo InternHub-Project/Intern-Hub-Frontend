@@ -11,6 +11,7 @@ import {
 import classes from "./ApplyButton.module.css";
 import React, { useEffect } from "react";
 
+
 import { FileButton, Group } from "@mantine/core";
 import { useState, useRef } from "react";
 import axios from "axios";
@@ -32,24 +33,35 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
 
   const [applyData, setApplyData] = useState({
     coverLetter: "",
-    // question: [
-    //   {
-    //     question: "",
-    //   },
-    //   {
-    //     answer: "",
-    //   },
-    // ],
-    proLang:"",
-    desExp:"",
-    resume: "",
+    questions:[]
   });
+  
 
-  function setData(e) {
-    setApplyData({ ...applyData, [e.target.name]: e.target.value });
+  const setData = (e, index) => {
+    const { name, value } = e.target;
+  
+    // Create a copy of the current state
+    const updatedApplyData = { ...applyData };
+  
+    if (!updatedApplyData.questions[index]) {
+      updatedApplyData.questions[index] = {};
+    }
+  
+    // Update the answer for the current question
+    updatedApplyData.questions[index][name] = value;
+     
+    // Set the updated state
+    setApplyData(updatedApplyData);
+  };
+
+
+  const setCoverLetter=(e)=>{
+    const cover=e.target.value;
+    setApplyData({...applyData,coverLetter:cover})
   }
 
   console.log(applyData);
+
 
   const [file, setFile] = useState<File | null>(null);
   const resetRef = useRef<() => void>(null);
@@ -58,6 +70,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
     setFile(null);
     resetRef.current?.();
   };
+
 
   const title = (
     <Box className={classes.containerHeader}>
@@ -69,6 +82,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
       </Text>
     </Box>
   );
+
 
   const [questionApply, setQuestionApply] = useState<any>();
 
@@ -93,14 +107,20 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
     e.preventDefault();
 
     axios({
-      url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.applyToJob}/Jobb04b3fb6-f2c4-4075-846d-56e758537258`,
+      url: `http://localhost:3003/api/v1/user/apply/Jobb04b3fb6-f2c4-4075-846d-56e758537258`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `internHub__${token}`,
       },
       method: "POST",
+      data:applyData
     })
-      .then((res) => console.log(res))
+      .then((res) => {console.log(res)
+        notifications.show({
+          message: res.data.message,
+          color: "green",
+        });
+      })
       .catch((err) => {
         console.log(err);
         notifications.show({
@@ -109,6 +129,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
         });
       });
   }
+
 
   return (
     <>
@@ -131,6 +152,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
             backgroundColor: "rgb(244 244 244)",
             borderBottom: "rgb(201,201,201) solid 1px",
           },
+
           inner: {
             display: "flex",
             justifyContent: "center",
@@ -143,6 +165,8 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
         style={{ marginLeft: "10px", marginRight: "10px" }}
       >
         <form onSubmit={applyToJob}>
+
+
           <Box>
             <Box mt={10}>
               <Text fz={"19px"} fw={600}>
@@ -170,14 +194,16 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
               <Text fz={"19px"} fw={600}>
                 Cover letter
               </Text>
+
               <Text mb={5} fz={"15px"} c={"#454545"}>
                 Why should you be heired for this role?
               </Text>
               <Textarea
                 name="coverLetter"
                 required
-                onChange={setData}
+                onChange={setCoverLetter}
                 value={applyData.coverLetter}
+
                 autosize
                 minRows={5}
                 resize="vertical"
@@ -186,10 +212,11 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
             </Box>
 
             <Box mt={20}>
+
               <Box>
                 {questionApply ? (
                   <>
-                    {questionApply.map((item) => (
+                    {questionApply.map((item,index) => (
                       <Box key={item._id}>
                         {item.type === "multiple_choice" ? (
                           <Box>
@@ -200,10 +227,10 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
                               <Box key={option}>
                                 <input
                                   required
-                                   onChange={setData}
+                                   onChange={(e)=>setData(e,index)}
                                   type="radio"
                                   value={option}
-                                  name={"proLang"}
+                                  name={`answer`} 
                                   id={option}/>{" "}
                                 <label
                                   style={{
@@ -226,9 +253,9 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
                             <Box>
                               <Textarea
                                 required
-                                onChange={setData}
-                                name={"desExp"}
-                                value={applyData.desExp}
+                                onChange={(e) => setData(e, index)}
+                                name={"answer"}
+                                value={applyData.questions[index]?.answer || ""}
                                 autosize
                                 minRows={5}
                                 resize="vertical"
@@ -254,6 +281,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
                 setQuestion={questionApply}
                 onChange={setData}
               /> */}
+
             </Box>
 
             <Box mt={20}>
@@ -271,11 +299,14 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
 
               <Group justify="start">
                 <FileButton resetRef={resetRef} onChange={setFile} accept="pdf">
+
                   {(props) => (
                     <Button {...props} value={applyData.resume}>
                       Upload file
                     </Button>
                   )}
+
+
                 </FileButton>
                 <Button disabled={!file} color="red" onClick={clearFile}>
                   Reset
@@ -307,8 +338,11 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
 
       <div style={{ textAlign: "center" }}>
         <Button
+
           onClick={clickApply}
           type="submit"
+
+
           bg={"rgb(0,165,236)"}
           size="lg"
         >
@@ -317,4 +351,6 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
       </div>
     </>
   );
+
 }
+
