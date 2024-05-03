@@ -33,6 +33,7 @@ export default function JobDetails() {
     })
       .then((res) => {
         console.log(res);
+        console.log(res.data.data);
         setJob(res.data.data);
         setNameJob(res.data.data.title)
         setCompanyName(res.data.data.companyName)
@@ -54,11 +55,6 @@ export default function JobDetails() {
   return (
     <>
       
-
-        <Text ta={"center"} mb={25} fz={"25px"} fw={700}>
-          {job.title}
-        </Text>
-
       <Container className={classes.container}>
         <div className={classes.actively}>
           <i
@@ -105,8 +101,8 @@ export default function JobDetails() {
             </p>
             <p className={classes.immediately}>{job.startDate}</p>
           </div>
-          <div style={{ margin: "7px" }}>
-            <p className={classes.start}>
+          {/* <div style={{ margin: "7px" }}> */}
+            {/* <p className={classes.start}>
               {" "}
               <i
                 className="fa-solid fa-suitcase"
@@ -116,9 +112,9 @@ export default function JobDetails() {
                 }}
               ></i>
               EXPERIENCE
-            </p>
+            </p> */}
             {/* <p className={classes.immediately}>{job.experience}</p> */}
-          </div>
+          {/* </div> */}
           <div style={{ margin: "7px" }}>
             <p className={classes.start}>
               {" "}

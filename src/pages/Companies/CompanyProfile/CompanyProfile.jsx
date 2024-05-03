@@ -1,115 +1,153 @@
-import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "/vite.svg";
-import "./CompanyProfile.css";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import API_CONFIG from "../../../core/utils/apiConfig.js";
+import { useNavigate } from "react-router-dom";
 
 function CompanyProfile() {
- 
-  const [userData, setUserData] = useState({
-    userName: "Company profile",
-    email: "john@example.com",
-    address: {
-      address: "123 Main St",
-      city: "Cityville",
-      state: "Stateville",
-      country: "Countryland",
-      postalCode: "12345"
-    },
-    field: ["Web Development", "Design"],
-    phone: "123-456-7890",
-    Employes_Number: 10
-  });
+    const Navigate=useNavigate()
+  const [userData, setUserData] = useState([]);
+  const token = JSON.parse(localStorage.getItem("userInfo")).data.token;
 
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.company.fetchCompany}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `internHub__${token}`
+      }
+    })
+      .then(response => {
+        setUserData(response.data.data)
+        console.log(userData);
+      })
+      .catch(error => {
+        console.error('There was a problem with your fetch operation:', error);
+      });
+  }, [])
 
-  const [selectedImage, setSelectedImage] = useState(null);
-
- 
-  const [isEditable, setIsEditable] = useState(false);
-
- 
-  const handleImageChange = (event) => {
-    const imageFile = event.target.files[0]; 
-    const imageUrl = URL.createObjectURL(imageFile); 
-    setSelectedImage(imageUrl); 
-  };
-
-
-  const handleDataChange = (event) => {
-    const { name, value } = event.target;
-    setUserData(prevUserData => ({
-      ...prevUserData,
-      [name]: value
-    }));
-  };
-
-
-  const enableEdit = () => {
-    setIsEditable(true);
-  };
-
-  const disableEdit = () => {
-    setIsEditable(false);
-  };
-   
-  
-  
-
+  const handleEdit=()=>{
+    Navigate("/edite_company_profile")
+  }
   return (
-    <div className="profile-container" style={{ borderRadius: '10px' }}>
+    <div className="container" >
+    <div className="main-body">
+          <div className="row gutters-sm"  style={{ justifyContent: "center"}}>
+            <div style={{textAlign:"center", fontSize:"35px", fontWeight:"600" ,marginBottom:"30px"}}>
+                General Information
+            </div>
+            <div style={{textAlign:"center", fontSize:"18px" ,marginBottom:"5px", backgroundColor:"#ffff6c", borderRadius:"8px" ,padding:"4px"}} className="col-md-8 text-secondary">
+               Please Complete Profile Before Start To Publish Jobs
+            </div>
+            <div className="col-md-8" style={{ border: "1px solid var(--outline-field-color)", borderRadius: "10px", boxShadow: "-2px -2px 6px var(--form-shadow), 2px 2px 6px var(--form-shadow)" }}>
+              
+                <h3 style={{marginLeft:"15px", marginBottom:"25px",marginTop:"20px", fontSize:"22px"}}>Company information :</h3>
+              <div className="card mb-3">
+                <div className="card-body">
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h5 className="mb-0">Company Name :</h5>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
+                      {userData?.name}
+                    </div>
+                  </div>
+                  <hr/>
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h5 className="mb-0">Email :</h5>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
+                      {userData?.email}
+                    </div>
+                  </div>
+                  <hr/>
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h5 className="mb-0">Descroption :</h5>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
+                      {userData.description}
+                    </div>
+                  </div>
+                  <hr/>
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h5 className="mb-0">Phone Number :</h5>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
+                      {userData?.phone}
+                    </div>
+                  </div>
+                  <hr/>
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h5 className="mb-0">company Field :</h5>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
+                      {userData?.field}
+                    </div>
+                  </div>
+                  <hr/>
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h5 className="mb-0">Address :</h5>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
+                    {userData?.address?.address? userData?.address?.address: "____"}
+                    </div>
+                  </div>
+                  <hr/>
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h5 className="mb-0">City :</h5>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
+                    {userData?.address?.city? userData?.address?.city: "____"}
+                    </div>
+                  </div>
+                  <hr />
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h5 className="mb-0">Country :</h5>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
+                    {userData.address?.country? userData?.address?.country: "____"}
+                    </div>
+                  </div>
+                  <hr />
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h5 className="mb-0">State :</h5>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
+                    {userData.address?.state? userData?.address?.state: "____"}
+                    </div>
+                  </div>
+                  <hr />
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h5 className="mb-0">Number of Employees :</h5>
+                    </div>
+                    <div className="col-sm-9 text-secondary">
+                    {userData?.employees_number}
+                    </div>
+                  </div>
+                  <hr />
+                  
+                  <div className="row">
+                    <div className="col-sm-12">
+                      <button className="btn" style={{backgroundColor:"rgb(34,139,230)", color:"white", fontSize:"20px"}} onClick={handleEdit}>Edit Profile</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-		
-<div style={{ textAlign: 'center' }}>
-      <div>
-        {}
-        {selectedImage ? (
-          <img src={selectedImage} alt="Profile" style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
-        ) : (
-          <div style={{ width: '150px', height: '150px', borderRadius: '50%', backgroundColor: '#ddd' }}>Profile image</div>
-        )}
-      </div>
-	<div> 
-
-        <input type="file" onChange={handleImageChange} />
-      </div>
+        </div>
     </div>
-  
-
-
-      <div className="avatar-section">
-      </div>
-      <div className="info-section">
-	
-	<div className="info-sect">
-        <h1>Company profile</h1>
-		</div>
-        <p className="username">Description</p>
-        <ul className="details-list">
-          <li>
-            <strong>Email:</strong> {isEditable ? <input type="text" name="email" value={userData.email} onChange={handleDataChange} /> : <span>{userData.email}</span>}
-          </li>
-          <li>
-            <strong>Name:</strong> {isEditable ? <input type="text" name="userName" value={userData.userName} onChange={handleDataChange} /> : <span>{userData.userName}</span>}
-          </li>
-          <li>
-            <strong>address:</strong> {isEditable ? <span><input type="text" name="address" value={userData.address.address} onChange={handleDataChange} />, <input type="text" name="city" value={userData.address.city} onChange={handleDataChange} />, <input type="text" name="state" value={userData.address.state} onChange={handleDataChange} />, <input type="text" name="country" value={userData.address.country} onChange={handleDataChange} />, <input type="text" name="postalCode" value={userData.address.postalCode} onChange={handleDataChange} /></span> : <span>{userData.address.address}, {userData.address.city}, {userData.address.state}, {userData.address.country}, {userData.address.postalCode}</span>}
-          </li>
-          <li>
-            <strong>filed:</strong> {isEditable ? <input type="text" name="field" value={userData.field.join(',')} onChange={handleDataChange} /> : <span>{userData.field.join(',')}</span>}
-          </li>
-          <li>
-            <strong>phone:</strong> {isEditable ? <input type="text" name="phone" value={userData.phone} onChange={handleDataChange} /> : <span>{userData.phone}</span>}
-          </li>
-          <li>
-            <strong>Number of Employes :</strong> {isEditable ? <input type="text" name="Employes_Number" value={userData.Employes_Number} onChange={handleDataChange} /> : <span>{userData.Employes_Number}</span>}
-          </li>
-          <li>
-            <strong>Empolyment:</strong> {isEditable ? <input type="text" name="field" value={userData.field.join(',')} onChange={handleDataChange} /> : <span>{userData.field.join(',')}</span>}
-          </li>
-          
-          {isEditable ? <button onClick={disableEdit} style={{ borderRadius: '5px' }}>Save</button> : <button onClick={enableEdit} style={{ borderRadius: '5px' }}>Edit</button>}
-        </ul>
-      </div>
-    </div>
+        
   );
 }
 

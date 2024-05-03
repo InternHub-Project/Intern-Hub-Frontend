@@ -2,6 +2,9 @@ const API_CONFIG = {
   baseUrl: "https://api.codesplus.online/api/v1/",
   // baseUrl: "http://localhost:3003/api/v1/",
   secretKey:"internHub__",
+  // socketConnection:"https://api.codesplus.online",
+  socketConnection:"http://localhost:3003",
+
   endpoints: {
     auth: {
       user: {
@@ -49,7 +52,10 @@ const API_CONFIG = {
 
     },
     accounts:{
-      changePassword:"account/changePassword"
+      changePassword:"account/changePassword",
+      userOrCompanyList:"account/user_or_company_list",
+      userOrCompanyChat:"account/user_or_company_chat",
+      DeleteAccount:"account/delete"
     }
   },
 };

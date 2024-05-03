@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import "./Chat.css"
 import {io} from "socket.io-client"
 import axios from 'axios';
+import API_CONFIG from '../../core/utils/apiConfig.js';
 
 function Chat() {
     const [userList, setUserList] = useState([]);
@@ -27,10 +28,10 @@ function Chat() {
 
   }
   // Replace with your logic to fetch user list
-  let  socketIo = io("https://api.codesplus.online");
+  let  socketIo = io(API_CONFIG.socketConnection);
   useEffect(() => {
     const fetchUserList = async () => {
-      const response = await fetch('https://api.codesplus.online/api/v1/account/user_or_company_list',
+      const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.accounts.userOrCompanyList}`,
     {
         headers:{"Authorization":`internHub__${token}`}
     }); // Replace with your API endpoint
@@ -60,7 +61,7 @@ function Chat() {
       setLoading(true);
       axios({
         method: "post",
-        url: "https://api.codesplus.online/api/v1/account/user_or_company_chat",
+        url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.accounts.userOrCompanyChat}`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `internHub__${token}`
@@ -85,8 +86,7 @@ function Chat() {
         senderId,
         receivedId,
       });
-    // Implement logic to send the message to the server
-    // Update message state locally for UI rendering
+  
     setMessages([...messages, { content: message, senderId: senderId }]);
     setInputValue("")
   };

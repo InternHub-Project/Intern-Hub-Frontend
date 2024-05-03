@@ -21,7 +21,7 @@ import {
   IconFile,
   IconLogout,
 
-  IconRepeat,
+  // IconRepeat,
 
   IconSettings,
   IconStar,
@@ -62,11 +62,16 @@ const handleChangePassword=()=>{
     navigate("/changePassword");
 }
 const handleProfile=()=>{
-    navigate("/user_profile");
+    navigate("/edite_user_profile");
 }
 const handleApplication=()=>{
   navigate("/user/myapps")
 }
+
+const handleDeleteAccount=()=>{
+  navigate("/delete_account")
+}
+
 
 
 
@@ -133,6 +138,7 @@ const handleApplication=()=>{
             <Menu.Dropdown>
 
             <Menu.Item
+                onClick={()=>{navigate("/user_profile")}}
                 leftSection={
                   <IconFile
                     style={{ width: rem(16), height: rem(16) }}
@@ -230,6 +236,7 @@ const handleApplication=()=>{
                   
                   <Menu.Item
                     color="red"
+                    onClick={handleDeleteAccount}
                     leftSection={
                       <IconTrash
                         style={{ width: rem(16), height: rem(16) }}

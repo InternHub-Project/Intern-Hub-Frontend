@@ -1,0 +1,138 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+.application {
+	margin: 50px 0px;
+}
+.app-table {
+	background-color: rgba(0, 0, 0, 0.04);
+	padding: 50px 12px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px 0 #e9ecef, 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.application-title {
+	text-align: center;
+	margin: 50px 0px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+	padding-bottom: 20px;
+	color: rgba(0, 0, 0, 0.6);
+}
+.job-title {
+	display: inline-block;
+	margin-top: 30px;
+	padding: 15px 30px;
+	box-shadow: 0 4px 8px 0 #e9ecef, 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	border-radius: 10px;
+	color: rgba(0, 0, 0, 0.6);
+}
+.job-description {
+	padding: 15px 0px;
+	margin: 0px;
+	color: rgba(0, 0, 0, 0.5);
+}
+.job-info {
+	display: flex;
+    /* justify-content: ; */
+	margin: 5px;
+	color: rgba(0, 0, 0, 0.5);
+}
+.job-info .title,
+.job-description .title {
+	margin-left: 20px;
+	margin-right: 20px;
+	font-weight: 700;
+	color: rgba(0, 0, 0, 0.5);
+}
+.job-info ul {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+}
+.job-info li {
+	padding: 0px 10px;
+	border-radius: 5px;
+	color: rgba(0, 0, 0, 0.6);
+	box-shadow: 0 4px 8px 0 #e9ecef, 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.app-table h3 {
+	margin-bottom: 30px;
+}
+thead {
+	background-color: rgba(0, 0, 0, 0.08);
+}
+th {
+	text-align: left;
+	padding: 15px 15px;
+	max-width: 50px;
+	color: rgba(0, 0, 0, 0.5);
+}
+th:nth-child(1) {
+	width: 3%;
+}
+th:nth-child(2) {
+	width: 20%;
+}
+th:nth-child(3) {
+	width: 20%;
+}
+th:nth-child(4) {
+	width: 15%;
+}
+th:nth-child(5) {
+	width: 10%;
+}
+
+th:nth-child(7) {
+	width: 7%;
+}
+th:last-child {
+	width: 7%;
+}
+
+td {
+	padding: 15px;
+	color: rgba(0, 0, 0, 0.5);
+	font-weight: bold;
+}
+td:last-child {
+	text-align: center;
+}
+
+tr {
+	border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+table.m-b23fa0ef.mantine-Table-table {
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+@media (max-width: 992px) {
+	table.m-b23fa0ef.mantine-Table-table {
+		font-size: 0.7rem;
+	}
+	li.page-item a.page-link {
+		font-size: 0.7rem;
+	}
+}
+@media (max-width: 768px) {
+	table.m-b23fa0ef.mantine-Table-table {
+		font-size: 0.6rem;
+	}
+	li.page-item a.page-link {
+		font-size: 0.6rem;
+	}
+}
+
+.table-style {
+	border-radius: 5px;
+	border: 1px solid #eee;
+	overflow: auto;
+}
+
+.icon {
+	margin-top: 0px;
+	font-size: 1rem;
+	color: #00a7fb;
+	float: left;
+}
+li.page-item a.page-link {
+	font-size: 1rem;
+}

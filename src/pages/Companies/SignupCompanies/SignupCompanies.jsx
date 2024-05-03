@@ -1,8 +1,7 @@
 import classes from "./SignupCompanies.module.css";
-import { Button, Divider, Group, Text } from "@mantine/core";
+import { Button, Text } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { GoogleButton } from "./ButtonGoogle/GoogleButton";
 import RegisterCompaniesSchema from "./RegisterCompaniesSchema/RegisterCompaniesSchema";
 import { HTTP_METHODS, httpRequest } from "../../../core/utils/httpRequest.js";
 import API_CONFIG from "../../../core/utils/apiConfig.js";
@@ -86,27 +85,10 @@ export default function SignupCompanies() {
             onSubmit={addCompanies}
           >
             <Form className={classes.form}>
-              <Group grow mb="md" mt="md">
-                <GoogleButton
-                  radius="xl"
-                  onClick={() => {
-                    location.href =
-                      "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=827625755886-edpmpa7jsvq8al2v03utohjqg4j2sd3b.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Finternshala.com%2Flogin%2Fgoogle&scope=profile%20email&response_type=code&state=eyAicm9sZSIgOiAidXNlciIsICJzdWNjZXNzX3BhZ2UiIDogIi9zdHVkZW50L2Rhc2hib2FyZCIsICJ1dG1fc291cmNlIiA6ICJpc19oZWFkZXJfaG9tZXBhZ2UiICwgInV0bV9tZWRpdW0iIDogIiIsICJ1dG1fY2FtcGFpZ24iIDogIiIgfQ%2C%2C&service=lso&o2v=1&theme=glif&flowName=GeneralOAuthFlow";
-                  }}
-                >
-                  <span className={classes.btnGoogle}>Sign in with Google</span>
-                </GoogleButton>
-              </Group>
-              <Divider
-                label="OR"
-                labelPosition="center"
-                my="lg"
-                color="black"
-              />
-
+            
               <div>
                 <label className={classes.label} htmlFor="name">
-                  Name:
+                  Company Name:
                 </label>
                 <br />
 

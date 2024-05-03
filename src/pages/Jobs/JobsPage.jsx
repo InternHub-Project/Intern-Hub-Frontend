@@ -107,7 +107,6 @@ export default function JobsPage() {
               />
               </Box>
 
-            
               
             </Box>
             {internShip.map((item) => (
@@ -247,6 +246,7 @@ export default function JobsPage() {
                     }}
                   ></div>
                 </div>
+                <Box> <FavoriteBtn/>   </Box>
                 <div style={{ textAlign: "end", margin: "0px 5px" }}>
                   <a
                     href=""

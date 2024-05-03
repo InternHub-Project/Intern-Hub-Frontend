@@ -24,6 +24,8 @@ import UserProfile from "./pages/User/UserProfile/UserProfile.jsx";
 import CompanyProfile from "./pages/Companies/CompanyProfile/CompanyProfile.jsx";
 import JobPostingForm from "./pages/Companies/CompanyJob/JobPostingForm.jsx";
 import EditCompanyProfile from "./pages/Companies/EditCompanyProfile/EditCompanyProfile.jsx";
+import DeleteAccountPage from "./pages/Accounts/DeleteAccount/DeleteAccountPage.jsx";
+import CompanyApps from "./pages/Companies/CompanyApplicants/CompanyApps.jsx";
 // import JobPostingForm from "./pages/Companies/CompanyJob/JobPostingForm.jsx";
 
 
@@ -54,27 +56,20 @@ function App() {
         <Route path="/ChangePassword" Component={ChangePass} />
         <Route path="/confirmation/:token"  Component={ConfirmationPage} />
 
-
         <Route path="/createjob"  Component={JobPostingForm} />
-        
-      
+        <Route path="/delete_account"  Component={DeleteAccountPage} />
 
         <Route path="/user_profile"  Component={UserProfile} />
         <Route path="/company_profile"  Component={CompanyProfile} />
+        <Route path="/company_app"  Component={CompanyApps} />
 
-
-        
         {/* my application component route */}
 				<Route path="/user/myapps" Component={MyApplication} />
 				<Route path="/edite_user_profile" Component={EditeProfilePage} />
 				<Route path="/edite_company_profile" Component={EditCompanyProfile} />
 
-				<Route path="/chat" Component={Chat} />
-	
-
-
-       
-
+				<Route path="/chat" Component={Chat} /> 
+        
       </Routes>
       <Footer />
     </>
