@@ -246,8 +246,8 @@ export default function JobsPage() {
                     }}
                   ></div>
                 </div>
-                <Box> <FavoriteBtn/>   </Box>
-                <div style={{ textAlign: "end", margin: "0px 5px" }}>
+                <div style={{ textAlign: "end", margin: "0px 5px" ,display:"flex",justifyContent:"space-between" }}>
+                <FavoriteBtn jobId={item.jobId}/> 
                   <a
                     href=""
                     style={{

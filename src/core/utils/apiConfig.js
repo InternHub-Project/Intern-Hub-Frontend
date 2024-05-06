@@ -28,9 +28,10 @@ const API_CONFIG = {
       updateUser: "user/updateUserprofile",
       logout: "auth/logout",
       applyToJob: "user/apply",
-
       userApplication:"job/applications",
-      favorite:"user/userfavourite"
+      favorite:"user/userfavourite",
+      AddToFav:"user/addtofavourite",
+      RemoveFromFav:"user/removeFromFavourite"
     },
     company: {
       fetchCompany: "company/companydata",
