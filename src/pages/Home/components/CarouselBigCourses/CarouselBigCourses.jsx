@@ -50,7 +50,7 @@ export default function CarouselBigCourses() {
         {bigCourses.map((item) => (
           <Carousel.Slide key={item.id} style={{ padding: "0px 20px" }}>
             <div className={classes.box}>
-              <Link to="" style={{ textDecoration: "none" }}>
+              <Link to={`/BigCourses/${item.id}`} style={{ textDecoration: "none" }}>
                 <img
                   src={item.img}
                   className={classes.img}

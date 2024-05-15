@@ -5,7 +5,7 @@ import {
   IconBrandYoutube,
 } from "@tabler/icons-react";
 import classes from "./Footer.module.css";
-import image from '../logo/WhatsApp_Image_2024-03-18_at_05.38.27_e1f021fa-removebg-preview.png'
+// import image from "../logo/WhatsApp_Image_2024-03-18_at_05.38.27_e1f021fa-removebg-preview.png";
 const data = [
   {
     title: "About",
@@ -52,8 +52,14 @@ export function Footer() {
     ));
 
     return (
-      <div className={classes.wrapper} key={group.title} style={{color:"white"}}>
-        <Text className={classes.title} c={"white"}>{group.title}</Text>
+      <div
+        className={classes.wrapper}
+        key={group.title}
+        style={{ color: "white" }}
+      >
+        <Text className={classes.title} c={"white"}>
+          {group.title}
+        </Text>
         {links}
       </div>
     );
@@ -63,9 +69,18 @@ export function Footer() {
     <footer className={classes.footer}>
       <Container className={classes.inner}>
         <div className={classes.logo}>
-          <Box me={50} display={"flex"} style={{ alignItems: "center" }}>
+          <Box
+            onClick={() => {
+              location.href = "/";
+            }}
+            me={50}
+            display={"flex"}
+            style={{ alignItems: "center", cursor: "pointer" }}
+          >
             <img
-              src={image}
+              src={
+                "https://ik.imagekit.io/abdullahAhmed/internHub/internHub-logo/WhatsApp%20Image%202024-03-18%20at%2005.38.20_3fcc86b6.png?updatedAt=1714340539082"
+              }
               alt=""
               width={"150px"}
               height={"100px"}
@@ -74,7 +89,13 @@ export function Footer() {
               <Text className={classes.inter} fz={25} fw={700}>
                 Intern
               </Text>
-              <Text className={classes.hub} c={"white"} fz={25} fw={700} mt={-13}>
+              <Text
+                className={classes.hub}
+                c={"white"}
+                fz={25}
+                fw={700}
+                mt={-13}
+              >
                 Hub
               </Text>
             </Box>
@@ -89,7 +110,9 @@ export function Footer() {
           </Text>
         </div>
 
-        <div className={classes.groups} style={{color:"white"}}>{groups}</div>
+        <div className={classes.groups} style={{ color: "white" }}>
+          {groups}
+        </div>
       </Container>
       <Container className={classes.afterFooter}>
         <Text c="white" size="sm">

@@ -2,8 +2,8 @@ const API_CONFIG = {
   baseUrl: "https://api.codesplus.online/api/v1/",
   // baseUrl: "http://localhost:3003/api/v1/",
   secretKey:"internHub__",
-  // socketConnection:"https://api.codesplus.online",
-  socketConnection:"http://localhost:3003",
+  socketConnection:"https://api.codesplus.online",
+  // socketConnection:"http://localhost:3003",
 
   endpoints: {
     auth: {
@@ -30,7 +30,10 @@ const API_CONFIG = {
       applyToJob: "user/apply",
 
       userApplication:"job/applications",
-      favorite:"user/userfavourite"
+      favorite:"user/userfavourite",
+
+      AddToFav:"user/addtofavourite",
+      RemoveFromFav:"user/removeFromFavourite"
     },
     company: {
       fetchCompany: "company/companydata",

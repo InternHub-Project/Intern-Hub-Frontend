@@ -1,4 +1,3 @@
-
 /* eslint-disable no-unused-vars */
 // import { Text } from "@mantine/core";
 // import classes from "./Home.module.css";
@@ -6,9 +5,6 @@
 import RecommendJobs from "./components/RecommendJobs/RecommendJobs";
 import Companies from "./components/seaction-Companies/Companies";
 import LestJobs from "./components/sectionJobs/LestJobs";
-
-
-
 
 import StartParagraph from "./components/StartPragraphe/StartParagraph";
 import { CarouselTrending } from "./components/CarouselTrending/CarouselTrending";
@@ -19,8 +15,7 @@ import CarouselCourses from "./components/CarouselCourses/CarouselCourses";
 import CarouselBigCourses from "./components/CarouselBigCourses/CarouselBigCourses";
 // import TopCompany from "./components/TopCompany/TopCompany";
 import StateWebSite from "./components/StateWebSite/StateWebSite";
-import SeactionRegister from './components/seactionRegister/Register';
-
+import SeactionRegister from "./components/seactionRegister/Register";
 
 export default function Home() {
   return (
@@ -31,14 +26,13 @@ export default function Home() {
       {/* <LatestJobs /> */}
       {/* <TopCompany /> */}
 
-
       <RecommendJobs />
       <LestJobs />
       <CarouselCourses />
       <CarouselBigCourses />
       <Companies />
       <StateWebSite />
-      <SeactionRegister />
+      {localStorage.length ? <></> : <SeactionRegister />}
     </div>
   );
 }

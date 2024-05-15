@@ -110,9 +110,8 @@ export default function JobsPage() {
               
             </Box>
             {internShip.map((item) => (
-              <Link
+              <Box
                 key={item.id}
-                to={`/jobs/details/${item.jobId}`}
                 className={classes.styleIntern}
               >
                 <div>
@@ -246,25 +245,23 @@ export default function JobsPage() {
                     }}
                   ></div>
                 </div>
-                <Box> <FavoriteBtn/>   </Box>
-                <div style={{ textAlign: "end", margin: "0px 5px" }}>
-                  <a
-                    href=""
-                    style={{
-                      display: "inline-block",
-                      marginTop: "2px",
-                      padding: "5px 7px",
-                      textDecoration: "none",
-                      border: "1px solid #008BDC",
-                      borderRadius: "6px",
-                      color: "#008BDC",
-                    }}
+
+              <div style={{ textAlign: "end", margin: "0px 5px" ,display:"flex",justifyContent:"end"   }}>
+                    <Box mr={8}>
+
+                <FavoriteBtn jobId={item.jobId}/> 
+                    </Box>
+                  <Link
+                  className={classes.viewLink}
+                to={`/jobs/details/${item.jobId}`}
+                    
+
                   >
                     view details
-                  </a>
-                </div>
+                  </Link>
+      </div>
                     
-              </Link>
+              </Box>
               
             ))}
             <PaginationJobs

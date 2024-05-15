@@ -1,22 +1,25 @@
+/* eslint-disable react/prop-types */
 import { Button } from "react-bootstrap";
-import { MdFavorite } from "react-icons/md";
 import "./favorateIcon.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { httpRequest } from "../../../../core/utils/httpRequest.js";
+import API_CONFIG from "../../../../core/utils/apiConfig.js";
 
 export const FavoriteBtn = ({ jobId }) => {
 	const [allFavs, setAllFavs] = useState([]);
+	const data = JSON.parse(localStorage.getItem("userInfo")).data.token;
 
 	// get all fav
 	const getFavsData = () => {
+
 		axios({
 			method: "get",
-			url: "https://api.codesplus.online/api/v1/user/userfavourite",
+			url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.favorite}`,
 			headers: {
 				"Content-Type": "application/json",
 				Authorization:
-					"internHub__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVc2VyN2FkNjc1NTUtZTQwMi00NTIyLWFjMjQtNzEwMTBiNTA3Mzk5Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTM5OTQ3OTEsImV4cCI6MTcxNDA4MTE5MX0.hcvAfC2a5Xjb8-r5h3ephw5SfaT4sCy8rmCAJhh1J88",
+					`${API_CONFIG.secretKey}${data}`,
 			},
 		})
 			.then((res) => {
@@ -32,33 +35,30 @@ export const FavoriteBtn = ({ jobId }) => {
 
 	// add fav
 	const addToFavs = () => {
-		try {
-			httpRequest(
-				"https://api.codesplus.online/api/v1/user/addtofavourite",
-				"PUT",
-				jobId,
-				{
-					Authorization:
-						"internHub__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVc2VyN2FkNjc1NTUtZTQwMi00NTIyLWFjMjQtNzEwMTBiNTA3Mzk5Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTM5OTQ3OTEsImV4cCI6MTcxNDA4MTE5MX0.hcvAfC2a5Xjb8-r5h3ephw5SfaT4sCy8rmCAJhh1J88",
-				}
-			).then((result) => {
-				console.log(result);
-				console.log("remove");
-			});
-		} catch (e) {
-			console.log(e);
-		}
+		axios({
+			method:"put",
+			url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.AddToFav}`,
+			headers: {
+				Authorization:
+					`${API_CONFIG.secretKey}${data}`
+			},
+			data:{jobId}
+		}).then((res)=>{
+			console.log(res);
+		}).catch((err=>{
+			console.log(err);
+		}))
 	};
 	// remove fav
 	const removeFromFavourite = (jobId) => {
 		try {
 			httpRequest(
-				"https://api.codesplus.online/api/v1/user/removeFromFavourite",
+			`	${API_CONFIG.endpoints.user.RemoveFromFav}`,
 				"PUT",
 				jobId,
 				{
 					Authorization:
-						"internHub__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVc2VyN2FkNjc1NTUtZTQwMi00NTIyLWFjMjQtNzEwMTBiNTA3Mzk5Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTM5OTQ3OTEsImV4cCI6MTcxNDA4MTE5MX0.hcvAfC2a5Xjb8-r5h3ephw5SfaT4sCy8rmCAJhh1J88",
+						`${API_CONFIG.secretKey}${data?.token}`
 				}
 			).then((result) => {
 				console.log(result);
@@ -82,10 +82,11 @@ export const FavoriteBtn = ({ jobId }) => {
 	return (
 		<div>
 			<Button
-				className="btn favorate-icon"
+				className="btn  favorate-icon"
+				// variant="outline-primary"
 				onClick={() => onClickFavoriteHandler()}
 			>
-				<MdFavorite />
+				<i className="fa-regular fa-bookmark"></i>
 			</Button>
 		</div>
 	);

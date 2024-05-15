@@ -16,13 +16,13 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
+  IconBrandTelegram,
   IconChevronDown,
   IconEdit,
   IconFile,
   IconLogout,
 
   // IconRepeat,
-
   IconSettings,
   IconStar,
   IconSwitchHorizontal,
@@ -36,44 +36,40 @@ import APP_CONFIG from "../../../../core/utils/apiConfig.js";
 import { useNavigate } from "react-router-dom";
 
 export function UserInfo() {
-  const navigate=useNavigate()
-  const user = localStorage.getItem("userId");
+  const navigate = useNavigate();
+  const user = localStorage.getItem("userInfo");
   const userData = JSON.parse(user);
 
   function logout() {
     // navigate to login page
-      if(JSON.parse(localStorage.getItem("userInfo")).data.userId){
+    if (JSON.parse(localStorage.getItem("userInfo")).data.userId) {
       location.href = "LoginUser";
-      } else if(JSON.parse(localStorage.getItem("userInfo")).data.companyId){
-          location.href = "LoginCompanies";
-      }
-      else{
-        location.href = "LoginUser";
-      }
+    } else if (JSON.parse(localStorage.getItem("userInfo")).data.companyId) {
+      location.href = "LoginCompanies";
+    } else {
+      location.href = "LoginUser";
+    }
     localStorage.clear();
     httpRequest(APP_CONFIG.endpoints.user.logout, HTTP_METHODS.POST).then(
       (res) => {
         console.log(res);
-  },
-);
-}
+      }
+    );
+  }
 
-const handleChangePassword=()=>{
+  const handleChangePassword = () => {
     navigate("/changePassword");
-}
-const handleProfile=()=>{
+  };
+  const handleProfile = () => {
     navigate("/edite_user_profile");
-}
-const handleApplication=()=>{
-  navigate("/user/myapps")
-}
+  };
+  const handleApplication = () => {
+    navigate("/user/myapps");
+  };
 
-const handleDeleteAccount=()=>{
-  navigate("/delete_account")
-}
-
-
-
+  const handleDeleteAccount = () => {
+    navigate("/delete_account");
+  };
 
   const theme = useMantineTheme();
   const [opened, { toggle }] = useDisclosure(false);
@@ -81,7 +77,7 @@ const handleDeleteAccount=()=>{
 
   return (
     <div className={classes.header}>
-      <Container className={classes.mainSection} size="md">
+      <Container m={0} pl={0} className={classes.mainSection} size="md">
         <Group justify="space-between">
           <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
 
@@ -100,6 +96,7 @@ const handleDeleteAccount=()=>{
                 })}
               >
                 <Group gap={16}>
+                  <Box></Box>
                   <Avatar
                     src={
                       "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-9.png"
@@ -113,10 +110,11 @@ const handleDeleteAccount=()=>{
                       <>
                         <Box>
                           {userData.name ? (
-                            <Text>{userData.name}</Text>
+                            <Text>{userData.name} user</Text>
                           ) : (
                             <Text size="sm" fw={500}>
                               {userData.firstName} {userData.lastName}
+                              user
                             </Text>
                           )}
                         </Box>
@@ -125,7 +123,7 @@ const handleDeleteAccount=()=>{
                         </Text>
                       </>
                     ) : (
-                      <></>
+                      <>Company</>
                     )}
                   </div>
                   <IconChevronDown
@@ -136,9 +134,10 @@ const handleDeleteAccount=()=>{
               </UnstyledButton>
             </Menu.Target>
             <Menu.Dropdown>
-
-            <Menu.Item
-                onClick={()=>{navigate("/user_profile")}}
+              <Menu.Item
+                onClick={() => {
+                  navigate("/user_profile");
+                }}
                 leftSection={
                   <IconFile
                     style={{ width: rem(16), height: rem(16) }}
@@ -148,11 +147,10 @@ const handleDeleteAccount=()=>{
                 }
               >
                 Profile
-
               </Menu.Item>
 
-            <Menu.Item
-                  onClick={handleProfile}
+              <Menu.Item
+                onClick={handleProfile}
                 leftSection={
                   <IconEdit
                     style={{ width: rem(16), height: rem(16) }}
@@ -164,10 +162,9 @@ const handleDeleteAccount=()=>{
                 Edit Profile
               </Menu.Item>
 
-
               {/* user || company application */}
               <Menu.Item
-              onClick={handleApplication}
+                onClick={handleApplication}
                 leftSection={
                   <IconFile
                     style={{ width: rem(16), height: rem(16) }}
@@ -181,7 +178,25 @@ const handleDeleteAccount=()=>{
 
               {/* saved jobs */}
               <Menu.Item
-                onClick={()=>{location.href="/favorite"}}
+                onClick={() => {
+                  location.href = "/chat";
+                }}
+                leftSection={
+                  <IconBrandTelegram
+                    style={{ width: rem(16), height: rem(16) }}
+                    color={theme.colors.green[6]}
+                    stroke={1.5}
+                  />
+                }
+              >
+                Chat
+              </Menu.Item>
+
+              {/* saved jobs */}
+              <Menu.Item
+                onClick={() => {
+                  location.href = "/favorite";
+                }}
                 leftSection={
                   <IconStar
                     style={{ width: rem(16), height: rem(16) }}
@@ -190,12 +205,8 @@ const handleDeleteAccount=()=>{
                   />
                 }
               >
-
                 Favorite
-
               </Menu.Item>
-
-      
 
               <Menu.Label>Settings</Menu.Label>
 
@@ -222,7 +233,7 @@ const handleDeleteAccount=()=>{
 
                 <Menu.Dropdown>
                   <Menu.Item
-                  onClick={handleChangePassword}
+                    onClick={handleChangePassword}
                     leftSection={
                       <IconSwitchHorizontal
                         style={{ width: rem(16), height: rem(16) }}
@@ -233,7 +244,7 @@ const handleDeleteAccount=()=>{
                   >
                     Change Password
                   </Menu.Item>
-                  
+
                   <Menu.Item
                     color="red"
                     onClick={handleDeleteAccount}
@@ -245,7 +256,7 @@ const handleDeleteAccount=()=>{
                       />
                     }
                   >
-                   Delete Acoount
+                    Delete Acoount
                   </Menu.Item>
                 </Menu.Dropdown>
               </Menu>

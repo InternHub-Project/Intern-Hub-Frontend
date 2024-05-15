@@ -154,9 +154,18 @@ padding: 3px 30px 0px 10px;
 
 .label{
   color: rgb(0,139,220);
-
-   
 }
 
+.viewLink{
+  display: inline-block;
+  margin-top:2px;
+  padding: 5px 7px;
+  text-decoration: none;
+  border: 1px solid #008BDC;
+  border-radius: 6px;
+  color: #008BDC;
+}
 
-
+.viewLink:hover{
+  background-color:#fafafa;
+}

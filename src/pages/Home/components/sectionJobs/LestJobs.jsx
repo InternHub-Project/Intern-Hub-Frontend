@@ -11,8 +11,6 @@ export default function LestJobs() {
   const [jobs, setJobs] = useState();
 
 
-  
-
   useEffect(() => {
     axios({
       url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.jobs.newjobs}`,
@@ -51,7 +49,7 @@ export default function LestJobs() {
         {jobs &&
           jobs.map((job) => (
             <Carousel.Slide key={job.id} className={classes.card}>
-              <Link to={""} className={classes.linkCard}>
+              <Link to={`/jobs/detailsNewJob/${job.jobId}`} className={classes.linkCard}>
                 <div className={classes.actively}>
                   <i
                     className="fa-solid fa-arrow-trend-up"

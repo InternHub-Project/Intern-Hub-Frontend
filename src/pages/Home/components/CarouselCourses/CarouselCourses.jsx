@@ -33,7 +33,7 @@ export default function CarouselCourses() {
         {courses.map((course) => (
           <Carousel.Slide key={course.id} style={{ padding: "0px 20px" }}>
             <Link
-              to=""
+              to={`/courses/${course.id}`}
               style={{
                 textDecoration: "none",
               }}
