@@ -246,6 +246,7 @@ export default function JobsPage() {
                   ></div>
                 </div>
 
+
               <div style={{ textAlign: "end", margin: "0px 5px" ,display:"flex",justifyContent:"end"   }}>
                     <Box mr={8}>
 
@@ -255,6 +256,7 @@ export default function JobsPage() {
                   className={classes.viewLink}
                 to={`/jobs/details/${item.jobId}`}
                     
+
 
                   >
                     view details

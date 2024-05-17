@@ -3,8 +3,9 @@ import { Button } from "react-bootstrap";
 import "./favorateIcon.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 import { httpRequest } from "../../../../core/utils/httpRequest.js";
-import API_CONFIG from "../../../../core/utils/apiConfig.js";
+
 
 export const FavoriteBtn = ({ jobId }) => {
 	const [allFavs, setAllFavs] = useState([]);
@@ -24,11 +25,13 @@ export const FavoriteBtn = ({ jobId }) => {
 		})
 			.then((res) => {
 				setAllFavs(res.data.data);
+				console.log(res);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	};
+	console.log(allFavs);
 	useEffect(() => {
 		getFavsData();
 	}, []);
@@ -37,7 +40,9 @@ export const FavoriteBtn = ({ jobId }) => {
 	const addToFavs = () => {
 		axios({
 			method:"put",
+
 			url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.AddToFav}`,
+
 			headers: {
 				Authorization:
 					`${API_CONFIG.secretKey}${data}`
@@ -51,6 +56,7 @@ export const FavoriteBtn = ({ jobId }) => {
 	};
 	// remove fav
 	const removeFromFavourite = (jobId) => {
+
 		try {
 			httpRequest(
 			`	${API_CONFIG.endpoints.user.RemoveFromFav}`,
@@ -67,11 +73,12 @@ export const FavoriteBtn = ({ jobId }) => {
 		} catch (e) {
 			console.log(e);
 		}
+
+
 	};
 
 	const onClickFavoriteHandler = () => {
 		let intern = allFavs && allFavs.find((itemId) => itemId.jobId === jobId);
-		console.log(intern);
 		if (!intern) {
 			addToFavs();
 		} else {

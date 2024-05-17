@@ -28,7 +28,6 @@ const API_CONFIG = {
       updateUser: "user/updateUserprofile",
       logout: "auth/logout",
       applyToJob: "user/apply",
-
       userApplication:"job/applications",
       favorite:"user/userfavourite",
 
