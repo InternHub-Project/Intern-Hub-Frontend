@@ -29,8 +29,8 @@ import CompanyApps from "./pages/Companies/CompanyApplicants/CompanyApps.jsx";
 import CoursePage from "./pages/Home/components/CarouselCourses/CoursePage/CoursePage.jsx";
 import BigCoursePage from "./pages/Home/components/CarouselBigCourses/BigCoursePage/BigCoursePage.jsx";
 // import JobPostingForm from "./pages/Companies/CompanyJob/JobPostingForm.jsx";
-import DetailNewJob from "./pages/Home/components/sectionJobs/DetailNewJob/DetailNewJob";
-import DetailRecommendJob from "./pages/Home/components/RecommendJobs/DetailRecommendJob/DetailRecommendJob";
+// import DetailNewJob from "./pages/Home/components/sectionJobs/DetailNewJob/DetailNewJob";
+// import DetailRecommendJob from "./pages/Home/components/RecommendJobs/DetailRecommendJob/DetailRecommendJob";
 
 function App() {
   return (
@@ -41,11 +41,11 @@ function App() {
         <Route path="/" Component={Home} />
         <Route path="/jobs/:page?" Component={JobsPage} />
         <Route path="/jobs/details/:jobId" Component={JobDetails} />
-        <Route path="/jobs/detailsNewJob/:jobId" Component={DetailNewJob} />
-        <Route
+        {/* <Route path="/jobs/detailsNewJob/:jobId" Component={DetailNewJob} /> */}
+        {/* <Route
           path="/jobs/detailsRecommendJob/:jobId"
           Component={DetailRecommendJob}
-        />
+        /> */}
         <Route path="/internships" Component={errorPage} />
         <Route path="/courses/:id" Component={CoursePage} />
         <Route path="/BigCourses/:id" Component={BigCoursePage} />

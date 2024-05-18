@@ -24,7 +24,6 @@ export default function JobsPage() {
     {
       id=JSON.parse(localStorage.getItem("companyInfo")).data
     }
-    console.log(id);
   const [filterQuery, setFilterQuery] = useState();
   const [searchValue, setSearchValue] = useState();
   const [internShip, setInternShip] = useState([]);

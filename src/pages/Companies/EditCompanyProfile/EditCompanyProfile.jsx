@@ -69,8 +69,7 @@ export const EditCompanyProfile = () => {
 	};
 
 	const deleteSkillHandler = (skillTitle) => {
-        console.log(skillTitle);
-        console.log(allFields);
+   
 		let data = allFields.filter((skill) => skill.title||skill!== skillTitle);
 		setAllFields(data);
 	};
@@ -125,7 +124,7 @@ export const EditCompanyProfile = () => {
         if(allFields){
             Data.field=fieldsArr
         }
-        console.log(Data);
+    
 	
 		axios({
             method:"PUT",

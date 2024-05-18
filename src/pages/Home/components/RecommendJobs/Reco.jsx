@@ -54,7 +54,7 @@ export default function Reco() {
           >
             {recommendData.map((job) => (
               <Carousel.Slide key={job.companyId} className={classes.card}>
-                <Link to={`/jobs/detailsRecommendJob/${job.jobId}`} className={classes.linkCard}>
+                <Link to={`/jobs/details/${job.jobId}`} className={classes.linkCard}>
                   <div className={classes.actively}>
                     <i
                       className="fa-solid fa-arrow-trend-up"

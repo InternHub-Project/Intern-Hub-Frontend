@@ -49,7 +49,7 @@ export default function LestJobs() {
         {jobs &&
           jobs.map((job) => (
             <Carousel.Slide key={job.id} className={classes.card}>
-              <Link to={`/jobs/detailsNewJob/${job.jobId}`} className={classes.linkCard}>
+              <Link to={`/jobs/details/${job.jobId}`} className={classes.linkCard}>
                 <div className={classes.actively}>
                   <i
                     className="fa-solid fa-arrow-trend-up"

@@ -65,7 +65,7 @@ export const EditeProfilePage = () => {
 			// Check if the skill already exists
 			const skillExists = allSkills.some((skill) => skill.title === skills);
 			if (!skillExists) {
-				setAllSkills([...allSkills, { title: skills }]); // Use skill title as ID
+				setAllSkills([...allSkills,  skills]); // Use skill title as ID
 			}
 			setSkills("");
 		} else {
@@ -85,7 +85,7 @@ export const EditeProfilePage = () => {
 				if(!interestedExist){
 					setAllInterested([
 						...allInterested,
-						{ title: interested, id: generateRandomId() },
+						interested
 					]),
 						setInterested("");
 				}
@@ -133,7 +133,7 @@ export const EditeProfilePage = () => {
 		}
 		if(cv){
             formData.append('file', cv);
-			console.log(cv);
+	
 		}
 		if(profilePicture){
 			formData.append('profileImage', profilePicture);
@@ -205,7 +205,7 @@ export const EditeProfilePage = () => {
 			}
 		).then((result) => {
 			const userData = result.data.data;
-			console.log(userData?.phone);
+	
 			setProfilePicture(userData?.profileImage || "");
 			setEmail(userData?.email);
 			setUserName(userData?.userName || "");
