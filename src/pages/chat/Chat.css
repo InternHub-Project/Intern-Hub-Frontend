@@ -79,23 +79,22 @@
     height: 500px;
   }
 }
-  
-  .chat-messages {
-    overflow: auto;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    margin-right: 1px;
-    scrollbar-gutter: stable;
-  }
-  
+.chat-messages {
+  overflow-y: auto; /* Only vertical scrolling */
+  height: 100%;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  margin-right: 1px;
+  scrollbar-gutter: stable;
+}
 
-  .chat-messages::-webkit-scrollbar{
-    width: 10px;
-  }
-  
-  .chat-messages::-webkit-scrollbar-thumb{
-    background-color: #ddd;
-    border-radius:50px ;
+.chat-messages::-webkit-scrollbar {
+  width: 10px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 50px;
 }
   .chat-message {
     margin-bottom: 5px;

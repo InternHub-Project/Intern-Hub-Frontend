@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 function CompanyProfile() {
     const Navigate=useNavigate()
   const [userData, setUserData] = useState([]);
-  const token = JSON.parse(localStorage.getItem("userInfo")).data.token;
+  const token = JSON.parse(localStorage.getItem("companyInfo")).data.token;
 
   useEffect(() => {
     axios({

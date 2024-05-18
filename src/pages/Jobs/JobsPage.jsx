@@ -16,9 +16,15 @@ import FavoriteBtn from "./component/FavoritBtn/FavoriteBtn.jsx";
 const JOBS_PER_PAGE = 10;
 
 export default function JobsPage() {
-  const id = JSON.parse(localStorage.getItem("userInfo")).data;
-
-
+  let id
+  if(JSON.parse(localStorage.getItem("userInfo"))){
+     id= JSON.parse(localStorage.getItem("userInfo")).data;
+  }
+  else if(JSON.parse(localStorage.getItem("companyInfo")))
+    {
+      id=JSON.parse(localStorage.getItem("companyInfo")).data
+    }
+    console.log(id);
   const [filterQuery, setFilterQuery] = useState();
   const [searchValue, setSearchValue] = useState();
   const [internShip, setInternShip] = useState([]);
@@ -64,7 +70,7 @@ export default function JobsPage() {
 
   return (
     <>
-{ !id.companyId ?
+{ !id?.companyId ?
     (<>
     <Box>
       <RecommendJobs />
@@ -246,6 +252,7 @@ export default function JobsPage() {
                   ></div>
                 </div>
 
+
               <div style={{ textAlign: "end", margin: "0px 5px" ,display:"flex",justifyContent:"end"   }}>
                     <Box mr={8}>
 
@@ -255,6 +262,7 @@ export default function JobsPage() {
                   className={classes.viewLink}
                 to={`/jobs/details/${item.jobId}`}
                     
+
 
                   >
                     view details

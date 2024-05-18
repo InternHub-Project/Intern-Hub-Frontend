@@ -6,7 +6,8 @@ import API_CONFIG from '../../../core/utils/apiConfig.js';
 function DeleteAccountPage() {
 
     const navigate=useNavigate()
-  const token = JSON.parse(localStorage.getItem("userInfo")).data.token;
+    const token=JSON.parse(localStorage.getItem("userInfo"))?JSON.parse(localStorage.getItem("userInfo")).data.token:JSON.parse(localStorage.getItem("companyInfo")).data.token
+
   const handleDelete = () => {
     httpRequest(API_CONFIG.endpoints.accounts.DeleteAccount,"DELETE",{},{Authorization:`${API_CONFIG.secretKey}${token}`}).then((res)=>{
       console.log(res)

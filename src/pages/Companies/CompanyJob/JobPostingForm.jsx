@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import reactLogo from "../../../assets/images/avatar.png";
 import DynamicFieldForm from "./DynamicFieldForm.jsx";
 import "./Companyjob.css"
 import { httpRequest } from '../../../core/utils/httpRequest.js';
@@ -62,17 +61,9 @@ const JobPostingForm = () => {
 
   return (
     <div className="container">
-      <div>
-        <img src={reactLogo} className="logo react" alt="React logo" />
-      </div>
+    
 
       <h1>Job Posting</h1>
-
-      <div className="job-details">
-        <p>Job Title</p>
-        <p>Job Location</p>
-      </div>
-
       <form onSubmit={handleSubmit}>
         <input type="text" name="title" placeholder="Job Title" value={formData.title} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }} />
         <br />

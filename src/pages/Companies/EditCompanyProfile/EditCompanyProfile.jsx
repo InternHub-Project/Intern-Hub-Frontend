@@ -18,7 +18,7 @@ import { showNotification } from "@mantine/notifications";
 // you can recomented your import above dependent your project
 
 export const EditCompanyProfile = () => {
-	const token = JSON.parse(localStorage.getItem("userInfo")).data.token;
+	const token = JSON.parse(localStorage.getItem("companyInfo")).data.token;
 	const [companyName, setCompanyName] = useState("");
 	const [emailValue, setEmail] = useState("");
 

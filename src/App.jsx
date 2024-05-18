@@ -70,7 +70,7 @@ function App() {
 
         <Route path="/user_profile" Component={UserProfile} />
         <Route path="/company_profile" Component={CompanyProfile} />
-        <Route path="/company_app" Component={CompanyApps} />
+        <Route path="/company_app/:jobId" Component={CompanyApps} />
 
         {/* my application component route */}
         <Route path="/user/myapps" Component={MyApplication} />

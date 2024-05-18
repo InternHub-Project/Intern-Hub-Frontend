@@ -7,7 +7,12 @@ import { Carousel } from "@mantine/carousel";
 import { Link } from "react-router-dom";
 
 export default function Reco() {
-  const token = JSON.parse(localStorage.getItem("userInfo")).data.token;
+  let token
+  if(JSON.parse(localStorage.getItem("userInfo")))
+    {
+   token = JSON.parse(localStorage.getItem("userInfo")).data.token;
+
+    }
   const [recommendData, setRecommendData] = useState([]);
 
   useEffect(() => {
@@ -25,7 +30,7 @@ export default function Reco() {
       })
       .catch((err) => console.log(err));
   }, []);
-
+      console.log(recommendData);
   return (
     <Box className={classes.up}>
       <Title fz={"30px"}>Recommended Jobs</Title>

@@ -20,7 +20,11 @@ import { useNavigate } from "react-router-dom";
 import { notifications } from "@mantine/notifications";
 
 export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
-  const token = JSON.parse(localStorage.getItem("userInfo")).data.token;
+  let token
+  if(JSON.parse(localStorage.getItem("userInfo")))
+    { 
+      token = JSON.parse(localStorage.getItem("userInfo")).data.token;
+    }
   const [opened, { open, close }] = useDisclosure(false);
   const navigate = useNavigate();
   function clickApply() {
@@ -85,10 +89,12 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
 
 
   const [questionApply, setQuestionApply] = useState<any>();
+  console.log(JobID);
+  
 
   useEffect(() => {
     axios({
-      url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.jobs.applyJob}/Jobb04b3fb6-f2c4-4075-846d-56e758537258`, //ToDo change static id when modify in backend to dynamic id
+      url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.jobs.applyJob}/${JobID}`, //ToDo change static id when modify in backend to dynamic id
       headers: {
         "Content-Type": "application/json",
         Authorization: `internHub__${token}`,
@@ -107,7 +113,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
     e.preventDefault();
 
     axios({
-      url: `http://localhost:3003/api/v1/user/apply/Jobb04b3fb6-f2c4-4075-846d-56e758537258`,
+      url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.applyToJob}/${JobID}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `internHub__${token}`,

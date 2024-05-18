@@ -8,7 +8,7 @@ import API_CONFIG from "../../../core/utils/apiConfig.js";
 
 
 export default function ChangePass() {
-  const token=JSON.parse(localStorage.getItem("userInfo")).data.token;
+  const token=JSON.parse(localStorage.getItem("userInfo"))?JSON.parse(localStorage.getItem("userInfo")).data.token:JSON.parse(localStorage.getItem("companyInfo")).data.token
   function changePassword(values) {
     const data = {currentPassword:values.currentPassword,newPassword:values.newPassword,confirmPassword:values.confirmPassword};
     if (

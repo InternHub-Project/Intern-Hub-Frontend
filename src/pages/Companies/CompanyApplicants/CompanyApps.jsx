@@ -6,47 +6,58 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FiFileText } from "react-icons/fi";
 import { BsChatDots } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { FaQuestionCircle } from "react-icons/fa";
+import { Link, useNavigate, useParams } from "react-router-dom";
+// import ReactTooltip from "react-tooltip";
 import Pagination from "../../User/ApplicationUser/pagination.jsx";
+import API_CONFIG from "../../../core/utils/apiConfig.js";
 
 export const CompanyApps = () => {
+	const { jobId } = useParams();
 	const [appData, setAppData] = useState([]);
 	const [job, setJob] = useState([]);
-
+	const token =JSON.parse(localStorage.getItem("companyInfo")).data?.token
+	const navigate=useNavigate()
 	const getComponyDataFromApi = async () => {
 		try {
 			const componyData = await axios({
 				method: "get",
-				url: "https://api.codesplus.online/api/v1/job/jobapplicants/Jobeac873e0-508d-499b-9d2e-fa1ec695b7ae",
+				url: `http://localhost:3003/api/v1/${API_CONFIG.endpoints.company.jobApplicants}/Jobeac873e0-508d-499b-9d2e-fa1ec695b7ae`,
 				headers: {
 					"Content-Type": "application/json",
 					Authorization:
-						"internHub__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOiJDb21wYW55Y2JkNGZmMzgtNmQzMy00MGY0LWFlZjMtMzlmMDlkM2YxZmMzIiwicm9sZSI6ImNvbXBhbnkiLCJpYXQiOjE3MTQ2MDU5MTgsImV4cCI6MTcxNDY5MjMxOH0.vJQCo1arZc4F4j_r2V9zp0ptLf0hHcv4OHTutGjrib4",
+						`${API_CONFIG.secretKey}${token}`
 				},
 			});
-			console.log(componyData.data.data);
 			setAppData(componyData.data.data);
 		} catch (err) {
 			console.log(err);
 		}
 	};
-	const getJobDataFromApi = async () => {
-		try {
-			const componyData = await axios({
-				method: "get",
-				url: "https://api.codesplus.online/api/v1/job/jobapplicants/Jobeac873e0-508d-499b-9d2e-fa1ec695b7ae",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization:
-						"internHub__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOiJDb21wYW55Y2JkNGZmMzgtNmQzMy00MGY0LWFlZjMtMzlmMDlkM2YxZmMzIiwicm9sZSI6ImNvbXBhbnkiLCJpYXQiOjE3MTQ2MDU5MTgsImV4cCI6MTcxNDY5MjMxOH0.vJQCo1arZc4F4j_r2V9zp0ptLf0hHcv4OHTutGjrib4",
-				},
-			});
-			console.log(componyData.data.data[0].applicants);
-			setJob(componyData.data.data[0].applicants);
-		} catch (err) {
+	console.log(appData);
+	const startChat=(user)=>{
+		console.log(user);
+		axios({
+			method:"post",
+			url: `http://localhost:3003/api/v1/${API_CONFIG.endpoints.company.startChat}`,
+			data:{
+				userId:user
+			},
+			headers: {
+				"Content-Type": "application/json",
+				Authorization:
+					`${API_CONFIG.secretKey}${token}`
+			},
+			
+		}).then((res)=>{
+			if(res.status==201){
+				navigate("/chat");
+			}
+			console.log(res)
+		}).catch((err)=>{
 			console.log(err);
-		}
-	};
+		})
+	}
 	const getPageNumber = (pageNum) => {
 		return 2;
 	};
@@ -55,11 +66,13 @@ export const CompanyApps = () => {
 		getComponyDataFromApi();
 	}, []);
 
+
+
 	return (
 		<div className="application">
 			<Container>
 				<section className="app-table">
-					<h1 className="application-title">APPLICATIONS</h1>
+					<h1 className="application-title">JOB APPLICANTS</h1>
 
 					<h3 className="job-title">{appData[0] && appData[0].title}</h3>
 					<p className="job-info">
@@ -82,7 +95,6 @@ export const CompanyApps = () => {
 						<Table responsive>
 							<thead>
 								<tr>
-									<th>Id</th>
 									<th>USER NAME</th>
 									<th>EMAIL</th>
 									<th>coverLetter</th>
@@ -91,6 +103,8 @@ export const CompanyApps = () => {
 									<th>POINTS</th>
 									<th>CV</th>
 									<th>CHAT</th>
+									<th>MISSING SKILLS</th>
+									
 
 								</tr>
 							</thead>
@@ -99,11 +113,7 @@ export const CompanyApps = () => {
 									appData[0].applicants.map((app) => {
 										return (
 											<tr key={app.jobId}>
-												<td>
-													<span>
-														{appData[0] && appData[0].applicants.length}
-													</span>
-												</td>
+												
 												<td>
 													<span>{app.userName}</span>
 												</td>
@@ -114,7 +124,8 @@ export const CompanyApps = () => {
 													<span>{app.coverLetter}</span>
 												</td>
 												<td>
-													<span>{app.phone}</span>
+													<span>{app.phone.length?app.phone:"_______________"}</span>
+
 												</td>
 												<td>
 													<span>{app.status}</span>
@@ -122,16 +133,24 @@ export const CompanyApps = () => {
 												<td>
 													<span>{app.points}</span>
 												</td>
+												
 												<td>
 													<Link to={app.resume} className="icon">
 														<FiFileText />
 													</Link>
 												</td>
+												
 												<td>
-													<Link to="#" className="icon">
+													<Link onClick={()=>startChat(app.userId)} className="icon">
 														<BsChatDots />
 													</Link>
 												</td>
+												<td className="tooltip-container">
+													<FaQuestionCircle className="tooltip-icon" />
+													<span className="tooltip-text">
+														{app.missingSkills.length>1?app.missingSkills.join(", "):"No Missing Skills"}
+													</span>
+													</td>
 											</tr>
 										);
 									})}

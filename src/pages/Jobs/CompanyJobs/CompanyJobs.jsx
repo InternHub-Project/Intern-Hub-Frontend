@@ -12,8 +12,8 @@ import { timeSincePublication } from "./../../../core/utils/helper";
 // const JOBS_PER_PAGE = 10;
 
 export default function CompanyJobs() {
-//   const token = JSON.parse(localStorage.getItem("userInfo")).data.token;
-
+  const companyData = JSON.parse(localStorage.getItem("companyInfo")).data;
+  let token=companyData.token
   const [internShip, setInternShip] = useState([]);
   // const [totalElements, setTotalElements] = useState(0);
   // const { page: numberOfPage } = useParams();
@@ -22,7 +22,7 @@ export default function CompanyJobs() {
     axios({
       url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.company.companyjobs}`,
       headers: {
-        Authorization: `internHub__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55SWQiOiJDb21wYW55Y2JkNGZmMzgtNmQzMy00MGY0LWFlZjMtMzlmMDlkM2YxZmMzIiwicm9sZSI6ImNvbXBhbnkiLCJpYXQiOjE3MTQxODA0ODIsImV4cCI6MTcxNDI2Njg4Mn0.GUkV_NPXmA_YvDfMAg7Ngtto_vDPrgj8SXjohPwqhQ8`,
+        Authorization: `${API_CONFIG.secretKey}${token}`
       },
       method: "GET",
     })
@@ -44,7 +44,7 @@ export default function CompanyJobs() {
             {internShip.map((item) => (
               <Link
                 key={item.id}
-                to={`/jobs/details/${item.jobId}`}
+                to={`/company_app/${item.jobId}`}
                 className={classes.styleIntern}
               >
                 <div>
@@ -67,7 +67,7 @@ export default function CompanyJobs() {
                     </div>
                     <div>
                       <img
-                        src={item.companyImage}
+                        src={companyData.image}
                         width={"50px"}
                         height={"50px"}
                       />
@@ -195,7 +195,7 @@ export default function CompanyJobs() {
                       color: "#008BDC",
                     }}
                   >
-                    view details
+                    view applicants
                   </a>
                 </div>
               </Link>

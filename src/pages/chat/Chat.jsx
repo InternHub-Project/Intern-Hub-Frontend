@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./Chat.css";
 import { io } from "socket.io-client";
 import axios from "axios";
@@ -11,22 +11,34 @@ function Chat() {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
-  const userData = JSON.parse(localStorage.getItem("userInfo"));
   let senderId;
   let receivedId;
   let token;
   let role;
-  if (userData?.data?.userId) {
+  let companyData;
+  let userData
+  if (JSON.parse(localStorage.getItem("userInfo"))) {
+    userData = JSON.parse(localStorage.getItem("userInfo"))
     senderId = userData.data.userId;
     receivedId = selectedUserId;
     token = userData.data.token;
     role = "user";
   } else {
-    senderId = userData.data.companyId;
+     companyData = JSON.parse(localStorage.getItem("companyInfo"))
+    senderId = companyData.data.companyId;
     receivedId = selectedUserId;
-    token = userData.data.token;
+    token = companyData.data.token;
     role = "company";
   }
+
+  const chatMessagesRef = useRef(null);
+
+  const scrollToBottom = () => {
+    if (chatMessagesRef.current) {
+      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+    }
+  };
+
   // Replace with your logic to fetch user list
   let socketIo = io(API_CONFIG.socketConnection);
   useEffect(() => {
@@ -39,6 +51,7 @@ function Chat() {
       ); // Replace with your API endpoint
       const data = await response.json();
       setUserList(data.data);
+      
     };
 
     fetchUserList();
@@ -48,20 +61,31 @@ function Chat() {
         receivedMessage.receivedId === selectedUserId
       ) {
         setMessages([...messages, receivedMessage]);
+        
       }
+      
     });
+
 
     return () => {
       // Cleanup function to disconnect from socket on component unmount
       socketIo.disconnect();
     };
+    
+    
   }, [selectedUserId, messages]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+  
   const handleUserSelection = (userId) => {
     setSelectedUserId(userId);
     setMessages([]); // Assuming empty messages initially
   };
 
   useEffect(() => {
+    
     if (selectedUserId) {
       setLoading(true);
       axios({
@@ -77,6 +101,7 @@ function Chat() {
         },
       })
         .then((res) => {
+          console.log(res);
           setMessages(res.data.data[0].messages);
           setLoading(false);
         })
@@ -84,9 +109,10 @@ function Chat() {
           console.log(err);
           setLoading(false);
         });
+        
     }
+    
   }, [selectedUserId, role, token]);
-
   const sendMessage = (message) => {
     socketIo.emit("SEND_MESSAGE", {
       message: message,
@@ -163,7 +189,7 @@ function Chat() {
               <Text c={"white"}>Loading messages...</Text> // Display loading indicator while fetching messages
             ) : (
               <>
-                <Box className="chat-messages">
+                <Box className="chat-messages" ref={chatMessagesRef}>
                   {messages.map((message) => (
                     <div
                       key={message.content || message.messageId}
@@ -175,11 +201,14 @@ function Chat() {
                         {message.senderId === senderId ? "You :" : ""}
                         {message.content}
                       </span>
+
                     </div>
+                    
                   ))}
                   <Box>
                     {/* <button id="bt"><i className="fa-solid fa-arrow-down"></i></button> */}
                   </Box>
+                  
                 </Box>
                 <Box pb={7} className="chat-input">
                   <input
