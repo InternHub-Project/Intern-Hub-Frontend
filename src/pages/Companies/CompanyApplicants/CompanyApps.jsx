@@ -11,6 +11,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 // import ReactTooltip from "react-tooltip";
 import Pagination from "../../User/ApplicationUser/pagination.jsx";
 import API_CONFIG from "../../../core/utils/apiConfig.js";
+import { Button } from "react-bootstrap";
+import { notifications } from "@mantine/notifications";
 
 export const CompanyApps = () => {
 	const { jobId } = useParams();
@@ -22,7 +24,7 @@ export const CompanyApps = () => {
 		try {
 			const componyData = await axios({
 				method: "get",
-				url: `http://localhost:3003/api/v1/${API_CONFIG.endpoints.company.jobApplicants}/Jobeac873e0-508d-499b-9d2e-fa1ec695b7ae`,
+				url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.company.jobApplicants}/Jobeac873e0-508d-499b-9d2e-fa1ec695b7ae`,
 				headers: {
 					"Content-Type": "application/json",
 					Authorization:
@@ -34,12 +36,10 @@ export const CompanyApps = () => {
 			console.log(err);
 		}
 	};
-	console.log(appData);
 	const startChat=(user)=>{
-		console.log(user);
 		axios({
 			method:"post",
-			url: `http://localhost:3003/api/v1/${API_CONFIG.endpoints.company.startChat}`,
+			url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.company.startChat}`,
 			data:{
 				userId:user
 			},
@@ -55,6 +55,9 @@ export const CompanyApps = () => {
 			}
 			console.log(res)
 		}).catch((err)=>{
+			if(err.respone.status==403){
+				notifications.show({message:err.respone.data})
+			}
 			console.log(err);
 		})
 	}
@@ -65,6 +68,46 @@ export const CompanyApps = () => {
 	useEffect(() => {
 		getComponyDataFromApi();
 	}, []);
+
+	const acceptedUser=(jobId,userId)=>{
+		console.log(userId);
+		axios({
+			method:"patch",
+			url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.company.AcceptedOrRejectedUser}`,
+			data:{jobId,status:"accepted",userId},
+			headers: {
+				"Content-Type": "application/json",
+				Authorization:
+					`${API_CONFIG.secretKey}${token}`
+			},
+		}).then((res=>{
+			if(res.status==200){
+				notifications.show({message:"user accepted done",color:"green"})
+			}
+		})).catch((err=>{
+			console.log(err);
+		}))
+	}
+	
+	const rejectedUser=(jobId,userId)=>{
+		console.log(userId);
+		axios({
+			method:"patch",
+			url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.company.AcceptedOrRejectedUser}`,
+			data:{jobId,status:"rejected",userId},
+			headers: {
+				"Content-Type": "application/json",
+				Authorization:
+					`${API_CONFIG.secretKey}${token}`
+			},
+		}).then((res=>{
+			if(res.status==200){
+				notifications.show({message:"user rejected done",color:"green"})
+			}
+		})).catch((err=>{
+			console.log(err);
+		}))
+	}
 
 
 
@@ -104,6 +147,9 @@ export const CompanyApps = () => {
 									<th>CV</th>
 									<th>CHAT</th>
 									<th>MISSING SKILLS</th>
+									<th>ACCEPTED</th>
+									<th>REJECTED</th>
+
 									
 
 								</tr>
@@ -150,6 +196,12 @@ export const CompanyApps = () => {
 													<span className="tooltip-text">
 														{app.missingSkills.length>1?app.missingSkills.join(", "):"No Missing Skills"}
 													</span>
+													</td>
+													<td>
+														<Button type="button" className="btn btn-success btn-sm" onClick={()=>acceptedUser(app.jobId,app.userId)}>Accept</Button>
+													</td>
+													<td>
+														<Button type="button" className="btn btn-danger btn-sm" onClick={()=>rejectedUser(app.jobId,app.userId)}>Reject</Button>
 													</td>
 											</tr>
 										);

@@ -19,7 +19,6 @@ function CompanyProfile() {
     })
       .then(response => {
         setUserData(response.data.data)
-        console.log(userData);
       })
       .catch(error => {
         console.error('There was a problem with your fetch operation:', error);

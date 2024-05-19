@@ -25,12 +25,10 @@ export default function Reco() {
       method: "GET",
     })
       .then((res) => {
-        console.log(res.data.data);
         setRecommendData(res.data.data);
       })
       .catch((err) => console.log(err));
   }, []);
-      console.log(recommendData);
   return (
     <Box className={classes.up}>
       <Title fz={"30px"}>Recommended Jobs</Title>

@@ -33,7 +33,6 @@ const JobPostingForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     formData.questions.push(...fields);
-    console.log(formData);
     const data = JSON.parse(localStorage.getItem('userInfo'));
     const token = data.token;
     const headers = {

@@ -43,13 +43,13 @@ export function UserInfo() {
 
   function logout() {
     // navigate to login page
-    if (JSON.parse(localStorage.getItem("userInfo")).data.userId) {
+    // if (JSON.parse(localStorage.getItem("userInfo")).data.userId) {
+    //   location.href = "LoginUser";
+    // } else if (JSON.parse(localStorage.getItem("userInfo")).data.companyId) {
+    //   location.href = "LoginCompanies";
+    // } else {
       location.href = "LoginUser";
-    } else if (JSON.parse(localStorage.getItem("userInfo")).data.companyId) {
-      location.href = "LoginCompanies";
-    } else {
-      location.href = "LoginUser";
-    }
+    // }
     localStorage.clear();
     httpRequest(APP_CONFIG.endpoints.user.logout, HTTP_METHODS.POST).then(
       (res) => {

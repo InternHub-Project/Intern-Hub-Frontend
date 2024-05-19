@@ -2,8 +2,8 @@ const API_CONFIG = {
   baseUrl: "https://api.codesplus.online/api/v1/",
   // baseUrl: "http://localhost:3003/api/v1/",
   secretKey:"internHub__",
-  // socketConnection:"https://api.codesplus.online",
-  socketConnection:"http://localhost:3003",
+  socketConnection:"https://api.codesplus.online",
+  // socketConnection:"http://localhost:3003",
 
   endpoints: {
     auth: {
@@ -40,7 +40,8 @@ const API_CONFIG = {
       createJob: "company/createJob",
       updateCompany: "company/updatecompanyprofile",
       jobApplicants:"job/jobapplicants",
-      startChat:"company/startchat"
+      startChat:"company/startchat",
+      AcceptedOrRejectedUser:"company/change_intern_status"
 
     },
     jobs: {

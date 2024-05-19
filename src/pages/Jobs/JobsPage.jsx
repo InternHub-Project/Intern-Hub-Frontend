@@ -51,7 +51,6 @@ export default function JobsPage() {
           headers:{"Content-Type":"application/json"}
         }).then(res=>{
           setInternShip(res.data.data);
-          console.log(res.data.data);
         }).catch(err=>{
           console.log(err);
         })

@@ -64,7 +64,6 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
     setApplyData({...applyData,coverLetter:cover})
   }
 
-  console.log(applyData);
 
 
   const [file, setFile] = useState<File | null>(null);

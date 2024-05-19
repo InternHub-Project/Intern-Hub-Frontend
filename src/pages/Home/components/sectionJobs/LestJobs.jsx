@@ -18,7 +18,6 @@ export default function LestJobs() {
       method: "GET",
     })
       .then((res) => {
-        console.log(res.data.data);
         setJobs(res.data.data);
       })
       .catch((err) => console.log(err));

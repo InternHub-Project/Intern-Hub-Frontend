@@ -4,16 +4,15 @@ import "./favorateIcon.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import { httpRequest } from "../../../../core/utils/httpRequest.js";
 import API_CONFIG from "../../../../core/utils/apiConfig.js";
+import { notifications } from "@mantine/notifications";
 
 
 export const FavoriteBtn = ({ jobId }) => {
 	const [allFavs, setAllFavs] = useState([]);
-	let data
+	let token
 	if(JSON.parse(localStorage.getItem("userInfo"))){
-		data = JSON.parse(localStorage.getItem("userInfo")).data.token;
-
+		token = JSON.parse(localStorage.getItem("userInfo")).data.token;
 	}
 
 	// get all fav
@@ -24,7 +23,7 @@ export const FavoriteBtn = ({ jobId }) => {
 			headers: {
 				"Content-Type": "application/json",
 				Authorization:
-					`${API_CONFIG.secretKey}${data}`,
+					`${API_CONFIG.secretKey}${token}`,
 			},
 		})
 			.then((res) => {
@@ -41,17 +40,19 @@ export const FavoriteBtn = ({ jobId }) => {
 
 	// add fav
 	const addToFavs = () => {
+		console.log(jobId);
 		axios({
 			method:"put",
-
 			url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.AddToFav}`,
-
 			headers: {
 				Authorization:
-					`${API_CONFIG.secretKey}${data}`
+					`${API_CONFIG.secretKey}${token}`
 			},
 			data:{jobId}
 		}).then((res)=>{
+			if(res.status==200){
+				notifications.show({message:"Job Add to Fav",color:"green"})
+			}
 			console.log(res);
 		}).catch((err=>{
 			console.log(err);
@@ -59,23 +60,22 @@ export const FavoriteBtn = ({ jobId }) => {
 	};
 	// remove fav
 	const removeFromFavourite = (jobId) => {
-
-		try {
-			httpRequest(
-			`	${API_CONFIG.endpoints.user.RemoveFromFav}`,
-				"PUT",
-				jobId,
-				{
-					Authorization:
-						`${API_CONFIG.secretKey}${data?.token}`
-				}
-			).then((result) => {
-				console.log(result);
-				console.log("remove");
-			});
-		} catch (e) {
-			console.log(e);
-		}
+		axios({
+			method:"put",
+			url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.RemoveFromFav}`,
+			headers: {
+				Authorization:
+					`${API_CONFIG.secretKey}${token}`
+			},
+			data:{jobId}
+		}).then((res)=>{
+			if(res.status==200){
+				notifications.show({message:"Job Removed From Fav",color:"green"})
+			}
+			console.log(res);
+		}).catch((err=>{
+			console.log(err);
+		}))
 
 
 	};
@@ -83,9 +83,9 @@ export const FavoriteBtn = ({ jobId }) => {
 	const onClickFavoriteHandler = () => {
 		let intern = allFavs && allFavs.find((itemId) => itemId.jobId === jobId);
 		if (!intern) {
-			addToFavs();
+			addToFavs(jobId);
 		} else {
-			removeFromFavourite();
+			removeFromFavourite(jobId);
 		}
 	};
 
