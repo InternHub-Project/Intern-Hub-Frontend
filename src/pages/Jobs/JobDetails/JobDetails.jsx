@@ -18,22 +18,27 @@ export default function JobDetails() {
   const [nameJob, setNameJob]=useState()
   const [companyNameJob, setCompanyName]=useState()
 
+  const [jodID, setJobID]=useState()
+
+
   useEffect( () => {
      axios({
       method: "get",
       url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.jobs.jobDetails}/${jobId}`,
       headers: {
         "Content-type": "application/json",
-        Authorization:
-          "internHub__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVc2VyN2FkNjc1NTUtZTQwMi00NTIyLWFjMjQtNzEwMTBiNTA3Mzk5Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MTM0NTc1NjcsImV4cCI6MTcxMzU0Mzk2N30.d3nb7KoIXBnFcEXiulpOFwXVNDWAPuU4ViRnwvboM8k",
       },
     })
       .then((res) => {
         console.log(res);
+        console.log(res.data.data);
         setJob(res.data.data);
         setNameJob(res.data.data.title)
         setCompanyName(res.data.data.companyName)
-        console.log(res.data.data.skills);
+
+        setJobID(res.data.data.jobId)
+
+
       })
       .catch((err) => {
         console.log(err);
@@ -48,7 +53,6 @@ export default function JobDetails() {
   return (
     <>
       
-
       <Container className={classes.container}>
         <div className={classes.actively}>
           <i
@@ -95,8 +99,8 @@ export default function JobDetails() {
             </p>
             <p className={classes.immediately}>{job.startDate}</p>
           </div>
-          <div style={{ margin: "7px" }}>
-            <p className={classes.start}>
+          {/* <div style={{ margin: "7px" }}> */}
+            {/* <p className={classes.start}>
               {" "}
               <i
                 className="fa-solid fa-suitcase"
@@ -106,9 +110,9 @@ export default function JobDetails() {
                 }}
               ></i>
               EXPERIENCE
-            </p>
+            </p> */}
             {/* <p className={classes.immediately}>{job.experience}</p> */}
-          </div>
+          {/* </div> */}
           <div style={{ margin: "7px" }}>
             <p className={classes.start}>
               {" "}
@@ -121,7 +125,7 @@ export default function JobDetails() {
               ></i>
               SALARY
             </p>
-            <p className={classes.immediately}>${job.salary} /month</p>
+            <p className={classes.immediately}>${job.Salary} /month</p>
           </div>
           <div style={{ margin: "7px" }}>
             <p className={classes.start}>
@@ -288,7 +292,7 @@ export default function JobDetails() {
         <div>
           <Text mt={20} className={classes.aboutJob}>
             {" "}
-            Salary:
+            {/* Salary: */}
           </Text>
           {/* <Text
             fz={15}
@@ -298,13 +302,13 @@ export default function JobDetails() {
             }}>
             Probation:
           </Text> */}
-          <Text style={{ color: "rgb(93 93 93)" }}>
-            Duration:{job.duration} {job.durationType}
+          {/* <Text style={{ color: "rgb(93 93 93)" }}> */}
+            {/* Duration:{job.duration} {job.durationType}
           </Text>
           <Text style={{ color: "rgb(93 93 93)" }}>
-            Salary: ${job.salary} /month
+            Salary: ${job.salary} /month */}
             {/* (only for freshers) */}
-          </Text>
+          {/* </Text> */}
           {/* <Text
             mt={15}
             fz={15}
@@ -319,11 +323,11 @@ export default function JobDetails() {
           </Text> */}
         </div>
         <div>
-          <Text mt={20} className={classes.aboutJob}>
+          {/* <Text mt={20} className={classes.aboutJob}>
             {job.title}
-          </Text>
+          </Text> */}
           <div style={{ color: "rgb(93 93 93)" }}>
-            <Text m={0}>
+            {/* <Text m={0}>
               Joseph SriHarsha & Mary Indraja Educational Society, in
               collaboration with the Ministry of Rural Development, Government
               of India, and DDU-GKY is offering 12+ courses with industry
@@ -337,7 +341,7 @@ export default function JobDetails() {
               This is a system of concrete tutelage where enrolled students are
               exposed to jobational placements as well to help usher their
               growth on a global scale.
-            </Text>
+            </Text> */}
           </div>
         </div>
         <div className={classes.lestActivity}>
@@ -379,9 +383,13 @@ export default function JobDetails() {
           </Button>
         </div> */}
         <div style={{ textAlign: "center" }}>
-          <ApplyButton  companyNameJob={companyNameJob} nameJob={nameJob}/>
+
+          <ApplyButton  companyNameJob={companyNameJob} nameJob={nameJob} JobID={jodID}/>
+
         </div>
       </Container>
     </>
   );
+
 }
+

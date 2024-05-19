@@ -1,9 +1,9 @@
-import { Grid } from "@mantine/core";
+import { Box, Grid } from "@mantine/core";
 import classes from "./StateWebSite.module.css";
 
 export default function StateWebSite() {
   return (
-    <div className={classes.up}>
+    <Box mb={50} className={classes.up}>
       {" "}
       <Grid style={{ margin: "0px 50px" }}>
         <Grid.Col
@@ -39,6 +39,6 @@ export default function StateWebSite() {
           <p className={classes.title}>learners</p>
         </Grid.Col>
       </Grid>
-    </div>
+    </Box>
   );
 }

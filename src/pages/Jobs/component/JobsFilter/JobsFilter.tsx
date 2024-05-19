@@ -35,17 +35,6 @@ export default function JobsFilter({ setFilterQuery }) {
 
   
 
-  
-
-  // const [_, setInternShip] = useState([]);
-
-  // useEffect(() => {
-  //   fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.job.jobsFiltration}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setInternShip(data);
-  //     });
-  // }, []);
 
   function setData(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -247,9 +236,9 @@ export default function JobsFilter({ setFilterQuery }) {
             className={classes.submit}
             onClick={() => {
               setFilterQuery("");
-              setFormData({
-                
-                
+
+              setFormData({ 
+
                 title: "",
                 salary: 0,
                 salaryType: "",

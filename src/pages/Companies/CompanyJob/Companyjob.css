@@ -1,0 +1,39 @@
+/* .container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  }
+  
+ 
+  h1 {
+    color: #333; 
+    font-size: 24px; 
+    text-align: center; 
+  }
+  
+ 
+  .job-details p {
+    color: black; 
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  
+  form input[type="text"] {
+    width: calc(100% - 40px); 
+    padding: 10px; 
+    margin-bottom: 20px;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .logo.react {
+    width: 100px; 
+    height: auto; 
+    margin-bottom: 15px; 
+  } */

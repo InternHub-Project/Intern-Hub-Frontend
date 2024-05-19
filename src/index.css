@@ -12,6 +12,7 @@
   --background-latest:#f8f8f8;
   --shadow-card:rgba(136, 166, 255, 0.04);
   --background-courses:#eef6ff;
+
 }
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -27,7 +28,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 body {
   margin: 0;
   display: flex;
@@ -35,6 +35,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
 a {
   font-weight: 500;
   color: #646cff;

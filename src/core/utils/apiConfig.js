@@ -2,6 +2,9 @@ const API_CONFIG = {
   baseUrl: "https://api.codesplus.online/api/v1/",
   // baseUrl: "http://localhost:3003/api/v1/",
   secretKey:"internHub__",
+  socketConnection:"https://api.codesplus.online",
+  // socketConnection:"http://localhost:3003",
+
   endpoints: {
     auth: {
       user: {
@@ -25,20 +28,38 @@ const API_CONFIG = {
       updateUser: "user/updateUserprofile",
       logout: "auth/logout",
       applyToJob: "user/apply",
-      userApplication:"job/applications"
+      userApplication:"job/applications",
+      favorite:"user/userfavourite",
+      AddToFav:"user/addtofavourite",
+      RemoveFromFav:"user/removeFromFavourite"
     },
     company: {
       fetchCompany: "company/companydata",
+      topBrands:"job/topbrands",
+      companyjobs:"company/companyjobs",
+      createJob: "company/createJob",
+      updateCompany: "company/updatecompanyprofile",
+      jobApplicants:"job/jobapplicants",
+      startChat:"company/startchat",
+      AcceptedOrRejectedUser:"company/change_intern_status"
+
     },
     jobs: {
       allJobs: "job/jobs",
       jobDetails: "job/jobdetails",
       getRecommendedJobs: "job/recommendedjobs",
       getCompanyJobs: "company/companyjobs",
-      createJob: "company/createJob",
+
+      applyJob:"job/apply_requirement",
+      newjobs:"job/newjobs",
+      
+
     },
     accounts:{
-      changePassword:"account/changePassword"
+      changePassword:"account/changePassword",
+      userOrCompanyList:"account/user_or_company_list",
+      userOrCompanyChat:"account/user_or_company_chat",
+      DeleteAccount:"account/delete"
     }
   },
 };

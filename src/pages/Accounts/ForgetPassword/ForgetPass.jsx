@@ -14,7 +14,6 @@ export default function ForgetPass() {
     const data = { email: values.email, type: values.type };
     localStorage.setItem("email", values.email)
     localStorage.setItem("type", values.type)
-    console.log(data);
     httpRequest(API_CONFIG.endpoints.auth.forgetPassword, "POST", data).then(
       (res) => {
         if (res.status === 200) {

@@ -66,7 +66,13 @@ export default function Header() {
             className={classes.styleMobile}
             style={{ alignItems: "center" }}
           >
-            <Box display={"flex"} style={{ alignItems: "center" }}>
+            <Box
+              onClick={() => {
+                location.href = "/";
+              }}
+              display={"flex"}
+              style={{ alignItems: "center", cursor: "pointer" }}
+            >
               <img
                 src="https://ik.imagekit.io/abdullahAhmed/internHub/internHub-logo/WhatsApp%20Image%202024-04-18%20at%2019.22.21_b3fd28be.jpg?updatedAt=1713557100914"
                 alt=""
@@ -162,43 +168,49 @@ export default function Header() {
 
           <Divider my="sm" />
 
-          <Group justify="center" grow pb="xl" px="md">
-            <Button
-              onClick={() => {
-                location.href = "/SignupUser";
-              }}
-            >
-              {" "}
-              User Sign-up
-            </Button>
-            <Button
-              onClick={() => {
-                location.href = "/SignupCompanies";
-              }}
-            >
-              {" "}
-              Company Sign-up
-            </Button>
-          </Group>
+          {localStorage.length ? (
+            <UserInfo />
+          ) : (
+            <Box>
+              <Group justify="center" grow pb="xl" px="md">
+                <Button
+                  onClick={() => {
+                    location.href = "/SignupUser";
+                  }}
+                >
+                  {" "}
+                  User Sign-up
+                </Button>
+                <Button
+                  onClick={() => {
+                    location.href = "/SignupCompanies";
+                  }}
+                >
+                  {" "}
+                  Company Sign-up
+                </Button>
+              </Group>
 
-          <Group justify="center" grow pb="xl" px="md" mt={-15}>
-            <Button
-              variant="outline"
-              onClick={() => {
-                location.href = "/LoginUser";
-              }}
-            >
-              User Login
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => {
-                location.href = "/LoginCompanies";
-              }}
-            >
-              Company Login
-            </Button>
-          </Group>
+              <Group justify="center" grow pb="xl" px="md" mt={-15}>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    location.href = "/LoginUser";
+                  }}
+                >
+                  User Login
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    location.href = "/LoginCompanies";
+                  }}
+                >
+                  Company Login
+                </Button>
+              </Group>
+            </Box>
+          )}
         </ScrollArea>
       </Drawer>
     </Box>

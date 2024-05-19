@@ -16,6 +16,21 @@ import MyApplication from "./pages/User/ApplicationUser/myApplication.jsx";
 import EditeProfilePage from "./pages/User/editeProfilePage/EditeProfilePage.jsx";
 import JobDetails from "./pages/Jobs/JobDetails/JobDetails.jsx";
 import JobsPage from "./pages/Jobs/JobsPage.jsx";
+import "@mantine/carousel/styles.css";
+import Favorite from "./pages/Favorite/Favorite.jsx";
+import CompanyJobs from "./pages/Jobs/CompanyJobs/CompanyJobs.jsx";
+import Chat from "./pages/chat/Chat.jsx";
+import UserProfile from "./pages/User/UserProfile/UserProfile.jsx";
+import CompanyProfile from "./pages/Companies/CompanyProfile/CompanyProfile.jsx";
+import JobPostingForm from "./pages/Companies/CompanyJob/JobPostingForm.jsx";
+import EditCompanyProfile from "./pages/Companies/EditCompanyProfile/EditCompanyProfile.jsx";
+import DeleteAccountPage from "./pages/Accounts/DeleteAccount/DeleteAccountPage.jsx";
+import CompanyApps from "./pages/Companies/CompanyApplicants/CompanyApps.jsx";
+import CoursePage from "./pages/Home/components/CarouselCourses/CoursePage/CoursePage.jsx";
+import BigCoursePage from "./pages/Home/components/CarouselBigCourses/BigCoursePage/BigCoursePage.jsx";
+// import JobPostingForm from "./pages/Companies/CompanyJob/JobPostingForm.jsx";
+// import DetailNewJob from "./pages/Home/components/sectionJobs/DetailNewJob/DetailNewJob";
+// import DetailRecommendJob from "./pages/Home/components/RecommendJobs/DetailRecommendJob/DetailRecommendJob";
 
 function App() {
   return (
@@ -24,12 +39,22 @@ function App() {
 
       <Routes>
         <Route path="/" Component={Home} />
-        <Route path="/jobs/:page?" Component={JobsPage}/>
-        <Route path="/jobs/details/:jobId" Component={JobDetails}/>
+        <Route path="/jobs/:page?" Component={JobsPage} />
+        <Route path="/jobs/details/:jobId" Component={JobDetails} />
+        {/* <Route path="/jobs/detailsNewJob/:jobId" Component={DetailNewJob} /> */}
+        {/* <Route
+          path="/jobs/detailsRecommendJob/:jobId"
+          Component={DetailRecommendJob}
+        /> */}
         <Route path="/internships" Component={errorPage} />
+        <Route path="/courses/:id" Component={CoursePage} />
+        <Route path="/BigCourses/:id" Component={BigCoursePage} />
 
-        <Route  path="*" Component={errorPage} />
-        
+        <Route path="/favorite/:page?" Component={Favorite} />
+        <Route path="/companyJobs" Component={CompanyJobs} />
+
+        <Route path="*" Component={errorPage} />
+
         <Route path="/SignupCompanies" Component={SignupCompanies} />
         <Route path="/LoginCompanies" Component={LoginCompanies} />
 
@@ -38,12 +63,21 @@ function App() {
         <Route path="/ForgetPassword" Component={ForgetPass} />
         <Route path="/UpdatePassword" Component={UpdatePassUser} />
         <Route path="/ChangePassword" Component={ChangePass} />
-        <Route path="/confirmation/:token"  Component={ConfirmationPage} />
-        
-        {/* my application component route */}
-				<Route path="/user/myapps" Component={MyApplication} />
-				<Route path="/user_profile" Component={EditeProfilePage} />
+        <Route path="/confirmation/:token" Component={ConfirmationPage} />
 
+        <Route path="/createjob" Component={JobPostingForm} />
+        <Route path="/delete_account" Component={DeleteAccountPage} />
+
+        <Route path="/user_profile" Component={UserProfile} />
+        <Route path="/company_profile" Component={CompanyProfile} />
+        <Route path="/company_app/:jobId" Component={CompanyApps} />
+
+        {/* my application component route */}
+        <Route path="/user/myapps" Component={MyApplication} />
+        <Route path="/edite_user_profile" Component={EditeProfilePage} />
+        <Route path="/edite_company_profile" Component={EditCompanyProfile} />
+
+        <Route path="/chat" Component={Chat} />
       </Routes>
       <Footer />
     </>

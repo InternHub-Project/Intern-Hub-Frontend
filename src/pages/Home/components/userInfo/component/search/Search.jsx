@@ -60,6 +60,7 @@ export default function Search() {
           display: "flex",
           gap: "5px",
           alignItems: "center",
+          margin:"0px"
         }}
       >
         <span className={classes.search}>

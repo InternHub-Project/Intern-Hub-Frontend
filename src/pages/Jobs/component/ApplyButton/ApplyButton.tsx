@@ -10,13 +10,61 @@ import {
 } from "@mantine/core";
 import classes from "./ApplyButton.module.css";
 import React, { useEffect } from "react";
-import { IconCopy, IconFileCv } from "@tabler/icons-react";
-// import { useState } from 'react';
+
+
 import { FileButton, Group } from "@mantine/core";
 import { useState, useRef } from "react";
+import axios from "axios";
+import API_CONFIG from "../../../../core/utils/apiConfig";
+import { useNavigate } from "react-router-dom";
+import { notifications } from "@mantine/notifications";
 
-export default function ApplyButton({ companyNameJob, nameJob }) {
+export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
+  let token
+  if(JSON.parse(localStorage.getItem("userInfo")))
+    { 
+      token = JSON.parse(localStorage.getItem("userInfo")).data.token;
+    }
   const [opened, { open, close }] = useDisclosure(false);
+  const navigate = useNavigate();
+  function clickApply() {
+    if (!localStorage.getItem("userInfo")) {
+      navigate("/LoginUser");
+    } else {
+      open();
+    }
+  }
+
+  const [applyData, setApplyData] = useState({
+    coverLetter: "",
+    questions:[]
+  });
+  
+
+  const setData = (e, index) => {
+    const { name, value } = e.target;
+  
+    // Create a copy of the current state
+    const updatedApplyData = { ...applyData };
+  
+    if (!updatedApplyData.questions[index]) {
+      updatedApplyData.questions[index] = {};
+    }
+  
+    // Update the answer for the current question
+    updatedApplyData.questions[index][name] = value;
+     
+    // Set the updated state
+    setApplyData(updatedApplyData);
+  };
+
+
+  const setCoverLetter=(e)=>{
+    const cover=e.target.value;
+    setApplyData({...applyData,coverLetter:cover})
+  }
+
+
 
   const [file, setFile] = useState<File | null>(null);
   const resetRef = useRef<() => void>(null);
@@ -26,9 +74,6 @@ export default function ApplyButton({ companyNameJob, nameJob }) {
     resetRef.current?.();
   };
 
-  const iconCV = (
-    <IconFileCv style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
-  );
 
   const title = (
     <Box className={classes.containerHeader}>
@@ -40,6 +85,56 @@ export default function ApplyButton({ companyNameJob, nameJob }) {
       </Text>
     </Box>
   );
+
+
+  const [questionApply, setQuestionApply] = useState<any>();
+  console.log(JobID);
+  
+
+  useEffect(() => {
+    axios({
+      url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.jobs.applyJob}/${JobID}`, //ToDo change static id when modify in backend to dynamic id
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `internHub__${token}`,
+      },
+      method: "GET",
+    })
+      .then((res) => {
+        console.log(res);
+        setQuestionApply(res.data.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+
+  function applyToJob(e) {
+    e.preventDefault();
+
+    axios({
+      url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.applyToJob}/${JobID}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `internHub__${token}`,
+      },
+      method: "POST",
+      data:applyData
+    })
+      .then((res) => {console.log(res)
+        notifications.show({
+          message: res.data.message,
+          color: "green",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        notifications.show({
+          message: err.response.data.message,
+          color: "blue",
+        });
+      });
+  }
+
 
   return (
     <>
@@ -62,19 +157,21 @@ export default function ApplyButton({ companyNameJob, nameJob }) {
             backgroundColor: "rgb(244 244 244)",
             borderBottom: "rgb(201,201,201) solid 1px",
           },
-          inner:{
-            display:"flex",
-            justifyContent:"center",
-            alignItems:"center"
+
+          inner: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           },
-          content:{
-            marginRight:"30px"
-          }
+          content: {
+            marginRight: "30px",
+          },
         }}
-       
-        style={{marginLeft:"10px" , marginRight:"10px"}}
+        style={{ marginLeft: "10px", marginRight: "10px" }}
       >
-        <form>
+        <form onSubmit={applyToJob}>
+
+
           <Box>
             <Box mt={10}>
               <Text fz={"19px"} fw={600}>
@@ -102,18 +199,16 @@ export default function ApplyButton({ companyNameJob, nameJob }) {
               <Text fz={"19px"} fw={600}>
                 Cover letter
               </Text>
-              <Text fz={"15px"} c={"#454545"}>
+
+              <Text mb={5} fz={"15px"} c={"#454545"}>
                 Why should you be heired for this role?
               </Text>
-              <Text mb={10} mt={5} fz={"15px"} c={"rgb(0,139,220)"}>
-                <IconCopy
-                  style={{ width: rem(15), height: rem(15) }}
-                  stroke={1.5}
-                />{" "}
-                Copy from your last application & edit
-              </Text>
-
               <Textarea
+                name="coverLetter"
+                required
+                onChange={setCoverLetter}
+                value={applyData.coverLetter}
+
                 autosize
                 minRows={5}
                 resize="vertical"
@@ -122,30 +217,76 @@ export default function ApplyButton({ companyNameJob, nameJob }) {
             </Box>
 
             <Box mt={20}>
-              <Text fz={"19px"} fw={600}>
-                Your availability
-              </Text>
-              <Text my={5} fz={"15px"} c={"rgb(18 17 17)"}>
-                confirm your availability
-              </Text>
-              <input type="radio" id="yes" name="availability" />
-              <label
-                style={{ color: "#454545", fontSize: "15px" }}
-                htmlFor="yes"
-              >
-                Yes, i'am availability to join immediately
-              </label>
-              <br />
-              <input type="radio" id="no" name="availability" />
-              <label
-                style={{ color: "#454545", fontSize: "15px", marginTop: "5px" }}
-                htmlFor="no"
-              >
-                No{" "}
-                <span style={{ color: "rgb(112 112 112 / 92%)" }}>
-                  (please specify your availability)
-                </span>
-              </label>
+
+              <Box>
+                {questionApply ? (
+                  <>
+                    {questionApply.map((item,index) => (
+                      <Box key={item._id}>
+                        {item.type === "multiple_choice" ? (
+                          <Box>
+                            <Text fz={"19px"} fw={600}>
+                              {item.question}
+                            </Text>
+                            {item.options.map((option) => (
+                              <Box key={option}>
+                                <input
+                                  required
+                                   onChange={(e)=>setData(e,index)}
+                                  type="radio"
+                                  value={option}
+                                  name={`answer`} 
+                                  id={option}/>{" "}
+                                <label
+                                  style={{
+                                    color: "#454545",
+                                    fontSize: "15px",
+                                    marginTop: "5px",
+                                  }}
+                                  htmlFor={option}
+                                >
+                                  {option}
+                                </label>
+                              </Box>
+                            ))}
+                          </Box>
+                        ) : (
+                          <Box mt={20}>
+                            <Text fz={"19px"} fw={600}>
+                              {item.question}
+                            </Text>
+                            <Box>
+                              <Textarea
+                                required
+                                onChange={(e) => setData(e, index)}
+                                name={"answer"}
+                                value={applyData.questions[index]?.answer || ""}
+                                autosize
+                                minRows={5}
+                                resize="vertical"
+                                placeholder="..."
+                              />
+                            </Box>
+                          </Box>
+                        )}
+                      </Box>
+                    ))}
+                  </>
+                ) : (
+                  <>
+                    
+                  </>
+                )}
+              </Box>
+              {/* <Question
+                nameDes={"desExp"}
+                nameOption={"proLang"}
+                // proLang={applyData.proLang}
+                // desExp={applyData.desExp}
+                setQuestion={questionApply}
+                onChange={setData}
+              /> */}
+
             </Box>
 
             <Box mt={20}>
@@ -163,7 +304,14 @@ export default function ApplyButton({ companyNameJob, nameJob }) {
 
               <Group justify="start">
                 <FileButton resetRef={resetRef} onChange={setFile} accept="pdf">
-                  {(props) => <Button {...props}>Upload file</Button>}
+
+                  {(props) => (
+                    <Button {...props} value={applyData.resume}>
+                      Upload file
+                    </Button>
+                  )}
+
+
                 </FileButton>
                 <Button disabled={!file} color="red" onClick={clearFile}>
                   Reset
@@ -195,9 +343,11 @@ export default function ApplyButton({ companyNameJob, nameJob }) {
 
       <div style={{ textAlign: "center" }}>
         <Button
-          onClick={open}
-          // type="submit"
-          // onClick={() => submitJob()}
+
+          onClick={clickApply}
+          type="submit"
+
+
           bg={"rgb(0,165,236)"}
           size="lg"
         >
@@ -206,4 +356,6 @@ export default function ApplyButton({ companyNameJob, nameJob }) {
       </div>
     </>
   );
+
 }
+

@@ -1,0 +1,168 @@
+
+.up {
+    /* background-color: var(--background-latest); */
+    background-color:rgb(238,246,255);
+    margin-top: -40px;
+    padding: 50px 30px 50px;
+    text-align: center;
+  }
+  .titleInternship {
+    display: inline-block;
+    margin-top: 50px;
+    font-size: 28px;
+    line-height: 1.28571429;
+    font-weight: 700;
+    color: var(--gray-color);
+    margin-bottom: 15px;
+  }
+
+ 
+  .categories {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--second-color);
+  }
+  .category {
+    overflow: none;
+    height: fit-content;
+    text-align: center;
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 15px;
+    margin: 0px 8px 0px 0px;
+    border: solid 1px var(--outline-field-color);
+    border-radius: 22px;
+  }
+  
+  @media (max-width: 700px) {
+    .categories {
+      display: block;
+    }
+    .category {
+      margin: 5px 5px;
+      display: inline-block;
+    }
+  }
+  
+  .actively {
+    padding: 3px 7px;
+    border: 1px solid #ddd;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 6px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  .linkCard {
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .active_hiring {
+    font-size: 12px;
+    line-height: 1.33333333;
+    font-weight: 500;
+    color: var(--gray-color);
+    margin: 1px;
+  } 
+
+  .titleJob{
+   color: var(--second-color); 
+  }
+  .card {
+    padding: 20px;
+    background-color: var(--first-color);
+    border: solid 1px var(--outline-field-color);
+    border-radius: 15px;
+    box-shadow: 0 1px 24px var(--shadow-card);
+    margin: 10px 5px;
+    /* width: 500px; */
+  }
+  .viewDetails {
+    color: var(--primary-color);
+  }
+  
+  .cardCourses {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1px var(--second-color-darkMode);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+  }
+  .headingCard {
+    text-align: start;
+  }
+  .linkVeiw,
+  .moreLink {
+    display: flex;
+    margin: 0px 10px 0px 0px;
+    justify-content: end;
+    align-items: baseline;
+    gap: 10px;
+    color: var(--primary-color);
+  }
+  .linkVeiw {
+
+    
+    margin: 10px 10px 0px 0px;
+    
+    
+    display: flex;
+    justify-content: space-between;
+  }
+  .moreLink {
+    justify-content: start;
+    margin-top: -6px;
+  }
+  .linkCard:hover .linkVeiw {
+    color: var(--primary-color);
+  }
+  .moreInternships {
+    background-image: url("https://internshala.com/static/images/homepage/view_all_job.png");
+    background-size: 75% 90%;
+    background-repeat: no-repeat;
+    background-position: 130px 29px;
+    display: grid;
+    grid-auto-rows: auto;
+    gap: 137px;
+  }
+  
+  @media (max-width: 900px) {
+    .moreInternships {
+      background-size: 75% 90%;
+      background-position: 100px 19px;
+      gap: 78px;
+    }
+  }
+  
+  .logoJob{
+    font-size: 14px;
+    line-height: 1.33333333;
+    font-weight: 500;
+    padding: 2px 6px;
+    background-color: #EEE;
+    border-radius: 4px;
+    color: var(--gray-color);
+  }
+
+  .viewMoreJob{
+    color: var(--primary-color);
+  }
+
+  
+.unlock {
+    color: var(--second-color);
+  }
+  
+  .explore {
+    color: var(--gray-color);
+  }

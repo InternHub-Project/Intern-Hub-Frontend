@@ -1,0 +1,14 @@
+
+
+.favorate-icon.btn:first-child:active,
+:not(.btn-check) + .btn:active {
+	color: var(--bs-btn-active-color);
+	background-color: #dc3545;
+	border-color: #be0a3b;
+}
+
+.favorate-icon svg {
+	height: 90%;
+	margin-top: -8px;
+	width: 30px;
+}

@@ -8,9 +8,22 @@ import axios from "axios";
 import API_CONFIG from "../../core/utils/apiConfig.js";
 import { timeSincePublication } from "../../core/utils/helper.js";
 
+import RecommendJobs from "../Home/components/RecommendJobs/RecommendJobs.jsx";
+import CompanyJobs from "./CompanyJobs/CompanyJobs.jsx";
+import FavoriteBtn from "./component/FavoritBtn/FavoriteBtn.jsx";
+
+
 const JOBS_PER_PAGE = 10;
 
 export default function JobsPage() {
+  let id
+  if(JSON.parse(localStorage.getItem("userInfo"))){
+     id= JSON.parse(localStorage.getItem("userInfo")).data;
+  }
+  else if(JSON.parse(localStorage.getItem("companyInfo")))
+    {
+      id=JSON.parse(localStorage.getItem("companyInfo")).data
+    }
   const [filterQuery, setFilterQuery] = useState();
   const [searchValue, setSearchValue] = useState();
   const [internShip, setInternShip] = useState([]);
@@ -38,7 +51,6 @@ export default function JobsPage() {
           headers:{"Content-Type":"application/json"}
         }).then(res=>{
           setInternShip(res.data.data);
-          console.log(res.data.data);
         }).catch(err=>{
           console.log(err);
         })
@@ -53,8 +65,14 @@ export default function JobsPage() {
   }
 }
 
+
   return (
     <>
+{ !id?.companyId ?
+    (<>
+    <Box>
+      <RecommendJobs />
+    </Box>
       <Container>
         <Grid style={{ margin: "30px" }}>
           <Grid.Col span={{ base: 12, sm: 4 }}>
@@ -93,13 +111,11 @@ export default function JobsPage() {
               />
               </Box>
 
-
               
             </Box>
             {internShip.map((item) => (
-              <Link
+              <Box
                 key={item.id}
-                to={`/jobs/details/${item.jobId}`}
                 className={classes.styleIntern}
               >
                 <div>
@@ -233,23 +249,26 @@ export default function JobsPage() {
                     }}
                   ></div>
                 </div>
-                <div style={{ textAlign: "end", margin: "0px 5px" }}>
-                  <a
-                    href=""
-                    style={{
-                      display: "inline-block",
-                      marginTop: "2px",
-                      padding: "5px 7px",
-                      textDecoration: "none",
-                      border: "1px solid #008BDC",
-                      borderRadius: "6px",
-                      color: "#008BDC",
-                    }}
+
+
+              <div style={{ textAlign: "end", margin: "0px 5px" ,display:"flex",justifyContent:"end"   }}>
+                    <Box mr={8}>
+
+                <FavoriteBtn jobId={item.jobId}/> 
+                    </Box>
+                  <Link
+                  className={classes.viewLink}
+                to={`/jobs/details/${item.jobId}`}
+                    
+
+
                   >
                     view details
-                  </a>
-                </div>
-              </Link>
+                  </Link>
+      </div>
+                    
+              </Box>
+              
             ))}
             <PaginationJobs
               route={"/jobs"}
@@ -260,6 +279,9 @@ export default function JobsPage() {
           </Grid.Col>
         </Grid>
       </Container>
+      </>):(<>
+      <CompanyJobs />
+      </>)}
     </>
   );
 }
