@@ -5,6 +5,7 @@
   text-align: center;
 }
 
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -41,4 +42,9 @@
   color: #888;
 } */
 
+/* main{
+flex: 1;
+height: 100%;
+background-color: gold;
+} */
 

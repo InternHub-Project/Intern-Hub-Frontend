@@ -30,15 +30,10 @@ export default function JobDetails() {
       },
     })
       .then((res) => {
-        console.log(res);
-        console.log(res.data.data);
         setJob(res.data.data);
         setNameJob(res.data.data.title)
         setCompanyName(res.data.data.companyName)
-
         setJobID(res.data.data.jobId)
-
-
       })
       .catch((err) => {
         console.log(err);

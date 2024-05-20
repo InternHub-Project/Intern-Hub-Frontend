@@ -1,23 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Container, Text } from "@mantine/core";
+import { Box, Button, Container, Grid, Text} from "@mantine/core";
 import { useEffect, useState } from "react";
 import classes from "./CompanyJobs.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // import PaginationJobs from "../Jobs/component/Pagination/PaginationJobs.jsx";
 import axios from "axios";
 import API_CONFIG from "./../../../core/utils/apiConfig";
 import { timeSincePublication } from "./../../../core/utils/helper";
+import PaginationJobs from "../component/Pagination/PaginationJobs.jsx";
+import { IconPlus } from "@tabler/icons-react";
 
 // const JOBS_PER_PAGE = 10;
 
 export default function CompanyJobs() {
+  const navigate=useNavigate()
   const companyData = JSON.parse(localStorage.getItem("companyInfo")).data;
   let token=companyData.token
   const [internShip, setInternShip] = useState([]);
   // const [totalElements, setTotalElements] = useState(0);
   // const { page: numberOfPage } = useParams();
-
   useEffect(() => {
     axios({
       url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.company.companyjobs}`,
@@ -32,19 +34,47 @@ export default function CompanyJobs() {
       })
       .catch((err) => console.log(err));
   }, []);
-
   return (
     <Container>
-      <Container>
-        <Text ta={"center"} fz={30} fw={700}>
-          Company Jobs
-        </Text>
-        <Box style={{ margin: "30px" }}>
-          <Box>
+        <Grid style={{ margin: "30px" }}>
+          <Grid.Col span={{ base: 12, sm: 4 }}>
+            <div className={classes.filter}>
+              <div>
+                <div style={{ textAlign: "center" }}>
+                  <Button className={classes.filterIcon} onClick={()=>{navigate("/createjob")}}>
+                    {""}
+                    Create Job
+                      <IconPlus style={{marginLeft:"5px"}}></IconPlus>
+
+                  </Button>
+                  
+                </div>
+              </div>
+            </div>
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, sm: 8 }}>
+            <Box  className={classes.search} mx={"xs"}  >
+            <Box>
+                <Text className={classes.label} mb={10} fz={16} fw={700}>
+                  Search
+                </Text>
+              </Box>
+
+
+              <Box>
+
+              <input
+                className={classes.input}
+                // value={searchValue}
+                // onChange={searchInput}
+                placeholder="title , skills , descrepation"
+              />
+              </Box>
+              
+            </Box>
             {internShip.map((item) => (
-              <Link
+              <Box
                 key={item.id}
-                to={`/company_app/${item.jobId}`}
                 className={classes.styleIntern}
               >
                 <div>
@@ -66,11 +96,7 @@ export default function CompanyJobs() {
                       <p className={classes.title}>{item.companyName}</p>
                     </div>
                     <div>
-                      <img
-                        src={companyData.image}
-                        width={"50px"}
-                        height={"50px"}
-                      />
+                      <img src={companyData.image} width={"50px"} height={"50px"} />
                     </div>
                   </div>
                   <div className={classes.country}>
@@ -182,33 +208,32 @@ export default function CompanyJobs() {
                     }}
                   ></div>
                 </div>
-                <div style={{ textAlign: "end", margin: "0px 5px" }}>
-                  <a
-                    href=""
-                    style={{
-                      display: "inline-block",
-                      marginTop: "2px",
-                      padding: "5px 7px",
-                      textDecoration: "none",
-                      border: "1px solid #008BDC",
-                      borderRadius: "6px",
-                      color: "#008BDC",
-                    }}
+
+
+              <div style={{ textAlign: "end", margin: "0px 5px" ,display:"flex",justifyContent:"end"   }}>
+                    <Box mr={8}>
+
+              
+                    </Box>
+                  <Link
+                  className={classes.viewLink}
+                  to={`/company_app/${item.jobId}`}
                   >
                     view applicants
-                  </a>
-                </div>
-              </Link>
+                  </Link>
+              </div>
+                    
+              </Box>
+              
             ))}
-            {/* <PaginationJobs
-              route={"/favorite"}
-              totalElements={totalElements}
-              ITEMS_PER_PAGE={JOBS_PER_PAGE}
-              numberOfPage={numberOfPage}
-            /> */}
-          </Box>
-        </Box>
+              <PaginationJobs
+              route={"/jobs"}
+              totalElements={internShip.length}
+              ITEMS_PER_PAGE={10}
+              numberOfPage={1}
+            />
+          </Grid.Col>
+        </Grid>
       </Container>
-    </Container>
   );
 }

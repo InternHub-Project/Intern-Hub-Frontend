@@ -2,30 +2,32 @@ import { Box, Title } from "@mantine/core";
 import classes from "./Reco.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import API_CONFIG from "../../../../core/utils/apiConfig";
+// import API_CONFIG from "../../../../core/utils/apiConfig";
 import { Carousel } from "@mantine/carousel";
 import { Link } from "react-router-dom";
 
 export default function Reco() {
-  let token
+  // let token;
+  // let skills
   if(JSON.parse(localStorage.getItem("userInfo")))
     {
-   token = JSON.parse(localStorage.getItem("userInfo")).data.token;
-
+  //  token = JSON.parse(localStorage.getItem("userInfo")).data.token;
+  //  skills= JSON.parse(localStorage.getItem("userInfo")).data.skills
     }
   const [recommendData, setRecommendData] = useState([]);
 
   useEffect(() => {
     axios({
-      url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.jobs.getRecommendedJobs}`,
+      url: `http://localhost:5000/get_recommendations`,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `internHub__${token}`,
       },
-      method: "GET",
+      method: "post",
+      data:{skills:["html", "css", "Socket.io", "Express"]}
     })
       .then((res) => {
-        setRecommendData(res.data.data);
+        console.log(res);
+        setRecommendData(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -74,9 +76,7 @@ export default function Reco() {
                         {/* {job.hint} */}
                       </p>
                     </span>
-                    <div>
-                      <img src={job.image} width="50px" height="50px" />
-                    </div>
+                    
                   </div>
                   <div>
                     <ul

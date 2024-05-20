@@ -12,8 +12,10 @@
   --background-latest:#f8f8f8;
   --shadow-card:rgba(136, 166, 255, 0.04);
   --background-courses:#eef6ff;
-
+  height: 100%;
 }
+
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

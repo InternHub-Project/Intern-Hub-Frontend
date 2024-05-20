@@ -50,6 +50,7 @@ export const EditeProfilePage = () => {
 		setPview(null);
 	};
 	const onCrop = (view) => {
+		console.log(view);
 		setPview(view);
 	};
 	const saveCropImage = () => {
@@ -137,6 +138,13 @@ export const EditeProfilePage = () => {
 		}
 		if(profilePicture){
 			formData.append('profileImage', profilePicture);
+			let userInfo = localStorage.getItem("userInfo");
+			if (userInfo) {
+				userInfo = JSON.parse(userInfo);
+				userInfo.data.profileImage = profilePicture; 
+				const updatedUserInfo = JSON.stringify(userInfo);
+				localStorage.setItem("userInfo", updatedUserInfo);
+			} 
 		}		
 		if(address.address){
 			formData.append('address', address.address);
@@ -149,6 +157,13 @@ export const EditeProfilePage = () => {
 		}
 		if(userName){
 			formData.append('userName', userName);
+			let userInfo = localStorage.getItem("userInfo");
+			if (userInfo) {
+				userInfo = JSON.parse(userInfo);
+				userInfo.data.userName = userName; 
+				const updatedUserInfo = JSON.stringify(userInfo);
+				localStorage.setItem("userInfo", updatedUserInfo);
+			}
 		}
 		if(phoneNumber){
 			formData.append('phone', phoneNumber);
@@ -259,8 +274,8 @@ export const EditeProfilePage = () => {
 									>
 										<div className="crop">
 											<Avatar
-												width={250}
-												height={250}
+												width={400}
+												height={400}
 												onCrop={onCrop}
 												onClose={onClose}
 											/>

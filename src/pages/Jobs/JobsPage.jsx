@@ -39,7 +39,7 @@ export default function JobsPage() {
     } else if (filterQuery) {
       url += `&${filterQuery}`;
     }
-    setTotalElements(45);
+    setTotalElements(35);
     getData(url);
   }, [filterQuery, numberOfPage, searchValue]);
       
@@ -265,7 +265,7 @@ export default function JobsPage() {
                   >
                     view details
                   </Link>
-      </div>
+              </div>
                     
               </Box>
               

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import DynamicFieldForm from "./DynamicFieldForm.jsx";
-import "./Companyjob.css"
 import { httpRequest } from '../../../core/utils/httpRequest.js';
 import API_CONFIG from '../../../core/utils/apiConfig.js';
 import {HTTP_METHODS} from '../../../core/utils/httpRequest.js'
 import { showNotification } from "../../../core/helperMethods/showNotification.js";
+import classes from "./Companyjob.module.css"
 
 
 const JobPostingForm = () => {
@@ -56,62 +56,115 @@ const JobPostingForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const inputStyle = { width: '100%', height: '40px' };
+  // const inputStyle = { };
 
   return (
     <div className="container">
-    
-
-      <h1>Job Posting</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="title" placeholder="Job Title" value={formData.title} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }} />
-        <br />
-		<br />
-		<input type="text" name="startDate" placeholder="Start Date" value={formData.startDate} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }} />
-        <br />
-		<br />
-    <input type="number" name="duration" placeholder="Number of duration" value={formData.duration} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }} />
-		<br />
-		<br />
-        <select name="job" value={formData.job} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }}>
-          <option value="">Job Type</option>
-          <option value="job">Job</option>
-          <option value="internship">Internship</option>
-        </select>
-		<br />
-		<br />
-        <select name="salary" value={formData.salary} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }}>
-          <option value="">Salary Type</option>
-          <option value="monthly">Monthly</option>
-          <option value="yearly">Yearly</option>
-          <option value="daily">Daily</option>
-        </select>
-		<br />
-		<br />
-        <select name="intern" value={formData.intern} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }}>
-          <option value="">Intern Type</option>
-          <option value="part-time" >Part-Time</option>
-          <option value="full-time">Full-Time</option>
-        </select>
-		<br />
-		<br />
-        <input type="text" name="internLocation" placeholder="Intern Location" value={formData.internLocation} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }} />
-        <input type="number" name="numberOfOpenings" placeholder="Number of Openings" value={formData.numberOfOpenings} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }} />
-        <br />
-		<br />
-		<input type="text" name="skills" placeholder="Skills (comma-separated)" value={formData.skills} onChange={handleChange} required style={{ ...inputStyle, height: '40px' }} />
-        <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} required style={{ ...inputStyle, height: '80px' }} />
-        {/* أضف المزيد من حقول الإدخال حسب الحاجة */}
-        {/* ... */}
-
-        {/* زر الإرسال */}
-		<br />
-		<br />
-        <DynamicFieldForm onFieldsChange={handleFieldsChange}/>
-		<br />
-		<br />
-        <button type="submit" style={inputStyle}>Submit</button>
-      </form>
+      <div className="formContainer">
+        <h1>Create Job</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="title"
+            placeholder="Job Title"
+            value={formData.title}
+            onChange={handleChange}
+            required
+            className="input"
+          />
+          <input
+            type="text"
+            name="startDate"
+            placeholder="Start Date"
+            value={formData.startDate}
+            onChange={handleChange}
+            required
+            className="input"
+          />
+          <input
+            type="number"
+            name="duration"
+            placeholder="Number of duration"
+            value={formData.duration}
+            onChange={handleChange}
+            required
+            className="input"
+          />
+          <select
+            name="job"
+            value={formData.job}
+            onChange={handleChange}
+            required
+            className="input select"
+          >
+            <option value="">Job Type</option>
+            <option value="job">Job</option>
+            <option value="internship">Internship</option>
+          </select>
+          <select
+            name="salary"
+            value={formData.salary}
+            onChange={handleChange}
+            required
+            className="input select"
+          >
+            <option value="">Salary Type</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+            <option value="daily">Daily</option>
+          </select>
+          <select
+            name="intern"
+            value={formData.intern}
+            onChange={handleChange}
+            required
+            className="input select"
+          >
+            <option value="">Intern Type</option>
+            <option value="part-time">Part-Time</option>
+            <option value="full-time">Full-Time</option>
+          </select>
+          <input
+            type="text"
+            name="internLocation"
+            placeholder="Intern Location"
+            value={formData.internLocation}
+            onChange={handleChange}
+            required
+            className="input"
+          />
+          <input
+            type="number"
+            name="numberOfOpenings"
+            placeholder="Number of Openings"
+            value={formData.numberOfOpenings}
+            onChange={handleChange}
+            required
+            className="input"
+          />
+          <input
+            type="text"
+            name="skills"
+            placeholder="Skills (comma-separated)"
+            value={formData.skills}
+            onChange={handleChange}
+            required
+            className="input"
+          />
+          <textarea
+            name="description"
+            placeholder="Description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+            className="textarea"
+          />
+          <DynamicFieldForm onFieldsChange={handleFieldsChange} />
+          <button type="submit" className="button">
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
