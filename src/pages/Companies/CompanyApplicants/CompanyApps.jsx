@@ -13,6 +13,7 @@ import Pagination from "../../User/ApplicationUser/pagination.jsx";
 import API_CONFIG from "../../../core/utils/apiConfig.js";
 import { Button } from "react-bootstrap";
 import { notifications } from "@mantine/notifications";
+import PaginationJobs from "../../Jobs/component/Pagination/PaginationJobs.jsx";
 
 export const CompanyApps = () => {
 	const { jobId } = useParams();
@@ -55,8 +56,9 @@ export const CompanyApps = () => {
 			}
 			console.log(res)
 		}).catch((err)=>{
-			if(err.respone.status==403){
-				notifications.show({message:err.respone.data})
+			console.log(err);
+			if(err.response.status==403){
+				notifications.show({message:err.response.data.message,color:"blue"})
 			}
 			console.log(err);
 		})
@@ -209,7 +211,12 @@ export const CompanyApps = () => {
 							</tbody>
 						</Table>
 					</div>
-					<Pagination getPageNumber={getPageNumber} />
+					<PaginationJobs
+						route={"/jobs"}
+						totalElements={10}
+						ITEMS_PER_PAGE={10}
+						numberOfPage={1}
+						/>
 				</section>
 			</Container>
 		</div>

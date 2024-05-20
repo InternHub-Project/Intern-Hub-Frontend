@@ -8,9 +8,9 @@ import { MdHelpOutline } from "react-icons/md";
 import { FaRocket } from "react-icons/fa6";
 import { FiFileText } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import Pagination from "./pagination.jsx";
 import { httpRequest } from "../../../core/utils/httpRequest.js";
 import API_CONFIG from "../../../core/utils/apiConfig.js";
+import PaginationJobs from "../../Jobs/component/Pagination/PaginationJobs.jsx";
 
 export const MyApplication = () => {
 	const token = JSON.parse(localStorage.getItem("userInfo")).data.token;
@@ -58,7 +58,7 @@ export const MyApplication = () => {
 											</td>
 											<td>
 												<span>{app.jobtitle}</span>
-												<Link to="#" className="edite-icon">
+												<Link to={`/jobs/details/${app.jobId}`} className="edite-icon">
 													<HiMiniArrowTopRightOnSquare />
 												</Link>
 											</td>
@@ -93,8 +93,14 @@ export const MyApplication = () => {
 							</tbody>
 						</Table>
 					</div>
-					<Pagination />  
+					{/* <Pagination />   */}
 					{/* <Pagination getPageNumber={getPageNumber} />  */}
+					<PaginationJobs
+						route={"/jobs"}
+						totalElements={10}
+						ITEMS_PER_PAGE={10}
+						numberOfPage={1}
+						/>
 				</section>
 			</Container>
 		</div>

@@ -31,12 +31,12 @@ import BigCoursePage from "./pages/Home/components/CarouselBigCourses/BigCourseP
 // import JobPostingForm from "./pages/Companies/CompanyJob/JobPostingForm.jsx";
 // import DetailNewJob from "./pages/Home/components/sectionJobs/DetailNewJob/DetailNewJob";
 // import DetailRecommendJob from "./pages/Home/components/RecommendJobs/DetailRecommendJob/DetailRecommendJob";
-
+// import "./App.css"
 function App() {
   return (
     <>
       <Header />
-
+    {/* <main> */}
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/jobs/:page?" Component={JobsPage} />
@@ -79,6 +79,7 @@ function App() {
 
         <Route path="/chat" Component={Chat} />
       </Routes>
+      {/* </main> */}
       <Footer />
     </>
   );

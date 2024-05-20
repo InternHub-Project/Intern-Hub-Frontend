@@ -18,6 +18,7 @@ export default function LestJobs() {
       method: "GET",
     })
       .then((res) => {
+        console.log(res);
         setJobs(res.data.data);
       })
       .catch((err) => console.log(err));
@@ -65,11 +66,11 @@ export default function LestJobs() {
                         color: "rgb(0 0 0 / 57%)",
                       }}
                     >
-                      {job.hint}
+                      {job.companyName}
                     </p>
                   </span>
                   <div>
-                    <img src={job.image} width="50px" height="50px" />
+                    <img src={job.companyImage} width="50px" height="50px" />
                   </div>
                 </div>
                 <div>
