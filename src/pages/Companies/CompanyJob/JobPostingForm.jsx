@@ -59,7 +59,7 @@ const JobPostingForm = () => {
   // const inputStyle = { };
 
   return (
-    <div className="container">
+    <div className={classes.style}>
       <div className="formContainer">
         <h1>Create Job</h1>
         <form onSubmit={handleSubmit}>
