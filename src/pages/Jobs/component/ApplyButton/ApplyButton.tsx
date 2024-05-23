@@ -16,7 +16,7 @@ import { FileButton, Group } from "@mantine/core";
 import { useState, useRef } from "react";
 import axios from "axios";
 import API_CONFIG from "../../../../core/utils/apiConfig";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { notifications } from "@mantine/notifications";
 
 export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
@@ -68,7 +68,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
 
   const [file, setFile] = useState<File | null>(null);
   const resetRef = useRef<() => void>(null);
-
+  
   const clearFile = () => {
     setFile(null);
     resetRef.current?.();
@@ -88,7 +88,6 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
 
 
   const [questionApply, setQuestionApply] = useState<any>();
-  console.log(JobID);
   
 
   useEffect(() => {
@@ -105,12 +104,18 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
         setQuestionApply(res.data.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [JobID]);
 
 
   function applyToJob(e) {
     e.preventDefault();
-
+		const formData = new FormData();
+    if(file){
+      formData.append('file', file);
+  }
+  if(applyData){
+    formData.append("applyData",applyData)
+    }
     axios({
       url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.applyToJob}/${JobID}`,
       headers: {
@@ -118,7 +123,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
         Authorization: `internHub__${token}`,
       },
       method: "POST",
-      data:applyData
+      data:formData
     })
       .then((res) => {console.log(res)
         notifications.show({
@@ -190,7 +195,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
                     fontWeight: 500,
                   }}
                 >
-                  Edit resume
+                  <Link to={"/edite_user_profile"} style={{textDecoration:"none"}}>Edit resume</Link>
                 </span>
               </Text>
             </Box>

@@ -39,15 +39,17 @@
   } */
 
 /* JobForm.css */
-
-.container {
+.style{
+  background-image: url("https://internshala.com/static/images/registration/student_new/background.png");
+  width: 100%;
+  background-size: cover;
   display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  background-color: #f0f0f0;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
 }
+
 
 .formContainer {
   background-color: #fff;
@@ -56,6 +58,8 @@
   border-radius: 8px;
   width: 100%;
   max-width: 600px;
+   flex-direction: column;
+  align-items: center;
 }
 
 .input, .textarea, .select, .button {

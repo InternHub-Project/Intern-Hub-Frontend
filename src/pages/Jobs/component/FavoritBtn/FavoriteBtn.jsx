@@ -71,14 +71,15 @@ export const FavoriteBtn = ({ jobId }) => {
 		}).then((res)=>{
 			if(res.status==200){
 				notifications.show({message:"Job Removed From Fav",color:"green"})
-			}
-			console.log(res);
+				window.location.reload()
+				}
 		}).catch((err=>{
 			console.log(err);
 		}))
 
 
 	};
+	console.log(allFavs);
 
 	const onClickFavoriteHandler = () => {
 		let intern = allFavs && allFavs.find((itemId) => itemId.jobId === jobId);
@@ -88,7 +89,6 @@ export const FavoriteBtn = ({ jobId }) => {
 			removeFromFavourite(jobId);
 		}
 	};
-
 	return (
 		<div>
 			<Button

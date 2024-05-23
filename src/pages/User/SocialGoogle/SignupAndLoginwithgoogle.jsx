@@ -13,6 +13,8 @@ function SignupAndLoginwithgoogle() {
         if(res.status==200||res.status==201){
           Navigate("/")
           localStorage.setItem("userInfo",JSON.stringify(res.data))
+				window.location.reload()
+
         }
       }))
     }

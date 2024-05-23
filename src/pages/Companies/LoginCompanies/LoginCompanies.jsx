@@ -21,6 +21,8 @@ export default function LoginCompanies() {
           location.href = "/";
         }, 1000);
         localStorage.setItem("companyInfo", JSON.stringify(res.data));
+        localStorage.setItem("isLogged", JSON.stringify(true));
+
       }
     });
   }

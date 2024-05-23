@@ -18,6 +18,8 @@ export default function LoginUser() {
     }).then((result) => {
       showNotification("login Success", NOTIFICATION_TYPES.SUCCESS);
       localStorage.setItem("userInfo", JSON.stringify(result.data));
+      localStorage.setItem("isLogged", JSON.stringify(true));
+
       setTimeout(() => {
         location.href = "/";
       }, 1000);

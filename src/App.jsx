@@ -28,60 +28,64 @@ import DeleteAccountPage from "./pages/Accounts/DeleteAccount/DeleteAccountPage.
 import CompanyApps from "./pages/Companies/CompanyApplicants/CompanyApps.jsx";
 import CoursePage from "./pages/Home/components/CarouselCourses/CoursePage/CoursePage.jsx";
 import BigCoursePage from "./pages/Home/components/CarouselBigCourses/BigCoursePage/BigCoursePage.jsx";
+import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 // import JobPostingForm from "./pages/Companies/CompanyJob/JobPostingForm.jsx";
 // import DetailNewJob from "./pages/Home/components/sectionJobs/DetailNewJob/DetailNewJob";
 // import DetailRecommendJob from "./pages/Home/components/RecommendJobs/DetailRecommendJob/DetailRecommendJob";
 // import "./App.css"
+// import ProtectedRoute from "./pages/ProtectedRoute"
+// import {AuthProvider}  from './pages/AuthContext.jsx';
+
 function App() {
   return (
-    <>
+     <div className="app-container">
       <Header />
-    {/* <main> */}
+    <main className="content">
       <Routes>
         <Route path="/" Component={Home} />
         <Route path="/jobs/:page?" Component={JobsPage} />
         <Route path="/jobs/details/:jobId" Component={JobDetails} />
-        {/* <Route path="/jobs/detailsNewJob/:jobId" Component={DetailNewJob} /> */}
-        {/* <Route
-          path="/jobs/detailsRecommendJob/:jobId"
-          Component={DetailRecommendJob}
-        /> */}
         <Route path="/internships" Component={errorPage} />
         <Route path="/courses/:id" Component={CoursePage} />
         <Route path="/BigCourses/:id" Component={BigCoursePage} />
 
         <Route path="/favorite/:page?" Component={Favorite} />
-        <Route path="/companyJobs" Component={CompanyJobs} />
 
         <Route path="*" Component={errorPage} />
 
-        <Route path="/SignupCompanies" Component={SignupCompanies} />
-        <Route path="/LoginCompanies" Component={LoginCompanies} />
+     
 
         <Route path="/SignupUser" Component={SignupUser} />
         <Route path="/LoginUser" Component={LoginUser} />
         <Route path="/ForgetPassword" Component={ForgetPass} />
         <Route path="/UpdatePassword" Component={UpdatePassUser} />
-        <Route path="/ChangePassword" Component={ChangePass} />
         <Route path="/confirmation/:token" Component={ConfirmationPage} />
 
-        <Route path="/createjob" Component={JobPostingForm} />
-        <Route path="/delete_account" Component={DeleteAccountPage} />
-
-        <Route path="/user_profile" Component={UserProfile} />
-        <Route path="/company_profile" Component={CompanyProfile} />
-        <Route path="/company_app/:jobId" Component={CompanyApps} />
-
-        {/* my application component route */}
+        <Route element={<ProtectedRoute/>}>
+        <Route  path="/user_profile" Component={UserProfile} />
         <Route path="/user/myapps" Component={MyApplication} />
         <Route path="/edite_user_profile" Component={EditeProfilePage} />
-        <Route path="/edite_company_profile" Component={EditCompanyProfile} />
+        <Route path="/delete_account" Component={DeleteAccountPage} />
+        <Route path="/chat"  Component={Chat} />
+        <Route path="/ChangePassword" Component={ChangePass} />
 
-        <Route path="/chat" Component={Chat} />
+        </Route>
+
+        {/*............. Company............ */}
+        <Route path="/SignupCompanies" Component={SignupCompanies} />
+        <Route path="/LoginCompanies" Component={LoginCompanies} />
+        <Route path="/company_profile" Component={CompanyProfile} />
+        <Route path="/company_app/:jobId" Component={CompanyApps} />
+        <Route path="/edite_company_profile" Component={EditCompanyProfile} />
+        <Route path="/companyJobs" Component={CompanyJobs} />
+        <Route path="/createjob" Component={JobPostingForm} />
+
+
+
       </Routes>
-      {/* </main> */}
+      </main>
       <Footer />
-    </>
+      </div>
   );
 }
 
