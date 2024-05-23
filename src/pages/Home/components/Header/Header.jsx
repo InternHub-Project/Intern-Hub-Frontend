@@ -14,11 +14,12 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { UserInfo } from "./../userInfo/UserInfo";
 import Search from "./../userInfo/component/search/Search";
+import { UserInfoNav } from './../userInfo/component/userInfoNav/UserInfoNav';
 
 const links = [
   { id: 1, link: "/", label: "Home" },
   { id: 2, link: "/jobs", label: "Jobs" },
-  { id: 3, link: "/internships", label: "Internships" },
+  // { id: 3, link: "/internships", label: "Internships" },
 ];
 
 export default function Header() {
@@ -88,12 +89,12 @@ export default function Header() {
                 </Text>
               </Box>
             </Box>
-            <Group h="100%" gap={0} visibleFrom="lg" ml={30}>
+            <Group h="100%" gap={0} visibleFrom="md" ml={30}>
               {items}
             </Group>
           </Box>
 
-          <Group visibleFrom="lg" mr={25}>
+          <Group visibleFrom="md" mr={25}>
             <Search />
             {localStorage.length ? (
               <UserInfo />
@@ -147,7 +148,7 @@ export default function Header() {
           <Burger
             opened={drawerOpened}
             onClick={toggleDrawer}
-            hiddenFrom="lg"
+            hiddenFrom="md"
           />
         </Group>
       </header>
@@ -158,7 +159,7 @@ export default function Header() {
         size="100%"
         padding="md"
         title="Navigation"
-        hiddenFrom="lg"
+        hiddenFrom="md"
         zIndex={1000000}
       >
         <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
@@ -169,7 +170,7 @@ export default function Header() {
           <Divider my="sm" />
 
           {localStorage.length ? (
-            <UserInfo />
+            <UserInfoNav />
           ) : (
             <Box>
               <Group justify="center" grow pb="xl" px="md">
