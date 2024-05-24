@@ -61,15 +61,15 @@ function App() {
         <Route path="/UpdatePassword" Component={UpdatePassUser} />
         <Route path="/confirmation/:token" Component={ConfirmationPage} />
 
-        <Route element={<ProtectedRoute/>}>
+        {/* <Route element={<ProtectedRoute/>}> */}
         <Route  path="/user_profile" Component={UserProfile} />
         <Route path="/user/myapps" Component={MyApplication} />
         <Route path="/edite_user_profile" Component={EditeProfilePage} />
-        <Route path="/delete_account" Component={DeleteAccountPage} />
+
+        {/* </Route> */}
         <Route path="/chat"  Component={Chat} />
         <Route path="/ChangePassword" Component={ChangePass} />
-
-        </Route>
+        <Route path="/delete_account" Component={DeleteAccountPage} />
 
         {/*............. Company............ */}
         <Route path="/SignupCompanies" Component={SignupCompanies} />
