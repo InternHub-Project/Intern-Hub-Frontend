@@ -139,12 +139,16 @@ export default function Favorite() {
           <PaginationJobs route={'/favorite'} totalElements={totalElements} ITEMS_PER_PAGE={10} numberOfPage={numberOfPage} />
         </>
       ) : (
-        <div style={{ textAlign: 'center', marginTop: '20px' }}>
+        <Container mb={50} style={{ textAlign: 'center', marginTop: '20px',height:"375px" ,  display:"flex" , justifyContent:"center", alignItems:"center"}}>
+          <div>
+
           <Text style={{ fontWeight: '700', fontSize: '30px' }}>No jobs in Favorite</Text>
           <Link to="/jobs" className={classes.viewLink}>
             Go to Jobs Page
           </Link>
-        </div>
+
+          </div>
+        </Container>
       )}
     </Container>
   );

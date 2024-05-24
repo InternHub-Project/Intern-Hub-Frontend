@@ -16,15 +16,16 @@ function Chat() {
   let token;
   let role;
   let companyData;
-  let userData
+  let userData;
+
   if (JSON.parse(localStorage.getItem("userInfo"))) {
-    userData = JSON.parse(localStorage.getItem("userInfo"))
+    userData = JSON.parse(localStorage.getItem("userInfo"));
     senderId = userData.data.userId;
     receivedId = selectedUserId;
     token = userData.data.token;
     role = "user";
   } else {
-     companyData = JSON.parse(localStorage.getItem("companyInfo"))
+    companyData = JSON.parse(localStorage.getItem("companyInfo"));
     senderId = companyData.data.companyId;
     receivedId = selectedUserId;
     token = companyData.data.token;
@@ -39,7 +40,6 @@ function Chat() {
     }
   };
 
-  // Replace with your logic to fetch user list
   let socketIo = io(API_CONFIG.socketConnection);
   useEffect(() => {
     const fetchUserList = async () => {
@@ -48,10 +48,9 @@ function Chat() {
         {
           headers: { Authorization: `internHub__${token}` },
         }
-      ); // Replace with your API endpoint
+      );
       const data = await response.json();
       setUserList(data.data);
-      
     };
 
     fetchUserList();
@@ -60,32 +59,25 @@ function Chat() {
         receivedMessage.senderId === selectedUserId ||
         receivedMessage.receivedId === selectedUserId
       ) {
-        setMessages([...messages, receivedMessage]);
-        
+        setMessages((prevMessages) => [...prevMessages, receivedMessage]);
       }
-      
     });
 
-
     return () => {
-      // Cleanup function to disconnect from socket on component unmount
       socketIo.disconnect();
     };
-    
-    
-  }, [selectedUserId, messages]);
+  }, [selectedUserId, token]);
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-  
+
   const handleUserSelection = (userId) => {
     setSelectedUserId(userId);
-    setMessages([]); // Assuming empty messages initially
+    setMessages([]);
   };
 
   useEffect(() => {
-    
     if (selectedUserId) {
       setLoading(true);
       axios({
@@ -101,7 +93,6 @@ function Chat() {
         },
       })
         .then((res) => {
-          console.log(res);
           setMessages(res.data.data[0].messages);
           setLoading(false);
         })
@@ -109,10 +100,9 @@ function Chat() {
           console.log(err);
           setLoading(false);
         });
-        
     }
-    
   }, [selectedUserId, role, token]);
+
   const sendMessage = (message) => {
     socketIo.emit("SEND_MESSAGE", {
       message: message,
@@ -120,7 +110,10 @@ function Chat() {
       receivedId,
     });
 
-    setMessages([...messages, { content: message, senderId: senderId }]);
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { content: message, senderId: senderId },
+    ]);
     setInputValue("");
   };
 
@@ -128,8 +121,11 @@ function Chat() {
     setInputValue(e.target.value);
   };
 
-
-
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      sendMessage(inputValue);
+    }
+  };
 
   return (
     <Container mb={50} className="App">
@@ -152,13 +148,12 @@ function Chat() {
           <div
             key={user.companyId || user.userId}
             className={`user ${
-              selectedUserId === user.companyId ||
-              selectedUserId === user.userId
+              selectedUserId === user.companyId || selectedUserId === user.userId
                 ? "active"
                 : ""
             }`}
             onClick={() =>
-              handleUserSelection(role == "user" ? user.companyId : user.userId)
+              handleUserSelection(role === "user" ? user.companyId : user.userId)
             }
           >
             <span>
@@ -186,7 +181,7 @@ function Chat() {
                 userList.find((u) => u.userId === selectedUserId)?.userName}
             </Text>
             {loading ? (
-              <Text c={"white"}>Loading messages...</Text> // Display loading indicator while fetching messages
+              <Text c={"white"}>Loading messages...</Text>
             ) : (
               <>
                 <Box className="chat-messages" ref={chatMessagesRef}>
@@ -198,17 +193,11 @@ function Chat() {
                       }`}
                     >
                       <span>
-                        {message.senderId === senderId ? "You :" : ""}
+                        {message.senderId === senderId ? "You: " : ""}
                         {message.content}
                       </span>
-
                     </div>
-                    
                   ))}
-                  <Box>
-                    {/* <button id="bt"><i className="fa-solid fa-arrow-down"></i></button> */}
-                  </Box>
-                  
                 </Box>
                 <Box pb={7} className="chat-input">
                   <input
@@ -218,6 +207,7 @@ function Chat() {
                     placeholder="Type your message"
                     value={inputValue}
                     onChange={handleInput}
+                    onKeyPress={handleKeyPress}
                   />
                   <Button
                     mr={5}
