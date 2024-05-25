@@ -1,12 +1,11 @@
 import { useState } from "react";
 import DynamicFieldForm from "./DynamicFieldForm.jsx";
-import { httpRequest } from "../../../core/utils/httpRequest.js";
 import API_CONFIG from "../../../core/utils/apiConfig.js";
-import { HTTP_METHODS } from "../../../core/utils/httpRequest.js";
 import { showNotification } from "../../../core/helperMethods/showNotification.js";
 import classes from "./Companyjob.module.css";
 import { Container } from "react-bootstrap";
 import {  Box, Button, Text } from '@mantine/core';
+import axios from "axios";
 
 const JobPostingForm = () => {
   const [fields, setFields] = useState([]);
@@ -14,9 +13,11 @@ const JobPostingForm = () => {
     title: "",
     startDate: "",
     duration: "",
+    durationType:"",
     job: "",
     salary: "",
-    intern: "",
+    salaryType:"",
+    internType: "",
     internLocation: "",
     numberOfOpenings: "",
     skills: [],
@@ -32,22 +33,19 @@ const JobPostingForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     formData.questions.push(...fields);
-    const data = JSON.parse(localStorage.getItem("userInfo"));
-    const token = data.token;
-    const headers = {
-      Authorization: `${API_CONFIG.secretKey}${token}`,
-    };
-    httpRequest(
-      API_CONFIG.endpoints.company.createJob,
-      HTTP_METHODS.POST,
-      formData,
-      headers
-    ).then((res) => {
-      if (res.status === 201) {
-        showNotification("Created");
-      }
+    const data = JSON.parse(localStorage.getItem("companyInfo"));
+    const token = data.data.token;
+    axios({method:"post",
+      url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.company.createJob}`,
+      headers:{Authorization:`${API_CONFIG.secretKey}${token}`},
+      formData
+    }).then((res=>{
       console.log(res);
-    });
+      showNotification("Job Created Successfully");
+      window.location.reload()
+    })).catch((err=>{
+      console.log(err);
+    }))
   };
 
   const handleChange = (event) => {
@@ -97,47 +95,47 @@ const JobPostingForm = () => {
                 required
                 className={classes.field}
                 />
-
-              <input
-                type="number"
-                name="duration"
-                placeholder="Number of duration"
-                value={formData.duration}
-                onChange={handleChange}
-                required
-                className={classes.field}
-                />
-
-
-            </div>
-
-            <div>
-            </div>
-
-            <div style={{display:"flex"  ,gap:"10px"}}>
-
-
-              <select
+                 <select
                 name="job"
                 value={formData.job}
                 onChange={handleChange}
                 required
                 className={classes.field}
                 >
-                <option value="">Job Type</option>
+                 <option disabled selected value="">
+                Job Type
+                </option>
                 <option value="job">Job</option>
                 <option value="internship">Internship</option>
               </select>
 
-              <select
+         
+
+
+            </div>
+
+            <div style={{display:"flex"  ,gap:"10px"}}>
+
+
+            <input
+                type="number"
                 name="salary"
+                placeholder="Salary"
                 value={formData.salary}
+                onChange={handleChange}
+                required
+                className={classes.field}
+                />
+
+              <select
+                name="salaryType"
+                value={formData.salaryType}
                 onChange={handleChange}
                 required
                 className={classes.field}
                 
                 >
-                <option value="">Salary Type</option>
+                <option value="" disabled selected>Salary Type</option>
                 <option value="monthly">Monthly</option>
                 <option value="yearly">Yearly</option>
                 <option value="daily">Daily</option>
@@ -146,15 +144,44 @@ const JobPostingForm = () => {
 
             </div>
 
+            <div style={{display:"flex"  ,gap:"10px"}}>
+          
+  <input
+    type="number"
+    name="duration"
+    placeholder="Number of duration"
+    value={formData.duration}
+    onChange={handleChange}
+    required
+    className={classes.field}
+    />
+
+
+
+  <select
+    name="durationType"
+    value={formData.durationType}
+    onChange={handleChange}
+    required
+    className={classes.field}
+    
+    >
+    <option value="" disabled selected>Duration Type</option>
+    <option value="month">Month</option>
+    <option value="year">Year</option>
+    <option value="day">Day</option>
+  </select>
+
+</div>
             <div>
             <select
-                name="intern"
-                value={formData.intern}
+                name="internType"
+                value={formData.internType}
                 onChange={handleChange}
                 required
                 className={classes.field}
                 >
-                <option value="">Intern Type</option>
+                <option value="" disabled selected>Intern Type</option>
                 <option value="part-time">Part-Time</option>
                 <option value="full-time">Full-Time</option>
               </select>
@@ -205,7 +232,6 @@ const JobPostingForm = () => {
                 placeholder="Description"
                 value={formData.description}
                 onChange={handleChange}
-                required
                 className={classes.field}
                 />
             </div>

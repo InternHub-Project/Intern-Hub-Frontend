@@ -35,7 +35,7 @@ export default function CompanyJobs() {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <Container>
+    <Container style={{minHeight:"400px"}}>
         <Grid style={{ margin: "30px" }}>
           <Grid.Col span={{ base: 12, sm: 4 }}>
             <div className={classes.filter}>
@@ -93,7 +93,7 @@ export default function CompanyJobs() {
                   >
                     <div>
                       <p className={classes.hint}>{item.title}</p>
-                      <p className={classes.title}>{item.companyName}</p>
+                      <p className={classes.title}>{companyData.name}</p>
                     </div>
                     <div>
                       <img src={companyData.image} width={"50px"} height={"50px"} />

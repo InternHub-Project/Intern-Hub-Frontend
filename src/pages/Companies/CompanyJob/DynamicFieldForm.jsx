@@ -13,9 +13,9 @@ const DynamicFieldForm = ({ onFieldsChange }) => {
   const showDynamicInputForm = async () => {
     // Prompt the user to enter the number of inputs
     const { value: numInputsStr } = await Swal.fire({
-      title: "Enter Number of Inputs",
+      title: "Enter Number of Choices",
       input: "text",
-      inputLabel: "Number of Inputs",
+      // inputLabel: "Number of choice",
       inputPlaceholder: "Enter a number",
       showCancelButton: true,
       inputValidator: (value) => {
@@ -95,13 +95,7 @@ const DynamicFieldForm = ({ onFieldsChange }) => {
       </label>
     );
   };
-  const renderCheckbox = (option, i) => {
-    return (
-      <label key={i}>
-        <input type="checkbox" /> {option}
-      </label>
-    );
-  };
+
   const renderField = (field, index) => {
     return (
       <div key={index}>
@@ -109,13 +103,7 @@ const DynamicFieldForm = ({ onFieldsChange }) => {
           <div style={{marginBottom:"10px"}}>
             <label className={classes.label}>{field.question}</label>
             <div style={{ display: "flex", gap: "10px", alignItems: "end" }}>
-              <textarea
-                className={classes.AddField}
-                name=""
-                id=""
-                cols="30"
-                rows="1"
-              />
+              
 
               <Button bg={"red"}  className={classes.btnAdd} onClick={() => handleRemoveField(index)}>
                 Remove
@@ -127,8 +115,8 @@ const DynamicFieldForm = ({ onFieldsChange }) => {
         {field.type === "multiple_choice" && (
           <div>
             <label className={classes.label}>{field.question}</label>
-            <div style={{ display: "flex", gap: "10px", alignItems: "end" }}>
-              <div className={classes.AddField}>
+            <div style={{ display: "flex", gap: "10px" ,flexDirection:"column"}}>
+              <div className={classes.AddField} style={{display:"flex",flexDirection:"column", border:"none"}}>
                 {field.options.map((option, i) => renderOptions(option, i))}
               </div>
               <Button bg={"red"} className={classes.btnAdd}  onClick={() => handleRemoveField(index)}>
@@ -137,14 +125,7 @@ const DynamicFieldForm = ({ onFieldsChange }) => {
             </div>
           </div>
         )}
-        {field.type === "checkbox" && (
-          <div>
-            <p>{field.question}</p>
-            <div className={classes.AddField}>
-              {field.options.map((option, i) => renderCheckbox(option, i))}
-            </div>
-          </div>
-        )}
+       
       </div>
     );
   };
@@ -159,7 +140,6 @@ const DynamicFieldForm = ({ onFieldsChange }) => {
         >
           <option value="text">Text</option>
           <option value="multiple_choice">multiple_choice</option>
-          <option value="checkbox">checkbox</option>
         </select>
 
         <div
