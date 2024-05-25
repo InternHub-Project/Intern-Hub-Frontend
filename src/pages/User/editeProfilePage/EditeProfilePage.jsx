@@ -182,7 +182,14 @@ export const EditeProfilePage = () => {
 		}
 		if(allSkills){
 			formData.append('skills',JSON.stringify(SkillsArr)); // Convert array to string
+			let userInfo = localStorage.getItem("userInfo");
+			if (userInfo) {
+				userInfo = JSON.parse(userInfo);
+				userInfo.data.skills = allSkills; 
+				const updatedUserInfo = JSON.stringify(userInfo);
+				localStorage.setItem("userInfo", updatedUserInfo);
 		}
+	}
 		if(allInterested){
 			formData.append('fieldOfInterest', JSON.stringify(interestedArr)); // Convert array to string
 		}
