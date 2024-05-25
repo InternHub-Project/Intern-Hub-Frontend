@@ -48,3 +48,42 @@ height: 100%;
 background-color: gold;
 } */
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures viewport height */
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Takes remaining space */
+}
+
+/* Option 1: Remove Fixed Height from `.content` */
+
+.content {
+  flex: 1;
+  padding: 20px;
+  min-height: 300px; /* Set a minimum height you prefer */
+}
+
+
+.footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 1em 0;
+  position: relative;
+  width: 50%;
+}
+
+

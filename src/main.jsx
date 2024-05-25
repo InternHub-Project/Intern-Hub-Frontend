@@ -17,7 +17,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <MantineProvider>
         <Notifications />
+    
         <App />
+   
       </MantineProvider>
     </BrowserRouter>
   </React.StrictMode>,

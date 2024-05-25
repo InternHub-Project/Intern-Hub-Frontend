@@ -38,14 +38,19 @@ export function CompanyInfo() {
     const navigate = useNavigate();
 
   const company = JSON.parse(localStorage.getItem("companyInfo"));
-
   function logout() {
-    // navigate to login page
-    location.href = "LoginCompanies";
     localStorage.clear();
-    httpRequest(APP_CONFIG.endpoints.user.logout, HTTP_METHODS.POST).then(
+      httpRequest(APP_CONFIG.endpoints.user.logout, HTTP_METHODS.POST).then(
       (res) => {
         console.log(res);
+          location.href = "LoginCompanies";
+      }
+    ).catch(
+      (error) => {
+        console.error("Logout request failed", error);
+  
+        // Even if the logout request fails, navigate to the login page
+        location.href = "LoginCompanies";
       }
     );
   }
