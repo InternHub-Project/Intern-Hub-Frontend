@@ -18,7 +18,7 @@ export default function Reco() {
 console.log(skills);
   useEffect(() => {
     axios({
-      url: `http://localhost:5000/get_recommendations`,
+      url: `https://api.codesplus.online/get_recommendations`,
       headers: {
         "Content-Type": "application/json",
       },
