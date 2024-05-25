@@ -33,24 +33,29 @@ export default function JobsPage() {
 
   useEffect(() => {
     let url = `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.jobs.allJobs}?size=${JOBS_PER_PAGE}&page=${numberOfPage || 1}`;
-  
+    let searchType
     if (searchValue) {
       url += `&search=${searchValue}`;
+      searchType=true
     } else if (filterQuery) {
       url += `&${filterQuery}`;
+      searchType=true
     }
     setTotalElements(35);
-    getData(url);
+    getData(url,searchType);
   }, [filterQuery, numberOfPage, searchValue]);
       
 
-      const getData=(url)=>{
+      const getData=(url,searchType)=>{
         axios({
           method:"get",
           url:url,
           headers:{"Content-Type":"application/json"}
         }).then(res=>{
           setInternShip(res.data.data);
+          if(searchType){
+          setTotalElements(res.data.data.length)
+          }
         }).catch(err=>{
           console.log(err);
         })

@@ -32,10 +32,6 @@ export default function JobsFilter({ setFilterQuery }) {
     duration: 0,
     durationType: "",
   });
-
-  
-
-
   function setData(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
