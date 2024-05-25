@@ -8,14 +8,14 @@ import { Link } from "react-router-dom";
 
 export default function Reco() {
   // let token;
-  // let skills
+  let skills
   if(JSON.parse(localStorage.getItem("userInfo")))
     {
   //  token = JSON.parse(localStorage.getItem("userInfo")).data.token;
-  //  skills= JSON.parse(localStorage.getItem("userInfo")).data.skills
+   skills= JSON.parse(localStorage.getItem("userInfo")).data.skills
     }
   const [recommendData, setRecommendData] = useState([]);
-
+console.log(skills);
   useEffect(() => {
     axios({
       url: `https://api.codesplus.online/get_recommendations`,
@@ -23,7 +23,7 @@ export default function Reco() {
         "Content-Type": "application/json",
       },
       method: "post",
-      data:{skills:["html", "css", "Socket.io", "Express"]}
+      data:{skills}
     })
       .then((res) => {
         console.log(res);
