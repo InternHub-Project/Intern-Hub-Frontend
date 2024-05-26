@@ -42,17 +42,20 @@ function Chat() {
 
   let socketIo = io(API_CONFIG.socketConnection);
   useEffect(() => {
-    const fetchUserList = async () => {
-      const response = await fetch(
-        `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.accounts.userOrCompanyList}`,
-        {
-          headers: { Authorization: `internHub__${token}` },
-        }
-      );
-      const data = await response.json();
-      setUserList(data.data);
-    };
-
+      console.log(role);
+      const fetchUserList=async ()=>{
+        axios({method:"post",
+        url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.accounts.userOrCompanyList}`,
+        headers:{Authorization:`${API_CONFIG.secretKey}${token}`},
+        data:{role}
+      }).then((res=>{
+        console.log(res.data.data);
+        setUserList(res.data.data);
+      })).catch((err=>{
+        console.log(err);
+      }))
+      }
+  
     fetchUserList();
     socketIo.on("message", (receivedMessage) => {
       if (

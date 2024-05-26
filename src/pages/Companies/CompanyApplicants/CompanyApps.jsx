@@ -25,7 +25,7 @@ export const CompanyApps = () => {
 		try {
 			const componyData = await axios({
 				method: "get",
-				url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.company.jobApplicants}/Jobeac873e0-508d-499b-9d2e-fa1ec695b7ae`,
+				url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.company.jobApplicants}/${jobId}`,
 				headers: {
 					"Content-Type": "application/json",
 					Authorization:
@@ -172,8 +172,7 @@ export const CompanyApps = () => {
 													<span>{app.coverLetter}</span>
 												</td>
 												<td>
-													<span>{app.phone.length?app.phone:"_______________"}</span>
-
+													<span>{app.phone.length?app.phone:"______________"}</span>
 												</td>
 												<td>
 													<span>{app.status}</span>
