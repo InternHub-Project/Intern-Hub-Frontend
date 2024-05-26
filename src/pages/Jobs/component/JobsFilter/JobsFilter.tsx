@@ -251,7 +251,6 @@ export default function JobsFilter({ setFilterQuery }) {
           />
           <input className={classes.submit} type="submit" name="submit" />
         </div>
-        <Divider mx="xs" my="xs" label="OR" labelPosition="center" />
       </form>
      
     </div>

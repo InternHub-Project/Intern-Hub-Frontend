@@ -172,8 +172,7 @@ export const CompanyApps = () => {
 													<span>{app.coverLetter}</span>
 												</td>
 												<td>
-													<span>{app.phone.length?app.phone:"_______________"}</span>
-
+													<span>{app.phone.length?app.phone:"______________"}</span>
 												</td>
 												<td>
 													<span>{app.status}</span>
