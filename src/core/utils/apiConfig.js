@@ -41,7 +41,8 @@ const API_CONFIG = {
       updateCompany: "company/updatecompanyprofile",
       jobApplicants:"job/jobapplicants",
       startChat:"company/startchat",
-      AcceptedOrRejectedUser:"company/change_intern_status"
+      AcceptedOrRejectedUser:"company/change_intern_status",
+      openOrCloseJob:"company/closeJob"
 
     },
     jobs: {

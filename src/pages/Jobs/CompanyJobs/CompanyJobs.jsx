@@ -10,6 +10,7 @@ import API_CONFIG from "./../../../core/utils/apiConfig";
 import { timeSincePublication } from "./../../../core/utils/helper";
 import PaginationJobs from "../component/Pagination/PaginationJobs.jsx";
 import { IconPlus } from "@tabler/icons-react";
+import { showNotification } from "@mantine/notifications";
 
 // const JOBS_PER_PAGE = 10;
 
@@ -34,6 +35,26 @@ export default function CompanyJobs() {
       })
       .catch((err) => console.log(err));
   }, []);
+  const handlejobStatus=(jobId,jobStatus)=>{
+    const status=jobStatus=="active"?"inactive":"active"
+    console.log(status);
+    axios({
+      method:"PUT",
+      url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.company.openOrCloseJob}/${jobId}`,
+      headers:{ Authorization: `${API_CONFIG.secretKey}${token}`},
+      data:{status}
+    }).then((res=>{
+      if(res.status==200){
+        jobStatus=="active"?showNotification({message:"Job Closed Successfully",color:"green"}):showNotification({message:"Job Opened Successfully",color:"green"})
+        setTimeout((
+          window.location.reload()
+        ),1000)
+      }
+      console.log(res);
+    })).catch((err=>{
+      console.log(err);
+    }))
+  }
   return (
     <Container style={{minHeight:"400px"}}>
         <Grid style={{ margin: "30px" }}>
@@ -83,7 +104,7 @@ export default function CompanyJobs() {
                       className="fa-solid fa-arrow-trend-up"
                       style={{ color: "#3ae" }}
                     ></i>
-                    <p className={classes.active_hiring}>Actively hiring</p>
+                    <p className={classes.active_hiring}>{item.statusOfIntern=="active"?"Actively hiring":"Inactively hiring"}</p>
                   </div>
                   <div
                     style={{
@@ -210,11 +231,15 @@ export default function CompanyJobs() {
                 </div>
 
 
-              <div style={{ textAlign: "end", margin: "0px 5px" ,display:"flex",justifyContent:"end"   }}>
-                    <Box mr={8}>
-
-              
-                    </Box>
+              <div style={{ textAlign: "end", margin: "0px 5px" ,display:"flex",justifyContent:"space-between"}}>
+                  <Button
+                  style={{
+                    background: item.statusOfIntern === "inactive" ? "green" : "red",
+                  }}
+                  onClick={()=>handlejobStatus(item.jobId,item.statusOfIntern)}
+                  >
+                    {item.statusOfIntern=="inactive"?"Open Job":"Close Job"}
+                  </Button>
                   <Link
                   className={classes.viewLink}
                   to={`/company_app/${item.jobId}`}
@@ -222,7 +247,6 @@ export default function CompanyJobs() {
                     view applicants
                   </Link>
               </div>
-                    
               </Box>
               
             ))}

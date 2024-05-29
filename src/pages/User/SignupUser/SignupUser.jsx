@@ -76,7 +76,7 @@ export default function SignupUser() {
             onSubmit={addUser}
           >
             <Form className={classes.form}>
-              <Group grow mb="md" mt="md">
+              <Group grow mb="md" mt="md" >
          
              <SignupAndLoginwithgoogle />
               </Group>
@@ -185,8 +185,8 @@ export default function SignupUser() {
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center",
-                    marginTop: "-5px",
+                    // alignItems: "center",
+                    // marginTop: "-5px",
                     marginBottom: "-10px",
                   }}
                 >
