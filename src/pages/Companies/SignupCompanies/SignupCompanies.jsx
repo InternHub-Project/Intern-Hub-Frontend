@@ -267,8 +267,8 @@ export default function SignupCompanies() {
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center",
-                    marginTop: "-5px",
+                    // alignItems: "center",
+                    // marginTop: "-5px",
                     marginBottom: "-10px",
                   }}
                 >

@@ -15,7 +15,7 @@ const JobPostingForm = () => {
     duration: "",
     durationType:"",
     job: "",
-    salary: "",
+    Salary: "",
     salaryType:"",
     internType: "",
     internLocation: "",
@@ -24,6 +24,7 @@ const JobPostingForm = () => {
     description: "",
     questions: [],
   });
+  console.log(formData);
 
   //onsole.log('me', fields);
   const handleFieldsChange = (updatedFields) => {
@@ -38,9 +39,9 @@ const JobPostingForm = () => {
     axios({method:"post",
       url:`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.company.createJob}`,
       headers:{Authorization:`${API_CONFIG.secretKey}${token}`},
-      formData
+      data:formData
+    // eslint-disable-next-line no-unused-vars
     }).then((res=>{
-      console.log(res);
       showNotification("Job Created Successfully");
       window.location.reload()
     })).catch((err=>{
@@ -50,10 +51,15 @@ const JobPostingForm = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    if(name=="skills"){
+      setFormData({...formData, [name]:value.split(",")})
+    }
+    else{
     setFormData({ ...formData, [name]: value });
+    }
   };
+  
 
-  // const inputStyle = { };
 
   return (
     <div className={classes.style}>
@@ -119,9 +125,9 @@ const JobPostingForm = () => {
 
             <input
                 type="number"
-                name="salary"
+                name="Salary"
                 placeholder="Salary"
-                value={formData.salary}
+                value={formData.Salary}
                 onChange={handleChange}
                 required
                 className={classes.field}
