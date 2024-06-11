@@ -324,8 +324,8 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
               </Group>
 
               {file && (
-                <Text size="sm" ta="start" mt="sm">
-                  Picked file: {file.name}
+                <Text size="sm" ta="start" mt="sm" >
+                  <Text bg="#f4f4f4" w={"fit-content"}  px={6} style={{borderRadius:"5px"}} >Picked file: {file.name}</Text>
                 </Text>
               )}
             </Box>
