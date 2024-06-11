@@ -106,6 +106,7 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
       .catch((err) => console.log(err));
   }, [JobID]);
 
+// console.log(applyData);
 
   function applyToJob(e) {
     e.preventDefault();
@@ -114,8 +115,11 @@ export default function ApplyButton({ companyNameJob, nameJob, JobID }) {
       formData.append('file', file);
   }
   if(applyData){
-    formData.append("applyData",applyData)
+    formData.append("coverLetter",applyData.coverLetter)
+    formData.append("question",applyData.questions)
     }
+
+    
     axios({
       url: `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.user.applyToJob}/${JobID}`,
       headers: {
