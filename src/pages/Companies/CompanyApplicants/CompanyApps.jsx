@@ -33,6 +33,7 @@ export const CompanyApps = () => {
 				},
 			});
 			setAppData(componyData.data.data);
+			console.log(componyData.data.data);
 		} catch (err) {
 			console.log(err);
 		}
@@ -172,7 +173,7 @@ export const CompanyApps = () => {
 													<span>{app.coverLetter}</span>
 												</td>
 												<td>
-													<span>{app.phone.length?app.phone:"______________"}</span>
+													<span>{app?.phone?.length?app?.phone:"______________"}</span>
 												</td>
 												<td>
 													<span>{app.status}</span>
@@ -195,7 +196,7 @@ export const CompanyApps = () => {
 												<td className="tooltip-container">
 													<FaQuestionCircle className="tooltip-icon" />
 													<span className="tooltip-text">
-														{app.missingSkills.length>1?app.missingSkills.join(", "):"No Missing Skills"}
+														{app.missingSkills?.length?app.missingSkills.join(", "):"No Missing Skills"}
 													</span>
 													</td>
 													<td>
