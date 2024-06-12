@@ -8,6 +8,7 @@ import Reco from "./Reco";
 // import { Link } from "react-router-dom";
 
 export default function RecommendJobs() {
+ 
 
   const closeBtn = <CloseButton c={"blue"} onClick={e} />;
   const [close, setClose] = useState(closeBtn);
@@ -29,9 +30,6 @@ export default function RecommendJobs() {
   return (
     <Box mt={50}>
       {localStorage.length ? (
-        <></>
-      ) : (
-        <>
         <Box>
           {" "}
           <Box ta={"end"} mr={20} pb={0}>
@@ -39,7 +37,8 @@ export default function RecommendJobs() {
           </Box>
           <Box pt={0}>{recommend}</Box>
         </Box>
-        </>
+      ) : (
+        <></>
       )}
     </Box>
   );
