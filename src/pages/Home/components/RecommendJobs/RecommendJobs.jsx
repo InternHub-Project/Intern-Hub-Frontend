@@ -28,7 +28,7 @@ export default function RecommendJobs() {
 
   return (
     <Box mt={50}>
-      {localStorage.companyInfo ? (
+      {localStorage.length ? (
         <></>
       ) : (
         <>
